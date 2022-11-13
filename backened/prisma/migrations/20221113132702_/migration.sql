@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "Message" (
     "id" SERIAL NOT NULL,
+    "chatid" VARCHAR(255) NOT NULL,
     "text" VARCHAR(255) NOT NULL,
     "userId" INTEGER NOT NULL,
 
