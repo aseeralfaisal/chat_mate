@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "server": "cd.. && cd backened && nodemon",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -17,6 +18,7 @@
     "next": "13.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sass": "^1.56.1",
     "socket.io-client": "^4.5.3",
     "typescript": "4.8.4"
   }

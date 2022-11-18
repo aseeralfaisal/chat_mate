@@ -21,15 +21,10 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000' }));
 
-app.get('/', (req, res) => {
-  res.json({ msg: 'Hello Dev 🧑‍💻😈' });
-});
-
 let chatRoomVal: string;
 io.on('connection', (socket) => {
   socket.on('chat_room', ({ userName, chatRoom }) => {
     chatRoomVal = chatRoom;
-    console.log(chatRoomVal);
     socket.join(chatRoomVal);
   });
   socket.on('send-message', (message) => {
