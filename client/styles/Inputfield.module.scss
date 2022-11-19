@@ -1,0 +1,20 @@
+.input {
+  background-color: #292d32;
+  color: #ccc;
+  border: 1px #292d32 solid;
+  outline: none;
+  width: 300px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 16px;
+  margin: 14px;
+  transition: ease-out 0.2s all;
+  &:hover {
+    outline: #513aadd2 1px solid;
+  }
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ccc;
+    opacity: 1; /* Firefox */
+  }
+}

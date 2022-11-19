@@ -1,0 +1,16 @@
+.button1 {
+  background-color: #7c5cfc;
+  color: #fff;
+  width: 300px;
+  border: none;
+  height: 40px;
+  border-radius: 16px;
+  margin-top: 10px;
+  transition: ease-out 0.2s all;
+  &:hover {
+    background-color: #664ccf;
+  }
+  &:active {
+    background-color: #513aad;
+  }
+}

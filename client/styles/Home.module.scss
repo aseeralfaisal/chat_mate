@@ -1,9 +1,32 @@
-$bgcolor: #111;
-
-.body {
-  background-color: $bgcolor;
-  height: 100vh;
+.form {
+  display: flex;
+  justify-content: center;
+  margin-top: 25vh;
 }
-.text {
-  color: #555;
+.form__child {
+  background-color: #16191c;
+  height: 280px;
+  padding: 25px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.register {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  .action {
+    color: #7c5cfc;
+    font-size: 14px;
+    margin: 5px;
+    &:hover {
+      color: #664ccf;
+    }
+  }
+}
+.desc {
+  color: #fff;
+  font-size: 14px;
 }
