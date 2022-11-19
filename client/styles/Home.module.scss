@@ -12,6 +12,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  border: 1px #664ccf33 solid;
 }
 .register {
   margin-top: 10px;
@@ -21,6 +22,7 @@
     color: #7c5cfc;
     font-size: 14px;
     margin: 5px;
+    transition: ease-out 0.2s all;
     &:hover {
       color: #664ccf;
     }

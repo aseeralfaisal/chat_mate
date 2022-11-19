@@ -25,7 +25,7 @@ export default function Home() {
           <InputField placeholder='Username' />
           <InputField placeholder='Password' />
           {registerMode ? <Button1 title='Register' /> : <Button1 title='Log in' />}
-          {registerMode ? (
+          {!registerMode ? (
             <SignUpDesc desc='Not Registered?' action='Register' />
           ) : (
             <SignUpDesc desc='Already have an account?' action='Sign in' />
