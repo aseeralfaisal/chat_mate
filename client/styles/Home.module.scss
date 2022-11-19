@@ -1,3 +1,6 @@
+$purple: #7c5cfc;
+$purple--dark: #664ccf;
+
 .form {
   display: flex;
   justify-content: center;
@@ -5,30 +8,36 @@
 }
 .form__child {
   background-color: #16191c;
-  height: 280px;
-  padding: 25px;
+  height: 340px;
+  width: 570px;
   border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   align-items: center;
-  border: 1px #664ccf33 solid;
+  border: 1px #664ccf66 solid;
+  display: flex;
 }
 .register {
-  margin-top: 10px;
+  margin: 10px 0;
+  justify-content: center;
   display: flex;
   align-items: center;
   .action {
-    color: #7c5cfc;
+    color: $purple;
     font-size: 14px;
     margin: 5px;
     transition: ease-out 0.2s all;
+    cursor: pointer;
     &:hover {
-      color: #664ccf;
+      color: $purple--dark;
     }
   }
 }
 .desc {
   color: #fff;
   font-size: 14px;
+}
+.textus {
+  font-size: 30px;
+  color: $purple;
+  font-weight: normal;
+  user-select: none;
 }
