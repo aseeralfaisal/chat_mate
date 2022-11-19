@@ -5,12 +5,16 @@ import styles from '../styles/Home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import Router, { useRouter } from 'next/router';
+import { useAppSelector } from '../redux/hooks';
 
 export default function Home() {
   const [registerMode, setRegisterMode] = useState(false);
   const changeMode = () => setRegisterMode(!registerMode);
   const [userValue, setUserValue] = useState('');
   const [passValue, setPassValue] = useState('');
+  const username = useAppSelector((state) => state.user.username);
+  console.log(username);
 
   const LogDescription = ({ desc, action }) => {
     return (
@@ -25,7 +29,7 @@ export default function Home() {
 
   const BASE_URL = 'http://localhost:3001';
 
-  const authBtnAction = async () => {
+  const registerAction = async () => {
     try {
       const register = await axios.post(`${BASE_URL}/register`, {
         username: userValue,
@@ -37,6 +41,22 @@ export default function Home() {
     } catch ({ response }) {
       const { status, data }: any = response;
       if (status == 409) {
+        window.alert(data);
+      }
+    }
+  };
+  const loginAction = async () => {
+    try {
+      const login = await axios.post(`${BASE_URL}/login`, {
+        username: userValue,
+        password: passValue,
+      });
+      if (login.status === 200) {
+        Router.push({ pathname: '/users' });
+      }
+    } catch ({ response }) {
+      const { status, data }: any = response;
+      if (status == 404) {
         window.alert(data);
       }
     }
@@ -54,9 +74,9 @@ export default function Home() {
             <InputField type='text' placeholder='Username' setValue={setUserValue} />
             <InputField type='password' placeholder='Password' setValue={setPassValue} />
             {registerMode ? (
-              <Button1 title='Register' action={authBtnAction} />
+              <Button1 title='Register' action={registerAction} />
             ) : (
-              <Button1 title='Log in' action={null} />
+              <Button1 title='Log in' action={loginAction} />
             )}
             {!registerMode ? (
               <LogDescription desc='Not Registered?' action='Register' />

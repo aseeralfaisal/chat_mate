@@ -40,6 +40,33 @@ app.post('/register', async (req, res) => {
     res.status(200).send('Registration successful');
   }
 });
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const userExists = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+  if (userExists) {
+    if (userExists.password === password) {
+      res.status(200).send('Login successful');
+    } else {
+      res.status(404).send('Wrong password');
+    }
+  }
+});
+
+app.get('/users', async (req, res) => {
+  function exclude<User, Key extends keyof User>(user: User, keys: Key[]): Omit<User, Key> {
+    for (let key of keys) {
+      delete user[key];
+    }
+    return user;
+  }
+  const users = await prisma.user.findMany();
+  const userlist = users.filter((user) => delete user['password'])
+  res.json(userlist);
+});
 
 let chatRoomVal: string;
 io.on('connection', (socket) => {
