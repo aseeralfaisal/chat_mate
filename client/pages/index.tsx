@@ -4,6 +4,7 @@ import InputField from '../Components/InputField';
 import styles from '../styles/Home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 export default function Home() {
   const [registerMode, setRegisterMode] = useState(false);
@@ -22,6 +23,25 @@ export default function Home() {
     );
   };
 
+  const BASE_URL = 'http://localhost:3001';
+
+  const authBtnAction = async () => {
+    try {
+      const register = await axios.post(`${BASE_URL}/register`, {
+        username: userValue,
+        password: passValue,
+      });
+      if (register) {
+        alert(register.data);
+      }
+    } catch ({ response }) {
+      const { status, data }: any = response;
+      if (status == 409) {
+        window.alert(data);
+      }
+    }
+  };
+
   return (
     <>
       <div className={styles.form}>
@@ -31,9 +51,13 @@ export default function Home() {
             <h2 className={styles.textus}>Textus</h2>
           </div>
           <div>
-            <InputField placeholder='Username' setValue={setUserValue} />
-            <InputField placeholder='Password' setValue={setPassValue} />
-            {registerMode ? <Button1 title='Register' /> : <Button1 title='Log in' />}
+            <InputField type='text' placeholder='Username' setValue={setUserValue} />
+            <InputField type='password' placeholder='Password' setValue={setPassValue} />
+            {registerMode ? (
+              <Button1 title='Register' action={authBtnAction} />
+            ) : (
+              <Button1 title='Log in' action={null} />
+            )}
             {!registerMode ? (
               <LogDescription desc='Not Registered?' action='Register' />
             ) : (

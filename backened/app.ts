@@ -21,6 +21,26 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000' }));
 
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+  const userExists = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+  //409: already exists
+  if (userExists) return res.status(409).send('User already exist');
+  const register = await prisma.user.create({
+    data: {
+      username,
+      password,
+    },
+  });
+  if (register) {
+    res.status(200).send('Registration successful');
+  }
+});
+
 let chatRoomVal: string;
 io.on('connection', (socket) => {
   socket.on('chat_room', ({ userName, chatRoom }) => {

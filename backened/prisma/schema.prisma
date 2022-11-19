@@ -10,17 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Message {
-  id        Int    @id @default(autoincrement())
-  specialId String @db.VarChar(255)
-  text      String @db.VarChar(255)
-  User      User?  @relation(fields: [userId], references: [id])
-  userId    Int?
+model message {
+  id     Int    @id @default(autoincrement())
+  room   String @db.VarChar(255)
+  text   String @db.VarChar(255)
+  User   user?  @relation(fields: [userId], references: [id])
+  userId Int?
 }
 
-model User {
+model user {
   id       Int       @id @default(autoincrement())
-  email    String    @unique
-  name     String?
-  messages Message[]
+  username String    @unique @db.VarChar(255)
+  password String    @db.VarChar(255)
+  messages message[]
 }

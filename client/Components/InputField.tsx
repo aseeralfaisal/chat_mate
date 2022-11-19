@@ -1,14 +1,22 @@
 import React from 'react';
 import styles from '../styles/Inputfield.module.scss';
 
-const InputField = ({ placeholder, setValue }: { placeholder: string; setValue: Function }) => {
+interface propTypes {
+  placeholder: string;
+  setValue: Function;
+  type: string;
+}
+const InputField = ({ placeholder, setValue, type }: propTypes) => {
   return (
     <div>
       <input
         className={styles.input}
-        type='text'
+        type={type}
         placeholder={placeholder}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={({ target }) => {
+          const { value } = target;
+          setValue(value);
+        }}
       />
     </div>
   );
