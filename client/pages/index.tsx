@@ -6,15 +6,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Router, { useRouter } from 'next/router';
-import { useAppDispatch } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setUserName } from '../redux/features/userSlice';
 
 export default function Home() {
+  const BASE_URL = 'http://localhost:3001';
   const dispatch = useAppDispatch();
   const [registerMode, setRegisterMode] = useState(false);
   const changeMode = () => setRegisterMode(!registerMode);
-  const [userValue, setUserValue] = useState('');
   const [passValue, setPassValue] = useState('');
+  const username = useAppSelector((state) => state.user.username);
 
   const LogDescription = ({ desc, action }) => {
     return (
@@ -27,12 +28,10 @@ export default function Home() {
     );
   };
 
-  const BASE_URL = 'http://localhost:3001';
-
   const registerAction = async () => {
     try {
       const register = await axios.post(`${BASE_URL}/register`, {
-        username: userValue,
+        username,
         password: passValue,
       });
       if (register) {
@@ -48,11 +47,10 @@ export default function Home() {
   const loginAction = async () => {
     try {
       const login = await axios.post(`${BASE_URL}/login`, {
-        username: userValue,
+        username,
         password: passValue,
       });
       if (login.status === 200) {
-        dispatch(setUserName(userValue));
         Router.push({ pathname: '/users' });
       }
     } catch ({ response }) {
@@ -72,8 +70,14 @@ export default function Home() {
             <h2 className={styles.textus}>Textus</h2>
           </div>
           <div>
-            <InputField type='text' placeholder='Username' setValue={setUserValue} />
-            <InputField type='password' placeholder='Password' setValue={setPassValue} />
+            <InputField
+              type='text'
+              reduxValue={true}
+              placeholder='Username'
+              value={username}
+              setValue={setUserName}
+            />
+            <InputField type='password' reduxValue={false} placeholder='Password' setValue={setPassValue} />
             {registerMode ? (
               <Button1 title='Register' action={registerAction} />
             ) : (

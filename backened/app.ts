@@ -57,20 +57,15 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/users', async (req, res) => {
-  function exclude<User, Key extends keyof User>(user: User, keys: Key[]): Omit<User, Key> {
-    for (let key of keys) {
-      delete user[key];
-    }
-    return user;
-  }
   const users = await prisma.user.findMany();
-  const userlist = users.filter((user) => delete user['password'])
+  const userlist = users.filter((user) => delete user['password']);
   res.json(userlist);
 });
 
 let chatRoomVal: string;
 io.on('connection', (socket) => {
   socket.on('chat_room', ({ userName, chatRoom }) => {
+    console.log(userName, chatRoom)
     chatRoomVal = chatRoom;
     socket.join(chatRoomVal);
   });
