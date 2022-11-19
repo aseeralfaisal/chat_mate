@@ -6,15 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Router, { useRouter } from 'next/router';
-import { useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
+import { setUserName } from '../redux/features/userSlice';
 
 export default function Home() {
+  const dispatch = useAppDispatch();
   const [registerMode, setRegisterMode] = useState(false);
   const changeMode = () => setRegisterMode(!registerMode);
   const [userValue, setUserValue] = useState('');
   const [passValue, setPassValue] = useState('');
-  const username = useAppSelector((state) => state.user.username);
-  console.log(username);
 
   const LogDescription = ({ desc, action }) => {
     return (
@@ -52,6 +52,7 @@ export default function Home() {
         password: passValue,
       });
       if (login.status === 200) {
+        dispatch(setUserName(userValue));
         Router.push({ pathname: '/users' });
       }
     } catch ({ response }) {
