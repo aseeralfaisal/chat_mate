@@ -8,14 +8,16 @@ interface propTypes {
   type: string;
   value: string;
   reduxValue: boolean;
+  width: number;
 }
-const InputField = ({ placeholder, setValue, type, value, reduxValue }: propTypes) => {
+const InputField = ({ placeholder, setValue, type, value, reduxValue, width }: propTypes) => {
   const dispatch = useAppDispatch();
 
   return (
     <div>
       <input
         className={styles.input}
+        style={{ width: width && width }}
         type={type}
         value={value}
         placeholder={placeholder}

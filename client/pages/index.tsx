@@ -17,7 +17,7 @@ export default function Home() {
   const [passValue, setPassValue] = useState('');
   const username = useAppSelector((state) => state.user.username);
 
-  const LogDescription = ({ desc, action }) => {
+  const LogDescription = ({ desc, action }: { desc: string; action: string }) => {
     return (
       <div className={styles.register}>
         <label className={styles.desc}>{desc}</label>
