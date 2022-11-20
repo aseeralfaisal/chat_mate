@@ -9,6 +9,7 @@ import styles from '../../styles/UserList.module.scss';
 import socketIOClient, { io } from 'socket.io-client';
 import Button1 from '../../Components/Button1';
 import InputField from '../../Components/InputField';
+import { setToUserName } from '../../redux/features/userSlice';
 const BASE_URL = 'http://localhost:3001';
 
 const Users = () => {
@@ -19,6 +20,7 @@ const Users = () => {
   const [textInputVal, setTextInputVal] = useState('');
   const [messages, setMessages] = useState<object[]>([]);
   const chatroom = useAppSelector((state) => state.chat.chatRoom);
+  const toUsername = useAppSelector((state) => state.user.toUsername);
 
   const socket = socketIOClient('http://localhost:3001');
 
@@ -44,6 +46,7 @@ const Users = () => {
   const createChatRoom = (toUser: string) => {
     const chatRoomVal = (username + toUser).split('').sort().join('');
     dispatch(setChatRoom(chatRoomVal));
+    dispatch(setToUserName(toUser));
   };
 
   const Chats = () => {
@@ -70,7 +73,9 @@ const Users = () => {
           ?.filter((user: { username: string }) => user.username !== username)
           .map((user: { username: string; id: number }) => {
             return (
-              <div className={styles.userlist}>
+              <div
+                className={styles.userlist}
+                style={{ backgroundColor: toUsername === user.username ? '#664ccf33' : '#00000000', borderRadius: 12, padding: 10 }}>
                 <FontAwesomeIcon icon={icons.faUserCircle} color='#eee' fontSize={32} />
                 <label
                   className={styles.username}

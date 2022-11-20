@@ -4,10 +4,12 @@ import type { RootState } from '../store';
 
 interface types {
   username: string;
+  toUsername: string;
 }
 
 const initialState: types = {
   username: '',
+  toUsername: '',
 };
 
 export const userSlice = createSlice({
@@ -17,12 +19,12 @@ export const userSlice = createSlice({
     setUserName: (state, action) => {
       state.username = action.payload;
     },
+    setToUserName: (state, action) => {
+      state.toUsername = action.payload;
+    },
   },
 });
 
-export const { setUserName } = userSlice.actions;
-
-// Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.user.value;
+export const { setUserName, setToUserName } = userSlice.actions;
 
 export default userSlice.reducer;
