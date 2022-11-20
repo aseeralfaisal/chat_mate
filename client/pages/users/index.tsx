@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChatRoom } from '../../redux/features/chatRoom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as icons from '@fortawesome/free-solid-svg-icons';
 const BASE_URL = 'http://localhost:3001';
 
 const Users = () => {
@@ -20,7 +22,6 @@ const Users = () => {
 
   const createChatRoom = (toUser: string) => {
     const chatRoomVal = (username + toUser).split('').sort().join('');
-    console.log({ chatroom: chatRoomVal });
     dispatch(setChatRoom(chatRoomVal));
     route.push('/message');
   };
@@ -31,9 +32,12 @@ const Users = () => {
         ?.filter((user: { username: string }) => user.username !== username)
         .map((user: { username: string; id: number }) => {
           return (
-            <h1 style={textStyle} key={user.id} onClick={() => createChatRoom(user.username)}>
-              {user.username}
-            </h1>
+            <div>
+              <FontAwesomeIcon icon={icons.faUserAstronaut} color="#fff" fontSize={40} />
+              <h1 style={textStyle} key={user.id} onClick={() => createChatRoom(user.username)}>
+                {user.username}
+              </h1>
+            </div>
           );
         })}
     </div>

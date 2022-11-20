@@ -1,7 +1,9 @@
+@use 'base';
+
 .input {
-  background-color: #292d32;
-  color: #ccc;
-  border: 1px #292d32 solid;
+  background-color: base.$bg--dark;
+  color: base.$text-color;
+  border: 1px base.$bg--dark solid;
   outline: none;
   width: 300px;
   height: 40px;
@@ -9,11 +11,12 @@
   border-radius: 16px;
   margin: 14px 0;
   transition: ease-in-out 0.3s all;
-  &:hover, &:focus {
-    outline: #513aadd2 1px solid;
+  &:hover,
+  &:focus {
+    outline: base.$purple--dark 1px solid;
   }
   &::placeholder {
-    color: #ccc;
-    opacity: 1; 
+    color: base.$text-color;
+    opacity: 1;
   }
 }

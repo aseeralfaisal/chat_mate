@@ -1,5 +1,4 @@
-$purple: #7c5cfc;
-$purple--dark: #664ccf;
+@use 'base';
 
 .form {
   display: flex;
@@ -7,12 +6,12 @@ $purple--dark: #664ccf;
   margin-top: 25vh;
 }
 .form__child {
-  background-color: #16191c;
+  background-color: base.$bg--darker;
   height: 340px;
   width: 570px;
   border-radius: 12px;
   align-items: center;
-  border: 1px #664ccf66 solid;
+  border: 1px base.$purple--darkest solid;
   display: flex;
 }
 .register {
@@ -21,23 +20,23 @@ $purple--dark: #664ccf;
   display: flex;
   align-items: center;
   .action {
-    color: $purple;
+    color: base.$purple;
     font-size: 14px;
     margin: 5px;
     transition: ease-out 0.2s all;
     cursor: pointer;
     &:hover {
-      color: $purple--dark;
+      color: base.$purple--dark;
     }
   }
 }
 .desc {
-  color: #fff;
+  color: base.$bg--light;
   font-size: 14px;
 }
 .textus {
   font-size: 30px;
-  color: $purple;
+  color: base.$purple;
   font-weight: normal;
   user-select: none;
 }
