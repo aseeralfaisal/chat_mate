@@ -64,14 +64,31 @@ app.get('/users', async (req, res) => {
 
 let chatRoomVal: string;
 io.on('connection', (socket) => {
-  socket.on('chat_room', ({ userName, chatRoom }) => {
-    console.log(userName, chatRoom)
+  socket.on('chat_room', async ({ userName, chatRoom }) => {
     chatRoomVal = chatRoom;
     socket.join(chatRoomVal);
   });
   socket.on('send-message', (message) => {
     socket.to(chatRoomVal).emit('receive-message', message);
+    console.log(message);
+    prisma.message
+      .create({
+        data: {
+          room: chatRoomVal,
+          text: message.message,
+          username: message.user,
+        },
+        include: {
+          User: message.user,
+        },
+      })
+      .catch((err) => console.log(err));
   });
+});
+
+app.get('/chat', async (req, res) => {
+  const messages = await prisma.message.findMany();
+  res.send(messages);
 });
 
 server.listen(PORT, () => {

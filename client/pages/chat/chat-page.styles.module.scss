@@ -1,0 +1,127 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  width: 320px;
+  height: 100vh;
+  left: 0px;
+  top: 0px;
+  background: #1c1d22;
+  .sidebar__devider {
+    width: 100%;
+    border-bottom: 1px solid #37393c;
+  }
+  .sidebar__chat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: 620px;
+    background: #1c1d22;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .sidebar__chat__user {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 12px 24px;
+      gap: 8px;
+      width: 100%;
+      height: 72px;
+      background: #141416;
+      cursor: context-menu;
+    }
+    .sidebar__chat__content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .sidebar__chat__content__title {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #ffffff;
+      }
+      .sidebar__chat__content__text {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        width: 216px;
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .sidebar__title__container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12px 24px;
+    gap: 10px;
+    width: 100%;
+    height: 56px;
+    .sidebar__title {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 32px;
+      color: #ffffff;
+    }
+  }
+  .sidebar__top__section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 10px;
+    width: 100%;
+    height: 64px;
+    .sidebar__top__section__icons {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 0px;
+      gap: 16px;
+      width: 64px;
+      height: 24px;
+    }
+  }
+  .sidebar__search {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 16px 24px;
+    gap: 10px;
+    width: 100%;
+    height: 76px;
+    .sidebar__search__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      gap: 8px;
+      width: 288px;
+      height: 40px;
+      background: #26272d;
+      border-radius: 8px;
+
+      input {
+        background: none;
+        outline: none;
+        border: none;
+        font-family: inherit;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChatRoom } from '../../redux/features/chatRoom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,6 +21,7 @@ const Users = () => {
   const [messages, setMessages] = useState<object[]>([]);
   const chatroom = useAppSelector((state) => state.chat.chatRoom);
   const toUsername = useAppSelector((state) => state.user.toUsername);
+  const [msgSent, setMsgSent] = useState(false);
 
   const socket = socketIOClient('http://localhost:3001');
 
@@ -31,9 +32,14 @@ const Users = () => {
   });
 
   const action = () => {
-    const msgObj = { user: username, message: textInputVal };
-    socket.emit('send-message', msgObj);
+    console.log({ chatroom });
+    if (chatroom === '' || chatroom === null || chatroom === undefined) {
+      return alert('Chatroom Error');
+    }
+    const message = { user: username, message: textInputVal };
+    socket.emit('send-message', message);
     setTextInputVal('');
+    setMsgSent(!msgSent);
   };
 
   useEffect(() => {
@@ -44,48 +50,66 @@ const Users = () => {
   }, []);
 
   const createChatRoom = (toUser: string) => {
-    const chatRoomVal = (username + toUser).split('').sort().join('');
-    dispatch(setChatRoom(chatRoomVal));
+    const chatRoomLabel = (username + toUser).split('').sort().join('');
+    dispatch(setChatRoom(chatRoomLabel));
     dispatch(setToUserName(toUser));
   };
 
-  const Chats = () => {
-    return (
-      <>
-        {messages?.map((item: any, idx) => {
-          return (
-            <div key={idx} className={styles.msg}>
-              {item.user !== username && <h2 style={{ color: '#fff' }}>{item.user}: </h2>}
-              <label style={{ color: '#fff', marginLeft: 14 }}>{item.message}</label>
-            </div>
-          );
-        })}
-      </>
-    );
-  };
+  useEffect(() => {
+    (async () => {
+      const msgs = await axios.get(`${BASE_URL}/chat`);
+      console.log(msgs.data);
+      setMessages([...msgs.data]);
+    })();
+  }, [msgSent]);
+
+  const Chats = () => (
+    <div style={{ top: 10, left: 400, overflowY: 'scroll', overflow: 'hidden' }}>
+      {messages?.map((item: any, idx) => (
+        <div key={idx} className={styles.msg}>
+          {item.user !== username && <h2 style={{ color: '#fff' }}>{item.username}: </h2>}
+          <label style={{ color: '#fff', marginLeft: 14 }}>{item.text}</label>
+        </div>
+      ))}
+    </div>
+  );
+  
+  useEffect(() => {
+    if (username === '') {
+      Router.push({ pathname: '/' });
+    }
+  }, [username]);
 
   return (
     <div
-      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginRight: 60 }}>
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        marginRight: 60,
+      }}>
       <div className={styles.container}>
         <InputField reduxValue={false} type='text' placeholder='Search Users...' width={280} />
         {users
           ?.filter((user: { username: string }) => user.username !== username)
-          .map((user: { username: string; id: number }) => {
-            return (
-              <div
-                className={styles.userlist}
-                style={{ backgroundColor: toUsername === user.username ? '#664ccf33' : '#00000000', borderRadius: 12, padding: 10 }}>
-                <FontAwesomeIcon icon={icons.faUserCircle} color='#eee' fontSize={32} />
-                <label
-                  className={styles.username}
-                  key={user.id}
-                  onClick={() => createChatRoom(user.username)}>
-                  {user.username}
-                </label>
-              </div>
-            );
-          })}
+          .map((user: { username: string; id: number }, idx) => (
+            <div
+              key={idx}
+              className={styles.userlist}
+              style={{
+                backgroundColor: toUsername === user.username ? '#664ccf33' : '#00000000',
+                borderRadius: 12,
+                padding: 10,
+              }}>
+              <FontAwesomeIcon icon={icons.faUserCircle} color='#eee' fontSize={32} />
+              <label className={styles.username} key={user.id} onClick={() => createChatRoom(user.username)}>
+                {user.username}
+              </label>
+            </div>
+          ))}
       </div>
       <div>
         <Chats />

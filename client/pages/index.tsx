@@ -9,6 +9,7 @@ import Router, { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setUserName } from '../redux/features/userSlice';
 
+
 export default function Home() {
   const BASE_URL = 'http://localhost:3001';
   const dispatch = useAppDispatch();
@@ -16,18 +17,16 @@ export default function Home() {
   const changeMode = () => setRegisterMode(!registerMode);
   const [passValue, setPassValue] = useState('');
   const username = useAppSelector((state) => state.user.username);
-
-  const LogDescription = ({ desc, action }: { desc: string; action: string }) => {
-    return (
-      <div className={styles.register}>
-        <label className={styles.desc}>{desc}</label>
-        <label className={styles.action} onClick={changeMode}>
-          {action}
-        </label>
-      </div>
-    );
-  };
-
+  
+  const LogDescription = ({ desc, action }: { desc: string; action: string }) => (
+    <div className={styles.register}>
+      <label className={styles.desc}>{desc}</label>
+      <label className={styles.action} onClick={changeMode}>
+        {action}
+      </label>
+    </div>
+  );
+  
   const registerAction = async () => {
     try {
       const register = await axios.post(`${BASE_URL}/register`, {
