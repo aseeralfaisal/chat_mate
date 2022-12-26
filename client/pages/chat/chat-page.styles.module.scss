@@ -14,6 +14,7 @@
       padding: 12px 24px;
       gap: 10px;
       background: #1c1d22;
+      border-bottom: 1px solid #37393c;
       width: 100%;
       .chat__area__header__user {
         font-weight: 600;
@@ -85,12 +86,13 @@
       bottom: 0;
       height: 64px;
       background: #1c1d22;
+      border-top: 1px solid #37393c;
       .search__bar {
         display: flex;
         align-items: center;
         padding: 8px 12px;
         gap: 8px;
-        width: 1108px;
+        width: 608px;
         height: 40px;
         background: #26272d;
         border-radius: 8px;
@@ -116,6 +118,7 @@
     height: 100vh;
     left: 0px;
     top: 0px;
+    border-right: 1px solid #37393c;
     background: #1c1d22;
     .sidebar__devider {
       width: 100%;
@@ -231,6 +234,90 @@
           line-height: 20px;
           color: rgba(255, 255, 255, 0.6);
         }
+      }
+    }
+  }
+  .chat__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 400px;
+    border-left: 1px solid #37393c;
+    z-index: 2;
+    height: 100vh;
+    background: #1c1d22;
+    .chat__details__header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 24px;
+      gap: 8px;
+      border-bottom: 1px solid #37393c;
+      width: 100%;
+      .chat__details__header__title {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #ffffff;
+      }
+    }
+    .profile__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 24px;
+      gap: 16px;
+    }
+    .profile__description {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 14px 34px;
+      gap: 8px;
+      border-top: 1px solid #37393c;
+      border-bottom: 1px solid #37393c;
+      width: 100%;
+    }
+    .status__title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #ffffff;
+    }
+    .status__description {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .function__section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 24px;
+      gap: 24px;
+      .function__section__button {
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        gap: 8px;
+        width: 232px;
+        height: 36px;
+        background: #26272d;
+        border-radius: 4px;
+      }
+      .info {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #ffffff;
       }
     }
   }

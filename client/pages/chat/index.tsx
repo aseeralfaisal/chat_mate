@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import UserIcon from './dp.svg';
 import styles from './chat-page.styles.module.scss';
 import Image from 'next/image';
+import ProfilePNG from './profile.png';
 
 const SearchIcon = () => (
   <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -131,6 +132,70 @@ const chatMessages = [
   },
 ];
 
+const CloseIcon = () => (
+  <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <g clipPath='url(#clip0_29_174)'>
+      <path
+        d='M12 10.586L16.95 5.63599L18.364 7.04999L13.414 12L18.364 16.95L16.95 18.364L12 13.414L7.05 18.364L5.636 16.95L10.586 12L5.636 7.04999L7.05 5.63599L12 10.586Z'
+        fill='white'
+      />
+    </g>
+    <defs>
+      <clipPath id='clip0_29_174'>
+        <rect width='24' height='24' fill='white' />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
+const StarIcon = () => (
+  <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <g clipPath='url(#clip0_244_341)'>
+      <path
+        d='M8 12.1734L3.298 14.8054L4.348 9.52004L0.391335 5.86137L5.74267 5.22671L8 0.333374L10.2573 5.22671L15.6087 5.86137L11.652 9.52004L12.702 14.8054L8 12.1734ZM8 10.6454L10.8313 12.23L10.1987 9.04804L12.5807 6.84471L9.35867 6.46271L8 3.51671L6.64133 6.46337L3.41933 6.84471L5.80133 9.04804L5.16867 12.23L8 10.6454Z'
+        fill='white'
+      />
+    </g>
+    <defs>
+      <clipPath id='clip0_244_341'>
+        <rect width='16' height='16' fill='white' />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
+const RightIcon = () => (
+  <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <g clipPath='url(#clip0_244_346)'>
+      <path
+        d='M8.78134 7.99999L5.48134 4.69999L6.424 3.75732L10.6667 7.99999L6.424 12.2427L5.48134 11.3L8.78134 7.99999Z'
+        fill='white'
+      />
+    </g>
+    <defs>
+      <clipPath id='clip0_244_346'>
+        <rect width='16' height='16' fill='white' />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
+const SettingsIcon = () => (
+  <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <g clipPath='url(#clip0_244_350)'>
+      <path
+        d='M1.47533 9.37334C1.28361 8.46782 1.28361 7.53219 1.47533 6.62667C2.21533 6.71334 2.862 6.46867 3.07267 5.95934C3.284 5.44934 3.00067 4.81934 2.41533 4.35734C2.92003 3.58155 3.58155 2.92003 4.35733 2.41534C4.81867 3 5.44933 3.284 5.95933 3.07267C6.46933 2.86134 6.714 2.21534 6.62667 1.47534C7.53219 1.28361 8.46782 1.28361 9.37333 1.47534C9.28667 2.21534 9.53133 2.862 10.0407 3.07267C10.5507 3.284 11.1807 3.00067 11.6427 2.41534C12.4185 2.92003 13.08 3.58155 13.5847 4.35734C13 4.81867 12.716 5.44934 12.9273 5.95934C13.1387 6.46934 13.7847 6.714 14.5247 6.62667C14.7164 7.53219 14.7164 8.46782 14.5247 9.37334C13.7847 9.28667 13.138 9.53134 12.9273 10.0407C12.716 10.5507 12.9993 11.1807 13.5847 11.6427C13.08 12.4185 12.4185 13.08 11.6427 13.5847C11.1813 13 10.5507 12.716 10.0407 12.9273C9.53067 13.1387 9.286 13.7847 9.37333 14.5247C8.46782 14.7164 7.53219 14.7164 6.62667 14.5247C6.71333 13.7847 6.46867 13.138 5.95933 12.9273C5.44933 12.716 4.81933 12.9993 4.35733 13.5847C3.58155 13.08 2.92003 12.4185 2.41533 11.6427C3 11.1813 3.284 10.5507 3.07267 10.0407C2.86133 9.53067 2.21533 9.286 1.47533 9.37334V9.37334ZM2.66667 8.14C3.4 8.34334 4.00467 8.808 4.30467 9.53067C4.604 10.254 4.50467 11.0107 4.13 11.672C4.194 11.74 4.26 11.806 4.328 11.87C4.99 11.4953 5.746 11.3967 6.46933 11.6953C7.192 11.9953 7.65667 12.6 7.86 13.3333C7.95333 13.336 8.04667 13.336 8.14 13.3333C8.34333 12.6 8.808 11.9953 9.53067 11.6953C10.254 11.396 11.0107 11.4953 11.672 11.87C11.74 11.806 11.806 11.74 11.87 11.672C11.4953 11.01 11.3967 10.254 11.6953 9.53067C11.9953 8.808 12.6 8.34334 13.3333 8.14C13.336 8.04667 13.336 7.95334 13.3333 7.86C12.6 7.65667 11.9953 7.192 11.6953 6.46934C11.396 5.746 11.4953 4.98934 11.87 4.328C11.8058 4.26027 11.7397 4.19425 11.672 4.13C11.01 4.50467 10.254 4.60334 9.53067 4.30467C8.808 4.00467 8.34333 3.4 8.14 2.66667C8.04668 2.6642 7.95332 2.6642 7.86 2.66667C7.65667 3.4 7.192 4.00467 6.46933 4.30467C5.746 4.604 4.98933 4.50467 4.328 4.13C4.26 4.194 4.194 4.26 4.13 4.328C4.50467 4.99 4.60333 5.746 4.30467 6.46934C4.00467 7.192 3.4 7.65667 2.66667 7.86C2.664 7.95334 2.664 8.04667 2.66667 8.14V8.14ZM8 10C7.46957 10 6.96086 9.78929 6.58579 9.41422C6.21071 9.03915 6 8.53044 6 8C6 7.46957 6.21071 6.96086 6.58579 6.58579C6.96086 6.21072 7.46957 6 8 6C8.53043 6 9.03914 6.21072 9.41421 6.58579C9.78929 6.96086 10 7.46957 10 8C10 8.53044 9.78929 9.03915 9.41421 9.41422C9.03914 9.78929 8.53043 10 8 10ZM8 8.66667C8.17681 8.66667 8.34638 8.59643 8.47141 8.47141C8.59643 8.34638 8.66667 8.17682 8.66667 8C8.66667 7.82319 8.59643 7.65362 8.47141 7.5286C8.34638 7.40358 8.17681 7.33334 8 7.33334C7.82319 7.33334 7.65362 7.40358 7.5286 7.5286C7.40357 7.65362 7.33333 7.82319 7.33333 8C7.33333 8.17682 7.40357 8.34638 7.5286 8.47141C7.65362 8.59643 7.82319 8.66667 8 8.66667V8.66667Z'
+        fill='white'
+      />
+    </g>
+    <defs>
+      <clipPath id='clip0_244_350'>
+        <rect width='16' height='16' fill='white' />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
 const ChatPage = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   return (
@@ -204,6 +269,39 @@ const ChatPage = () => {
             <input type='text' placeholder='Write a message' />
           </div>
           <MicIcon />
+        </div>
+      </div>
+      <div className={styles.chat__details}>
+        <div className={styles.chat__details__header}>
+          <CloseIcon />
+          <span className={styles.chat__details__header__title}>Contact info</span>
+        </div>
+        <div className={styles.profile__container}>
+          <Image src={ProfilePNG} alt='' style={{ width: 180, height: 180, objectFit: 'contain' }} />
+          <div className={styles.profile__description}>
+            <span className={styles.status__title}>Lara Mueller</span>
+            <span className={styles.status__description}>+49 1522 792358</span>
+          </div>
+        </div>
+        <div className={styles.status}>
+          <span className={styles.status__title}>Status</span>
+          <span className={styles.status__description}>Chilling</span>
+        </div>
+        <div className={styles.function__section}>
+          <div className={styles.function__section__button}>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <StarIcon />
+              <span className={styles.info}>Marked messages</span>
+            </div>
+            <RightIcon />
+          </div>
+          <div className={styles.function__section__button}>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <SettingsIcon />
+              <span className={styles.info}>Settings</span>
+            </div>
+            <RightIcon />
+          </div>
         </div>
       </div>
     </div>
