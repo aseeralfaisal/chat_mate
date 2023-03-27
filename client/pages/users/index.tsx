@@ -18,7 +18,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const username = useAppSelector((state) => state.user.username);
   const [textInputVal, setTextInputVal] = useState('');
-  const [messages, setMessages] = useState<object[]>([]);
+  const [messages, setMessages] = useState<any>([]);
   const chatroom = useAppSelector((state) => state.chat.chatRoom);
   const toUsername = useAppSelector((state) => state.user.toUsername);
   const [msgSent, setMsgSent] = useState(false);
@@ -27,16 +27,20 @@ const Users = () => {
 
   socket.emit('chat_room', { userName: username, chatRoom: chatroom });
 
-  socket.on('receive-message', (msg) => {
-    setMessages([...messages, msg]);
-  });
+  useEffect(() => {
+    socket.on('receive-message', (data) => {
+      setMessages([...messages, data]);
+    });
+    return () => {
+      socket.off('receive-message');
+    };
+  }, [messages, socket, msgSent]);
 
   const action = () => {
-    console.log({ chatroom });
     if (chatroom === '' || chatroom === null || chatroom === undefined) {
       return alert('Chatroom Error');
     }
-    const message = { user: username, message: textInputVal };
+    const message = { username: username, text: textInputVal };
     socket.emit('send-message', message);
     setTextInputVal('');
     setMsgSent(!msgSent);
@@ -55,25 +59,25 @@ const Users = () => {
     dispatch(setToUserName(toUser));
   };
 
-  useEffect(() => {
-    (async () => {
-      const msgs = await axios.get(`${BASE_URL}/chat`);
-      console.log(msgs.data);
-      setMessages([...msgs.data]);
-    })();
-  }, [msgSent]);
-
   const Chats = () => (
     <div style={{ top: 10, left: 400, overflowY: 'scroll', overflow: 'hidden' }}>
-      {messages?.map((item: any, idx) => (
-        <div key={idx} className={styles.msg}>
-          {item.user !== username && <h2 style={{ color: '#fff' }}>{item.username}: </h2>}
-          <label style={{ color: '#fff', marginLeft: 14 }}>{item.text}</label>
-        </div>
-      ))}
+      {messages &&
+        messages.map((msg: { username: string; text: string }, idx: number) => (
+          <div key={idx} className={styles.msg}>
+            {msg.username !== username && <h2 style={{ color: '#fff' }}>{msg.username}: </h2>}
+            <label style={{ color: '#fff', marginLeft: 14 }}>{msg.text}</label>
+          </div>
+        ))}
     </div>
   );
-  
+
+  useEffect(() => {
+    (async () => {
+      const msgs = await axios.post(`${BASE_URL}/getchat`, { room: chatroom });
+      setMessages(msgs.data[0]?.messages);
+    })();
+  }, [chatroom, msgSent]);
+
   useEffect(() => {
     if (username === '') {
       Router.push({ pathname: '/' });
