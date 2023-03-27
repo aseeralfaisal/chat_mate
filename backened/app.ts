@@ -63,32 +63,83 @@ app.get('/users', async (req, res) => {
 });
 
 let chatRoomVal: string;
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   socket.on('chat_room', async ({ userName, chatRoom }) => {
     chatRoomVal = chatRoom;
     socket.join(chatRoomVal);
+    const chats = await prisma.chatroom.findMany({
+      where: { room: chatRoomVal },
+      include: { messages: true },
+    });
+    // socket.to(chatRoomVal).emit('all-chat', chats);
   });
-  socket.on('send-message', (message) => {
-    socket.to(chatRoomVal).emit('receive-message', message);
-    console.log(message);
-    prisma.message
-      .create({
+
+  socket.on('send-message', async (message) => {
+    const roomExists = await prisma.chatroom.findUnique({
+      where: {
+        room: chatRoomVal,
+      },
+    });
+    if (roomExists) {
+      const sendMsg = await prisma.message.create({
+        data: {
+          text: message.text,
+          messageId: chatRoomVal,
+          username: message.username,
+        },
+      });
+      console.log(sendMsg);
+      socket.to(chatRoomVal).emit('receive-message', sendMsg);
+    } else {
+      const createChatroom = await prisma.chatroom.create({
         data: {
           room: chatRoomVal,
-          text: message.message,
-          username: message.user,
+          messages: {
+            create: {
+              username: message.username,
+              text: message.text,
+            },
+          },
         },
-        include: {
-          User: message.user,
-        },
-      })
-      .catch((err) => console.log(err));
+      });
+      console.log(createChatroom);
+    }
   });
 });
 
-app.get('/chat', async (req, res) => {
-  const messages = await prisma.message.findMany();
-  res.send(messages);
+app.post('/createchatroom', async (req, res) => {
+  const createChatRoom = await prisma.chatroom.create({
+    data: {
+      room: req.body.room,
+    },
+  });
+  res.status(200).send(createChatRoom);
+});
+
+app.get('/getusers', async (req, res) => {
+  const users = await prisma.user.findMany();
+  res.send(users);
+});
+
+app.post('/getchat', (req, res) => {
+  prisma.chatroom
+    .findMany({ where: { room: req.body.room }, include: { messages: true } })
+    .then((data) => res.send(data));
+});
+app.get('/getchatroom', (req, res) => {
+  prisma.message.findMany({ include: { chatroom: true } }).then((data) => res.send(data));
+});
+
+app.post('/message', async (req, res) => {
+  const { text, messageId, username } = req.body;
+  const createMessage = await prisma.message.create({
+    data: {
+      text,
+      messageId,
+      username,
+    },
+  });
+  res.status(200).send(createMessage);
 });
 
 server.listen(PORT, () => {
