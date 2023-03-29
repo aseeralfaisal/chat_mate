@@ -1,0 +1,42 @@
+@use 'base';
+
+.form {
+  display: flex;
+  justify-content: center;
+  margin-top: 25vh;
+}
+.form__child {
+  background-color: base.$bg--darker;
+  height: 340px;
+  width: 570px;
+  border-radius: 12px;
+  align-items: center;
+  border: 1px base.$purple--darkest solid;
+  display: flex;
+}
+.register {
+  margin: 10px 0;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  .action {
+    color: base.$purple;
+    font-size: 14px;
+    margin: 5px;
+    transition: ease-out 0.2s all;
+    cursor: pointer;
+    &:hover {
+      color: base.$purple--dark;
+    }
+  }
+}
+.desc {
+  color: base.$bg--light;
+  font-size: 14px;
+}
+.textus {
+  font-size: 30px;
+  color: base.$purple;
+  font-weight: normal;
+  user-select: none;
+}

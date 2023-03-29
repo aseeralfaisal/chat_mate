@@ -1,0 +1,22 @@
+@use 'base';
+
+.input {
+  background-color: base.$bg--dark;
+  color: base.$text-color;
+  border: 1px base.$bg--dark solid;
+  outline: none;
+  width: 300px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 16px;
+  margin: 14px 0;
+  transition: ease-in-out 0.3s all;
+  &:hover,
+  &:focus {
+    outline: base.$purple--dark 1px solid;
+  }
+  &::placeholder {
+    color: base.$text-color;
+    opacity: 1;
+  }
+}

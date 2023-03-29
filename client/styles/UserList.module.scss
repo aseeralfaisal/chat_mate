@@ -1,0 +1,35 @@
+@use 'base';
+
+.container {
+  background-color: base.$bg--darker;
+  border: 1px base.$purple--dark-2 solid;
+  width: 300px;
+  height: 100vh;
+  padding: 5px;
+}
+.userlist {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px base.$bg--dark solid;
+  background-color: base.$bg--darker;
+}
+.username {
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+}
+.msg {
+  background-color: base.$purple;
+  min-width: 20px;
+  max-width: fit-content;
+  border-radius: 5px 20px 20px 20px;
+  padding: 10px;
+  padding-right: 20px;
+  margin: 20px;
+}

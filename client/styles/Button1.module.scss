@@ -1,0 +1,18 @@
+@use 'base';
+
+.button1 {
+  background-color: base.$purple;
+  color: #fff;
+  width: 300px;
+  border: none;
+  height: 40px;
+  border-radius: 16px;
+  margin-top: 10px;
+  transition: ease-out 0.2s all;
+  &:hover {
+    background-color: base.$purple--dark;
+  }
+  &:active {
+    background-color: base.$purple--darker;
+  }
+}
