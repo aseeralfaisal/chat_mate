@@ -1,0 +1,83 @@
+import React, { useEffect, useState } from 'react';
+import Router from 'next/router';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { setChatRoom } from './redux/features/chatRoom';
+import socketIOClient from 'socket.io-client';
+import { setToUserName } from './redux/features/userSlice';
+import Users from './pages/users/users.presenter';
+import { fetchApi } from './fetch.api';
+
+const UsersContainer: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [users, setUsers] = useState([]);
+  const username = useAppSelector((state) => state.user.username);
+  const [textInputVal, setTextInputVal] = useState('');
+  const [messages, setMessages] = useState<any>([]);
+  const chatroom = useAppSelector((state) => state.chat.chatRoom);
+  const [msgSent, setMsgSent] = useState(false);
+  const toUsername = useAppSelector((state) => state.user.toUsername);
+
+  useEffect(() => {
+    (async () => {
+      const messagesData = await fetchApi('getchat', 'POST', { room: chatroom });
+      setMessages(messagesData[0]?.messages);
+    })();
+  }, [chatroom, msgSent]);
+
+  useEffect(() => {
+    (async () => {
+      const usersList = await fetchApi('users', 'GET');
+      setUsers(usersList);
+    })();
+  }, []);
+
+  const socket = socketIOClient('http://localhost:3001');
+
+  socket.emit('chat_room', { userName: username, chatRoom: chatroom });
+
+  useEffect(() => {
+    socket.on('receive-message', (data) => {
+      setMessages([...messages, data]);
+    });
+    return () => {
+      socket.off('receive-message');
+    };
+  }, [messages, socket, msgSent]);
+
+  const sendMessageAction = () => {
+    if (chatroom === '' || chatroom === null || chatroom === undefined) {
+      return alert('Chatroom Error');
+    }
+    const message = { username: username, text: textInputVal };
+    socket.emit('send-message', message);
+    setTextInputVal('');
+    setMsgSent(!msgSent);
+  };
+
+  const createChatRoom = (toUser: string) => {
+    const chatRoomLabel = (username + toUser).split('').sort().join('');
+    dispatch(setChatRoom(chatRoomLabel));
+    dispatch(setToUserName(toUser));
+  };
+
+  useEffect(() => {
+    if (username === '') {
+      Router.push({ pathname: '/' });
+    }
+  }, [username]);
+
+  return (
+    <Users
+      users={users}
+      username={username}
+      toUsername={toUsername}
+      messages={messages}
+      createChatRoom={createChatRoom}
+      textInputVal={textInputVal}
+      setTextInputVal={setTextInputVal}
+      sendMessageAction={sendMessageAction}
+    />
+  );
+};
+
+export default UsersContainer;

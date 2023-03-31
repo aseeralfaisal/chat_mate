@@ -5,17 +5,22 @@ import type { RootState } from '../store';
 interface types {
   username: string;
   toUsername: string;
+  users: any;
 }
 
 const initialState: types = {
   username: '',
   toUsername: '',
+  users: [],
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setUsers: (state, action) => {
+      state.users = action.payload;
+    },
     setUserName: (state, action) => {
       state.username = action.payload;
     },
@@ -25,6 +30,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUserName, setToUserName } = userSlice.actions;
+export const { setUserName, setToUserName, setUsers } = userSlice.actions;
 
 export default userSlice.reducer;
