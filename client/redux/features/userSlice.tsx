@@ -4,13 +4,13 @@ import type { RootState } from '../store';
 
 interface types {
   username: string;
-  toUsername: string;
+  recieverName: string;
   users: any;
 }
 
 const initialState: types = {
   username: '',
-  toUsername: '',
+  recieverName: '',
   users: [],
 };
 
@@ -24,12 +24,12 @@ export const userSlice = createSlice({
     setUserName: (state, action) => {
       state.username = action.payload;
     },
-    setToUserName: (state, action) => {
-      state.toUsername = action.payload;
+    setRecieverName: (state, action) => {
+      state.recieverName = action.payload;
     },
   },
 });
 
-export const { setUserName, setToUserName, setUsers } = userSlice.actions;
+export const { setUserName, setRecieverName, setUsers } = userSlice.actions;
 
 export default userSlice.reducer;

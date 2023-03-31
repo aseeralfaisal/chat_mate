@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setUserName } from '../redux/features/userSlice';
 

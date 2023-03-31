@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { setChatRoom } from './redux/features/chatRoom';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setChatRoom } from '../../redux/features/chatRoom';
 import socketIOClient from 'socket.io-client';
-import { setToUserName } from './redux/features/userSlice';
-import Users from './pages/users/users.presenter';
-import { fetchApi } from './fetch.api';
+import { setRecieverName } from '../../redux/features/userSlice';
+import Users from './users.presenter';
+import { fetchApi } from '../../fetch.api';
 
 const UsersContainer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [users, setUsers] = useState([]);
-  const username = useAppSelector((state) => state.user.username);
+  const [usersList, setUsersList] = useState([]);
   const [textInputVal, setTextInputVal] = useState('');
   const [messages, setMessages] = useState<any>([]);
-  const chatroom = useAppSelector((state) => state.chat.chatRoom);
   const [msgSent, setMsgSent] = useState(false);
-  const toUsername = useAppSelector((state) => state.user.toUsername);
+  const username = useAppSelector((state) => state.user.username);
+  const chatroom = useAppSelector((state) => state.chat.chatRoom);
+  const recieverName = useAppSelector((state) => state.user.recieverName);
 
   useEffect(() => {
     (async () => {
@@ -27,7 +27,7 @@ const UsersContainer: React.FC = () => {
   useEffect(() => {
     (async () => {
       const usersList = await fetchApi('users', 'GET');
-      setUsers(usersList);
+      setUsersList(usersList);
     })();
   }, []);
 
@@ -57,7 +57,7 @@ const UsersContainer: React.FC = () => {
   const createChatRoom = (toUser: string) => {
     const chatRoomLabel = (username + toUser).split('').sort().join('');
     dispatch(setChatRoom(chatRoomLabel));
-    dispatch(setToUserName(toUser));
+    dispatch(setRecieverName(toUser));
   };
 
   useEffect(() => {
@@ -68,9 +68,9 @@ const UsersContainer: React.FC = () => {
 
   return (
     <Users
-      users={users}
+      users={usersList}
       username={username}
-      toUsername={toUsername}
+      toUsername={recieverName}
       messages={messages}
       createChatRoom={createChatRoom}
       textInputVal={textInputVal}
