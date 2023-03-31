@@ -3,7 +3,7 @@ import InputField from '../../Components/InputField';
 import styles from '../../styles/UserList.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as icons from '@fortawesome/free-solid-svg-icons';
-import Button1 from '../../Components/Button1';
+import MainButton from '../../Components/MainButton';
 import type { usersType } from './users.types';
 
 const Chats = ({ messages, username }: { messages: any[]; username: string }) => (
@@ -42,12 +42,11 @@ const Users: React.FC<usersType> = (props) => {
       }}>
       <div className={styles.container}>
         <InputField
-          reduxValue={false}
           type='text'
           placeholder='Search Users...'
           width={280}
-          setValue={undefined}
           value={''}
+          setValue={undefined}
         />
         {users
           ?.filter((user: { username: string }) => user.username !== username)
@@ -78,7 +77,7 @@ const Users: React.FC<usersType> = (props) => {
             setValue={setTextInputVal}
             reduxValue={false}
           />
-          <Button1 title='Send' action={sendMessageAction} width={150} marginTop={0} margin={14} />
+          <MainButton title='Send' action={sendMessageAction} width={150} marginTop={0} margin={14} />
         </div>
       </div>
     </div>

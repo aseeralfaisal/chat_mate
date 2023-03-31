@@ -1,7 +1,15 @@
 import React from 'react';
 import styles from '../styles/Button1.module.scss';
 
-const Button1 = ({ title, action, width, marginTop, margin }) => {
+type MainButtonTypes = {
+  title: string;
+  action: () => void;
+  width?: number;
+  marginTop?: number;
+  margin?: number;
+};
+
+const MainButton: React.FC<MainButtonTypes> = ({ title, action, width, marginTop, margin }) => {
   return (
     <div onClick={action}>
       <button
@@ -13,4 +21,4 @@ const Button1 = ({ title, action, width, marginTop, margin }) => {
   );
 };
 
-export default Button1;
+export default MainButton;

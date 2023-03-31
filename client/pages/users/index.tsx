@@ -20,14 +20,14 @@ const UsersContainer: React.FC = () => {
   useEffect(() => {
     (async () => {
       const messagesData = await fetchApi('getchat', 'POST', { room: chatroom });
-      setMessages(messagesData[0]?.messages);
+      setMessages(messagesData?.value[0]?.messages);
     })();
   }, [chatroom, msgSent]);
 
   useEffect(() => {
     (async () => {
       const usersList = await fetchApi('users', 'GET');
-      setUsersList(usersList);
+      setUsersList(usersList?.value);
     })();
   }, []);
 

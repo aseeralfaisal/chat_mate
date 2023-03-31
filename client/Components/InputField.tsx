@@ -4,11 +4,11 @@ import styles from '../styles/Inputfield.module.scss';
 
 interface propTypes {
   placeholder: string;
-  setValue: Function;
+  setValue: (value: string) => void;
   type: string;
   value: string;
-  reduxValue: boolean;
-  width: number;
+  reduxValue?: boolean;
+  width?: number;
 }
 const InputField = ({ placeholder, setValue, type, value, reduxValue, width }: propTypes) => {
   const dispatch = useAppDispatch();

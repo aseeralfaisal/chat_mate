@@ -10,9 +10,9 @@ export const fetchApi = async (url: string, method: 'GET' | 'POST', data: null |
     } else {
       response = await axios.get(`${BASE_URL}/${url}`);
     }
-    if (response !== null) return response.data;
+    if (response === null) return;
+    return { value: response.data, code: response.status };
   } catch (error) {
-    return 'Something went wrong';
+    console.error(error);
   }
 };
-
