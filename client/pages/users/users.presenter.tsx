@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import InputField from '../../Components/InputField';
 import styles from '../../styles/UserList.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as icons from '@fortawesome/free-solid-svg-icons';
 import Button1 from '../../Components/Button1';
 import type { usersType } from './users.types';
-const BASE_URL = 'http://localhost:3001';
 
 const Chats = ({ messages, username }: { messages: any[]; username: string }) => (
   <div style={{ top: 10, left: 400, overflowY: 'scroll', overflow: 'hidden' }}>
