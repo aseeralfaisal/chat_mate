@@ -2,22 +2,35 @@ import React from 'react';
 import { useAppDispatch } from '../redux/hooks';
 import styles from '../styles/Inputfield.module.scss';
 
-interface propTypes {
+type PropTypes = {
   placeholder: string;
   setValue: (value: string) => void;
   type: string;
   value: string;
   reduxValue?: boolean;
-  width?: number;
+  width?: number | string;
+  height?: number | string;
+  fontSize?: number;
+  endIcon?: JSX.Element;
 }
-const InputField = ({ placeholder, setValue, type, value, reduxValue, width }: propTypes) => {
+
+const InputField: React.FC<PropTypes> = ({
+  placeholder,
+  setValue,
+  type,
+  value,
+  reduxValue = false,
+  width,
+  height,
+  fontSize,
+  endIcon,
+}) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div>
+    <div className={styles.input} style={{ width, height }}>
       <input
-        className={styles.input}
-        style={{ width: width && width }}
+        style={{ width, height, fontSize }}
         type={type}
         value={value}
         placeholder={placeholder}
@@ -26,6 +39,7 @@ const InputField = ({ placeholder, setValue, type, value, reduxValue, width }: p
           reduxValue ? dispatch(setValue(value)) : setValue(value);
         }}
       />
+      {endIcon && endIcon}
     </div>
   );
 };

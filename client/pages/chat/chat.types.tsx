@@ -2,7 +2,7 @@ type user = {
   id: number;
   username: string;
 };
-export type usersType = {
+export type chatType = {
   users: user[];
   username: string;
   recieverName: string;

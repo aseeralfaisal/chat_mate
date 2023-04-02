@@ -7,22 +7,26 @@ import MainButton from '../../Components/MainButton';
 import type { usersType } from './users.types';
 
 const Chats = ({ messages, username }: { messages: any[]; username: string }) => (
-  <div style={{ top: 10, left: 400, overflowY: 'scroll', overflow: 'hidden' }}>
+  <>
     {messages &&
       messages.map((msg: { username: string; text: string }, idx: number) => (
-        <div key={idx} className={styles.msg}>
-          {msg.username !== username && <h2 style={{ color: '#fff' }}>{msg.username}: </h2>}
-          <label style={{ color: '#fff', marginLeft: 14 }}>{msg.text}</label>
+        <div
+          key={idx}
+          style={{ display: 'flex', justifyContent: msg.username === username ? 'flex-end' : 'flex-start', width: 940 }}>
+          <div className={msg.username !== username ? styles.msg : styles.msg_right}>
+            {msg.username !== username && <label className={styles.label}>{msg.username}: </label>}
+            <label className={styles.label}>{msg.text}</label>
+          </div>
         </div>
       ))}
-  </div>
+  </>
 );
 
 const Users: React.FC<usersType> = (props) => {
   const {
     users,
     username,
-    toUsername,
+    recieverName,
     messages,
     createChatRoom,
     textInputVal,
@@ -41,13 +45,7 @@ const Users: React.FC<usersType> = (props) => {
         marginRight: 60,
       }}>
       <div className={styles.container}>
-        <InputField
-          type='text'
-          placeholder='Search Users...'
-          width={280}
-          value={''}
-          setValue={undefined}
-        />
+        <InputField type='text' placeholder='Search Users...' width={280} value={''} setValue={undefined} />
         {users
           ?.filter((user: { username: string }) => user.username !== username)
           .map((user: { username: string; id: number }, idx: number) => (
@@ -55,7 +53,7 @@ const Users: React.FC<usersType> = (props) => {
               key={idx}
               className={styles.userlist}
               style={{
-                backgroundColor: toUsername === user.username ? '#664ccf33' : '#00000000',
+                backgroundColor: recieverName === user.username ? '#664ccf33' : '#00000000',
                 borderRadius: 12,
                 padding: 10,
               }}>
@@ -66,13 +64,13 @@ const Users: React.FC<usersType> = (props) => {
             </div>
           ))}
       </div>
-      <div style={{ margin: 20 }}>
+      <div style={{ marginLeft: 330 }}>
         <Chats messages={messages} username={username} />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', position: 'fixed', bottom: 0 }}>
           <InputField
             type='text'
             placeholder='Type a message'
-            width={950}
+            width={800}
             value={textInputVal}
             setValue={setTextInputVal}
             reduxValue={false}

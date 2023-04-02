@@ -36,7 +36,7 @@ export default function Home() {
     try {
       const loginData = await fetchApi('login', 'POST', { username, password });
       if (loginData?.code === 201) {
-        Router.push({ pathname: '/users' });
+        Router.push({ pathname: '/chat' });
       }
     } catch (error) {
       console.error(error);
@@ -58,12 +58,21 @@ export default function Home() {
               placeholder='Username'
               value={username}
               setValue={setUserName}
+              width={300}
+              height={40}
+              />
+            <InputField
+              type='password'
+              placeholder='Password'
+              value={password}
+              setValue={setPassword}
+              width={300}
+              height={40}
             />
-            <InputField type='password' placeholder='Password' value={password} setValue={setPassword} />
             {registerMode ? (
-              <MainButton title='Register' action={registerAction} />
+              <MainButton title='Register' height={40} action={registerAction} />
             ) : (
-              <MainButton title='Log in' action={loginAction} />
+              <MainButton title='Log in' height={40} action={loginAction} />
             )}
             {!registerMode ? (
               <DescriptionTitle desc='Not Registered?' action='Register' />

@@ -70,7 +70,7 @@ const UsersContainer: React.FC = () => {
     <Users
       users={usersList}
       username={username}
-      toUsername={recieverName}
+      recieverName={recieverName}
       messages={messages}
       createChatRoom={createChatRoom}
       textInputVal={textInputVal}
