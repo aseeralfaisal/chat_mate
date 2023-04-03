@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styles from './chat-page.styles.module.scss';
-import Image from 'next/image';
-import ProfilePNG from './profile.png';
 import type { chatType } from './chat.types';
 import InputField from '../../Components/InputField';
 import * as Icons from './icons.chat';
