@@ -54,6 +54,7 @@ const ChatContainer: React.FC = () => {
       return alert('Chatroom Error');
     }
     const message = { username: userName, text: textInputVal };
+    if (textInputVal === '') return;
     socket.emit('send-message', message);
     setTextInputVal('');
     setMsgSent(!msgSent);

@@ -1,5 +1,5 @@
 import { keyframes, styled } from '@stitches/react';
-import themes from '../../styles/sticthes.config';
+import themes from '../../styles/stitches.config';
 
 const { colors } = themes.theme;
 
