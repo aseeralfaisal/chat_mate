@@ -60,7 +60,7 @@ export default function Home() {
               setValue={setUserName}
               width={300}
               height={40}
-              />
+            />
             <InputField
               type='password'
               placeholder='Password'
@@ -68,6 +68,7 @@ export default function Home() {
               setValue={setPassword}
               width={300}
               height={40}
+              event={registerMode ? registerAction : loginAction}
             />
             {registerMode ? (
               <MainButton title='Register' height={40} action={registerAction} />

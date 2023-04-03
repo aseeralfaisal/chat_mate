@@ -5,7 +5,7 @@ import { setChatRoom } from '../../redux/features/chatRoom';
 import socketIOClient from 'socket.io-client';
 import { setRecieverName } from '../../redux/features/userSlice';
 import { fetchApi } from '../../fetch.api';
-import ChatPage from './chat.presenter';
+import ChatPage from './chat.component';
 
 const ChatContainer: React.FC = () => {
   const dispatch = useAppDispatch();
