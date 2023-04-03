@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../redux/hooks';
-import { Input } from './styles/Inputfield.stlyes';
+import { Input } from './styles/Inputfield.styles';
 
 type PropTypes = {
   placeholder: string;
