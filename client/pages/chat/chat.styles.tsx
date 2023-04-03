@@ -18,7 +18,6 @@ export const Sidebar = styled('div', {
   height: '100vh',
   borderRight: `1px ${colors.gray} solid`,
   background: colors.dark200,
-  // background: '#16191c',
 });
 
 export const SidebarTopSection = styled('div', {
@@ -81,7 +80,6 @@ export const SidebarChat = styled('div', {
   alignItems: 'flex-start',
   width: '100%',
   height: '620px',
-  // background: colors.dark300,
   overflowY: 'scroll',
   userSelect: 'none',
   '&::-webkit-scrollbar': {
