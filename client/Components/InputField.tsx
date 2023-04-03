@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../redux/hooks';
-import styles from '../styles/Inputfield.module.scss';
+import { Input } from './styles/Inputfield.stlyes';
 
 type PropTypes = {
   placeholder: string;
@@ -26,13 +26,13 @@ const InputField: React.FC<PropTypes> = (props) => {
     height,
     fontSize,
     endIcon,
-    event
+    event,
   } = props;
 
   const dispatch = useAppDispatch();
 
   return (
-    <div className={styles.input} style={{ width, height }}>
+    <Input css={{ width, height }}>
       <input
         style={{ width, height, fontSize }}
         type={type}
@@ -45,7 +45,7 @@ const InputField: React.FC<PropTypes> = (props) => {
         }}
       />
       {endIcon && endIcon}
-    </div>
+    </Input>
   );
 };
 

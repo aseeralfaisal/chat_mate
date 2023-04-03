@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Button1.module.scss';
+import { Button } from './styles/MainButton.styles';
 
 type MainButtonTypes = {
   title: string;
@@ -22,9 +22,7 @@ const MainButton: React.FC<MainButtonTypes> = ({
 }) => {
   return (
     <div onClick={action}>
-      <button className={styles.button1} style={{ width, marginTop, margin, height, fontSize }}>
-        {title}
-      </button>
+      <Button css={{ width, marginTop, margin, height, fontSize }}>{title}</Button>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MainButton from '../Components/MainButton';
 import InputField from '../Components/InputField';
-import styles from '../styles/Home.module.scss';
+import { Action, Description, Form, FormChild, Register, Textus } from '../styles/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import Router from 'next/router';
@@ -16,12 +16,10 @@ export default function Home() {
   const username = useAppSelector((state) => state.user.username);
 
   const DescriptionTitle = ({ desc, action }: { desc: string; action: string }) => (
-    <div className={styles.register}>
-      <label className={styles.desc}>{desc}</label>
-      <label className={styles.action} onClick={changeMode}>
-        {action}
-      </label>
-    </div>
+    <Register>
+      <Description>{desc}</Description>
+      <Action onClick={changeMode}>{action}</Action>
+    </Register>
   );
 
   const registerAction = async () => {
@@ -45,11 +43,11 @@ export default function Home() {
 
   return (
     <>
-      <div className={styles.form}>
-        <div className={styles.form__child}>
+      <Form>
+        <FormChild>
           <div style={{ margin: 60 }}>
             <FontAwesomeIcon icon={faCommentDots} color='#7c5cfc' fontSize={100} />
-            <h2 className={styles.textus}>Textus</h2>
+            <Textus>Textus</Textus>
           </div>
           <div>
             <InputField
@@ -81,8 +79,8 @@ export default function Home() {
               <DescriptionTitle desc='Already have an account?' action='Sign in' />
             )}
           </div>
-        </div>
-      </div>
+        </FormChild>
+      </Form>
     </>
   );
 }
