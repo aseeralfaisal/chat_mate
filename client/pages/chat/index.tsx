@@ -13,16 +13,16 @@ const ChatContainer: React.FC = () => {
   const [textInputVal, setTextInputVal] = useState('');
   const [messages, setMessages] = useState<any>([]);
   const [msgSent, setMsgSent] = useState(false);
-  const username = useAppSelector((state) => state.user.username);
-  const chatroom = useAppSelector((state) => state.chat.chatRoom);
+  const userName = useAppSelector((state) => state.user.username);
+  const chatRoom = useAppSelector((state) => state.chat.chatRoom);
   const recieverName = useAppSelector((state) => state.user.recieverName);
 
   useEffect(() => {
     (async () => {
-      const messagesData = await fetchApi('getchat', 'POST', { room: chatroom });
+      const messagesData = await fetchApi('getchat', 'POST', { room: chatRoom });
       setMessages(messagesData?.value[0]?.messages);
     })();
-  }, [chatroom, msgSent]);
+  }, [chatRoom, msgSent]);
 
   useEffect(() => {
     (async () => {
@@ -33,7 +33,12 @@ const ChatContainer: React.FC = () => {
 
   const socket = socketIOClient('http://localhost:3001');
 
-  socket.emit('chat_room', { userName: username, chatRoom: chatroom });
+  useEffect(() => {
+    socket.emit('chat_room', { userName, chatRoom });
+    return () => {
+      socket.off('chat_room');
+    };
+  }, [chatRoom, socket, userName]);
 
   useEffect(() => {
     socket.on('receive-message', (data) => {
@@ -45,31 +50,31 @@ const ChatContainer: React.FC = () => {
   }, [messages, socket, msgSent]);
 
   const sendMessageAction = () => {
-    if (chatroom === '' || chatroom === null || chatroom === undefined) {
+    if (chatRoom === '' || chatRoom === null || chatRoom === undefined) {
       return alert('Chatroom Error');
     }
-    const message = { username: username, text: textInputVal };
+    const message = { username: userName, text: textInputVal };
     socket.emit('send-message', message);
     setTextInputVal('');
     setMsgSent(!msgSent);
   };
 
   const createChatRoom = (toUser: string) => {
-    const chatRoomLabel = (username + toUser).split('').sort().join('');
+    const chatRoomLabel = (userName + toUser).split('').sort().join('');
     dispatch(setChatRoom(chatRoomLabel));
     dispatch(setRecieverName(toUser));
   };
 
   useEffect(() => {
-    if (username === '') {
+    if (userName === '') {
       Router.push({ pathname: '/' });
     }
-  }, [username]);
+  }, [userName]);
 
   return (
     <ChatPage
       users={usersList}
-      username={username}
+      username={userName}
       recieverName={recieverName}
       messages={messages}
       createChatRoom={createChatRoom}

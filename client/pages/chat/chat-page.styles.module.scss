@@ -14,6 +14,7 @@
     .chat__area__header {
       position: fixed;
       top: 0;
+      z-index: 2;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -59,8 +60,8 @@
         background: #26272d;
         border-radius: 0px 16px 16px 16px;
         max-width: 532px;
-        // max-height: 96px;
         align-self: start;
+        animation: myAnim 400ms ease 0s 1 normal forwards;
       }
       .chat__area__section__leftchat__chatbubble {
         display: flex;
@@ -70,8 +71,8 @@
         background: base.$purple--darkest;
         border-radius: 16px 0 16px 16px;
         max-width: 532px;
-        // max-height: 96px;
         align-self: end;
+        animation: myAnim 400ms ease 0s 1 normal forwards;
       }
       .chat__area__section__rightchat__texts {
         font-weight: 400;
@@ -85,6 +86,18 @@
         line-height: 20px;
         // color: #1d1e22;
         color: #ffffff;
+      }
+      @keyframes myAnim {
+        0% {
+          opacity: 0;
+          transform: rotateX(100deg);
+          transform-origin: bottom;
+        }
+        100% {
+          opacity: 1;
+          transform: rotateX(0);
+          transform-origin: bottom;
+        }
       }
     }
     .message__bar {
@@ -133,7 +146,7 @@
     left: 0px;
     top: 0px;
     // border-right: 1px solid #37393c;
-    border-right: 1px base.$purple--dark-2 solid;;
+    border-right: 1px base.$purple--dark-2 solid;
     // background: #1c1d22;
     background: base.$bg--darker;
     .sidebar__devider {
@@ -149,6 +162,7 @@
       // background: #1c1d22;
       background: base.$bg--darker;
       overflow-y: scroll;
+      user-select: none;
       &::-webkit-scrollbar {
         display: none;
       }
@@ -230,29 +244,6 @@
       gap: 10px;
       width: 100%;
       height: 76px;
-      .sidebar__search__container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 12px;
-        gap: 8px;
-        width: 288px;
-        height: 40px;
-        background: #26272d;
-        border-radius: 8px;
-
-        input {
-          background: none;
-          outline: none;
-          border: none;
-          font-family: inherit;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 20px;
-          color: rgba(255, 255, 255, 0.6);
-        }
-      }
     }
   }
   .chat__details {
