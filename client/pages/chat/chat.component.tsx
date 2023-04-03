@@ -97,7 +97,7 @@ const ChatPage: React.FC<chatType> = (props) => {
             placeholder='Search'
             type='text'
             height={40}
-            width={280}
+            width={260}
             value={searchValue}
             setValue={setSearchValue}
             fontSize={15}

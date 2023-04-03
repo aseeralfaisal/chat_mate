@@ -14,10 +14,11 @@ export const Sidebar = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  width: 320,
+  width: 300,
   height: '100vh',
-  borderRight: `1px #664ccf33 solid`,
-  background: '#16191c',
+  borderRight: `1px ${colors.gray} solid`,
+  background: colors.dark200,
+  // background: '#16191c',
 });
 
 export const SidebarTopSection = styled('div', {
@@ -53,7 +54,7 @@ export const SidebarSearch = styled('div', {
 
 export const SidebarDevider = styled('div', {
   width: '100%',
-  borderBottom: '1px solid #37393c',
+  borderBottom: `1px solid ${colors.purple400}`,
 });
 
 export const SidebarTitleContainer = styled('div', {
@@ -71,7 +72,7 @@ export const SidebarTitle = styled('h5', {
   fontWeight: 400,
   fontSize: 18,
   lineHeight: '32px',
-  color: colors.Light100,
+  color: colors.light100,
 });
 
 export const SidebarChat = styled('div', {
@@ -80,7 +81,7 @@ export const SidebarChat = styled('div', {
   alignItems: 'flex-start',
   width: '100%',
   height: '620px',
-  background: colors.Dark100,
+  // background: colors.dark300,
   overflowY: 'scroll',
   userSelect: 'none',
   '&::-webkit-scrollbar': {
@@ -96,7 +97,7 @@ export const SidebarChatUser = styled('div', {
   gap: '14px',
   width: '100%',
   height: '72px',
-  background: '#141416',
+  background: colors.dark300,
   cursor: 'context-menu',
 });
 
@@ -112,7 +113,7 @@ export const SidebarChatContentTitle = styled('h3', {
   fontSize: 14,
   lineHeight: '24px',
   textTransform: 'capitalize',
-  color: colors.Light100,
+  color: colors.light100,
 });
 
 export const SidebarChatContentText = styled('div', {
@@ -130,7 +131,7 @@ export const ChatArea = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  marginInline: '320px',
+  marginInline: 300,
   marginTop: '60px',
   marginBottom: '60px',
   width: '100%',
@@ -147,8 +148,8 @@ export const ChatAreaHeader = styled('div', {
   alignItems: 'center',
   padding: '12px 24px',
   gap: '10px',
-  background: '#1c1d22',
-  borderBottom: '1px solid #37393c',
+  background: colors.dark200,
+  borderBottom: `1px solid ${colors.gray}`,
   width: '100%',
 });
 
@@ -157,7 +158,7 @@ export const ChatAreaHeaderUser = styled('div', {
   textTransform: 'capitalize',
   fontSize: 14,
   lineHeight: '24px',
-  color: colors.Light100,
+  color: colors.light100,
 });
 
 export const ChatAreaHeaderIcons = styled('div', {
@@ -173,7 +174,7 @@ export const ChatAreaSection = styled('div', {
   alignItems: 'flex-start',
   padding: '24px',
   gap: '16px',
-  background: '#141416',
+  background: colors.dark300,
   width: '100%',
 });
 
@@ -201,7 +202,7 @@ export const ChatAreaSectionRightchatChatbubble = styled('div', {
   display: 'flex',
   padding: 14,
   gap: '10px',
-  background: '#26272d',
+  background: colors.gray100,
   borderRadius: '0px 16px 16px 16px',
   maxWidth: '532px',
   alignSelf: 'start',
@@ -223,14 +224,14 @@ export const ChatAreaSectionRightchatTexts = styled('p', {
   fontWeight: '400',
   fontSize: 14,
   lineHeight: '20px',
-  color: colors.Light100,
+  color: colors.light100,
 });
 
 export const ChatAreaSectionLeftchatTexts = styled('p', {
   fontWeight: '400',
   fontSize: 14,
   lineHeight: '20px',
-  color: colors.Light100,
+  color: colors.light100,
 });
 
 export const MessageBar = styled('div', {
@@ -243,7 +244,7 @@ export const MessageBar = styled('div', {
   bottom: '0',
   height: '64px',
   background: '#1c1d22',
-  borderTop: '1px solid #37393c',
+  borderTop: `1px solid ${colors.purple400}`,
 });
 export const SendButtonContainer = styled('div');
 
@@ -265,8 +266,8 @@ export const ChatDetails = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  width: 320,
-  borderLeft: '1px solid #37393c',
+  width: 300,
+  borderLeft: `1px solid ${colors.gray}`,
   zIndex: 2,
   height: '100vh',
   background: '#1c1d22',
@@ -280,7 +281,7 @@ export const ChatDetailsHeader = styled('div', {
   alignItems: 'flex-start',
   padding: 24,
   gap: 8,
-  borderBottom: '1px solid #37393c',
+  borderBottom: `1px solid ${colors.gray}`,
   width: '100%',
 });
 
@@ -288,7 +289,7 @@ export const ChatDetailsHeaderTitle = styled('span', {
   fontWeight: 600,
   fontSize: 16,
   lineHeight: 24,
-  color: colors.Light100,
+  color: colors.light100,
 });
 
 export const ProfileContainer = styled('div', {
@@ -312,8 +313,8 @@ export const Status = styled('div', {
   alignItems: 'flex-start',
   padding: '14px 34px',
   gap: '8px',
-  borderTop: '1px solid #37393c',
-  borderBottom: '1px solid #37393c',
+  borderTop: `1px solid ${colors.purple400}`,
+  borderBottom: `1px solid ${colors.purple400}`,
   width: '100%',
 });
 
@@ -322,7 +323,7 @@ export const StatusTitle = styled('span', {
   fontSize: 14,
   textTransform: 'capitalize',
   lineHeight: '24px',
-  color: colors.Light100,
+  color: colors.light100,
 });
 
 export const StatusDescription = styled('div', {
@@ -348,7 +349,7 @@ export const FunctionSectionButton = styled('div', {
   gap: '8px',
   width: '232px',
   height: '36px',
-  background: '#26272d',
+  background: colors.gray100,
   borderRadius: '4px',
 });
 
@@ -356,5 +357,5 @@ export const Info = styled('span', {
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '20px',
-  color: colors.Light100,
+  color: colors.light100,
 });
