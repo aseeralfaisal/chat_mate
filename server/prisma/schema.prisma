@@ -12,7 +12,7 @@ datasource db {
 
 model message {
   id       Int      @id @default(autoincrement())
-  text  String   @db.VarChar(255)
+  text  String   @db.VarChar(555)
   username String   @db.VarChar(255)
   chatroom chatroom @relation(fields: [messageId], references: [room])
   messageId String

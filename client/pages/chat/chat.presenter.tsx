@@ -279,7 +279,7 @@ const ChatPage: React.FC<chatType> = (props) => {
         {messages?.map((message, index) => (
           <div key={index} className={styles.chat__area__section}>
             <div className={styles.chat__area__section__rightchat}>
-              {message.username === username ? (
+              {message.username !== username ? (
                 <div className={styles.chat__area__section__rightchat__chatbubble}>
                   <p className={styles.chat__area__section__rightchat__texts}>
                     {/* Both with sisters first very to remodelling logbook due and attempt. Dropped him is the come
