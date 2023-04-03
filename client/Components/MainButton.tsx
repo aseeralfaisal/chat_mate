@@ -1,17 +1,8 @@
 import React from 'react';
 import { Button } from './styles/MainButton.styles';
+import { MainButtonProps } from './types/MainButton.types';
 
-type MainButtonTypes = {
-  title: string;
-  action: () => void;
-  width?: number;
-  height?: number;
-  marginTop?: number;
-  margin?: number;
-  fontSize?: number;
-};
-
-const MainButton: React.FC<MainButtonTypes> = ({
+const MainButton: React.FC<MainButtonProps> = ({
   title,
   action,
   width,

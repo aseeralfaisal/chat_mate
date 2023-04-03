@@ -1,21 +1,9 @@
 import React from 'react';
 import { useAppDispatch } from '../redux/hooks';
 import { Input } from './styles/Inputfield.styles';
+import { InputFieldProps } from './types/InputField.types';
 
-type PropTypes = {
-  placeholder: string;
-  setValue: (value: string) => void;
-  type: string;
-  value: string;
-  reduxValue?: boolean;
-  width?: number | string;
-  height?: number | string;
-  fontSize?: number;
-  endIcon?: JSX.Element;
-  event?: () => void;
-};
-
-const InputField: React.FC<PropTypes> = (props) => {
+const InputField: React.FC<InputFieldProps> = (props) => {
   const {
     placeholder,
     setValue,
