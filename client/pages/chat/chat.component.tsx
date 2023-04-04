@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { chatType } from './chat.types';
-import InputField from '../../Components/InputField/inputfield.component';
+import { InputField } from './../../Components/index';
 import * as Icons from './chat.icons';
 import {
   ChatArea,
