@@ -14,7 +14,6 @@ import {
   ChatAreaSectionRightchatChatbubble,
   ChatAreaSectionRightchatTexts,
   ChatDetails,
-  ChatDetailsHeaderTitle,
   Container,
   FunctionSection,
   FunctionSectionButton,
@@ -26,7 +25,6 @@ import {
   Sidebar,
   SidebarChat,
   SidebarChatContent,
-  SidebarChatContentText,
   SidebarChatContentTitle,
   SidebarChatUser,
   SidebarDevider,
@@ -39,6 +37,9 @@ import {
   StatusDescription,
   StatusTitle,
 } from './chat.styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { Title } from '../index.styles';
 
 const generatedUserProfile = (
   username: string,
@@ -88,7 +89,11 @@ const ChatPage: React.FC<chatType> = (props) => {
         <SidebarTopSection>
           {/* <Icons.UserIcon /> */}
           <SidebarTopSectionIcons>
-            <Icons.AddMessage />
+            {/* <Icons.AddMessage /> */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <FontAwesomeIcon icon={faCommentDots} color='#7c5cfc' fontSize={32} />
+              <Title size='medium'>ChatWave</Title>
+            </div>
             <Icons.Menu />
           </SidebarTopSectionIcons>
         </SidebarTopSection>
@@ -96,7 +101,7 @@ const ChatPage: React.FC<chatType> = (props) => {
           <InputField
             placeholder='Search'
             type='text'
-            height={40}
+            height={36}
             width={260}
             value={searchValue}
             setValue={setSearchValue}
@@ -160,8 +165,8 @@ const ChatPage: React.FC<chatType> = (props) => {
           <InputField
             type='text'
             placeholder='Type a message'
-            width={700}
-            height={40}
+            width={750}
+            height={36}
             fontSize={15}
             value={textInputVal}
             setValue={setTextInputVal}

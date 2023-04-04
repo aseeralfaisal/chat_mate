@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { InputField, MainButton } from '../Components/index';
-import { Action, Description, Form, FormChild, Register, Textus } from './index.styles';
+import { Action, Description, Form, FormChild, Register, Title } from './index.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import Router from 'next/router';
@@ -46,7 +46,7 @@ export default function Home() {
         <FormChild>
           <div style={{ margin: 60 }}>
             <FontAwesomeIcon icon={faCommentDots} color='#7c5cfc' fontSize={100} />
-            <Textus>Textus</Textus>
+            <Title>ChatWave</Title>
           </div>
           <div>
             <InputField

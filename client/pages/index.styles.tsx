@@ -42,9 +42,22 @@ export const Description = styled('label', {
   fontSize: '14px',
 });
 
-export const Textus = styled('h2', {
+export const Title = styled('h2', {
   fontSize: '30px',
   color: colors.purple,
   fontWeight: 'normal',
   userSelect: 'none',
+  variants: {
+    size: {
+      small: {
+        fontSize: 12,
+      },
+      medium: {
+        fontSize: 18,
+      },
+      large: {
+        fontSize: 26,
+      },
+    },
+  },
 });

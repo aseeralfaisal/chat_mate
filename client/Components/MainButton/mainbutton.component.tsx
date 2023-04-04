@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from './mainbutton.styles';
-import { MainButtonProps } from './MainButton.types';
+import { MainButtonProps } from './mainbutton.types';
 
 const MainButton: React.FC<MainButtonProps> = ({
   title,
@@ -13,7 +13,9 @@ const MainButton: React.FC<MainButtonProps> = ({
 }) => {
   return (
     <div onClick={action}>
-      <Button css={{ width, marginTop, margin, height, fontSize }}>{title}</Button>
+      <Button css={{ marginTop, width, margin, height, fontSize }}>
+        {title}
+      </Button>
     </div>
   );
 };

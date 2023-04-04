@@ -17,7 +17,7 @@ export const Sidebar = styled('div', {
   width: 300,
   height: '100vh',
   borderRight: `1px ${colors.gray} solid`,
-  background: colors.dark200,
+  background: colors.dark100,
 });
 
 export const SidebarTopSection = styled('div', {
@@ -53,7 +53,7 @@ export const SidebarSearch = styled('div', {
 
 export const SidebarDevider = styled('div', {
   width: '100%',
-  borderBottom: `1px solid ${colors.purple400}`,
+  borderBottom: `1px solid ${colors.gray}`,
 });
 
 export const SidebarTitleContainer = styled('div', {
@@ -92,9 +92,9 @@ export const SidebarChatUser = styled('div', {
   flexDirection: 'row',
   alignItems: 'center',
   padding: '12px 24px',
-  gap: '14px',
+  gap: 12,
   width: '100%',
-  height: '72px',
+  height: 72,
   background: colors.dark300,
   cursor: 'context-menu',
 });
@@ -146,7 +146,7 @@ export const ChatAreaHeader = styled('div', {
   alignItems: 'center',
   padding: '12px 24px',
   gap: '10px',
-  background: colors.dark200,
+  background: colors.dark100,
   borderBottom: `1px solid ${colors.gray}`,
   width: '100%',
 });
@@ -241,7 +241,7 @@ export const MessageBar = styled('div', {
   width: '100vw',
   bottom: '0',
   height: '64px',
-  background: '#1c1d22',
+  background: colors.dark100,
   borderTop: `1px solid ${colors.purple400}`,
 });
 export const SendButtonContainer = styled('div');
@@ -268,7 +268,7 @@ export const ChatDetails = styled('div', {
   borderLeft: `1px solid ${colors.gray}`,
   zIndex: 2,
   height: '100vh',
-  background: '#1c1d22',
+  background: colors.dark100,
   transition: 'ease-out 0.2s all',
   animation: `${ChatDetailAnim} 400ms ease 0s 1 normal forwards`,
 });
@@ -311,8 +311,8 @@ export const Status = styled('div', {
   alignItems: 'flex-start',
   padding: '14px 34px',
   gap: '8px',
-  borderTop: `1px solid ${colors.purple400}`,
-  borderBottom: `1px solid ${colors.purple400}`,
+  borderTop: `1px solid ${colors.gray}`,
+  borderBottom: `1px solid ${colors.gray}`,
   width: '100%',
 });
 

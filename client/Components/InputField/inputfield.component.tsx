@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppDispatch } from '../../redux/hooks';
 import { Input } from './inputfield.styles';
-import { InputFieldProps } from './Inputfield.types';
+import { InputFieldProps } from './inputfield.types';
 
 const InputField: React.FC<InputFieldProps> = (props) => {
   const {
