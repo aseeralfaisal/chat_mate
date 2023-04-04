@@ -29,8 +29,8 @@ const Users: React.FC<usersType> = (props) => {
     recieverName,
     messages,
     createChatRoom,
-    textInputVal,
-    setTextInputVal,
+    messageValue,
+    setMessageValue,
     sendMessageAction,
   } = props;
   return (
@@ -71,8 +71,8 @@ const Users: React.FC<usersType> = (props) => {
             type='text'
             placeholder='Type a message'
             width={800}
-            value={textInputVal}
-            setValue={setTextInputVal}
+            value={messageValue}
+            setValue={setMessageValue}
             reduxValue={false}
           />
           <MainButton title='Send' action={sendMessageAction} width={150} marginTop={0} margin={14} />

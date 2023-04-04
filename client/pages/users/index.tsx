@@ -10,7 +10,7 @@ import { fetchApi } from '../../fetch.api';
 const UsersContainer: React.FC = () => {
   const dispatch = useAppDispatch();
   const [usersList, setUsersList] = useState([]);
-  const [textInputVal, setTextInputVal] = useState('');
+  const [messageValue, setMessageValue] = useState('');
   const [messages, setMessages] = useState<any>([]);
   const [msgSent, setMsgSent] = useState(false);
   const username = useAppSelector((state) => state.user.username);
@@ -48,9 +48,9 @@ const UsersContainer: React.FC = () => {
     if (chatroom === '' || chatroom === null || chatroom === undefined) {
       return alert('Chatroom Error');
     }
-    const message = { username: username, text: textInputVal };
+    const message = { username: username, text: messageValue };
     socket.emit('send-message', message);
-    setTextInputVal('');
+    setMessageValue('');
     setMsgSent(!msgSent);
   };
 
@@ -73,8 +73,8 @@ const UsersContainer: React.FC = () => {
       recieverName={recieverName}
       messages={messages}
       createChatRoom={createChatRoom}
-      textInputVal={textInputVal}
-      setTextInputVal={setTextInputVal}
+      messageValue={messageValue}
+      setMessageValue={setMessageValue}
       sendMessageAction={sendMessageAction}
     />
   );

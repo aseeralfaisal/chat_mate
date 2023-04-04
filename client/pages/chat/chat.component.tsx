@@ -74,12 +74,16 @@ const ChatPage: React.FC<chatType> = (props) => {
     createChatRoom,
     messages,
     sendMessageAction,
-    textInputVal,
-    setTextInputVal,
+    messageValue,
+    setMessageValue,
     recieverName,
   } = props;
 
   const [searchValue, setSearchValue] = useState('');
+  const isOnlyEmoji = (character: string) => {
+    const regex = /^[\p{Emoji}\u200D\uFE0F]+$/u;
+    return regex.test(character);
+  };
   return (
     <Container>
       <Sidebar>
@@ -91,7 +95,7 @@ const ChatPage: React.FC<chatType> = (props) => {
                 ChatMate
               </Title>
             </div>
-              <Uicons.UilEllipsisV  size={25} color='#cccccc' />
+            <Uicons.UilEllipsisV size={25} color='#cccccc' />
           </SidebarTopSectionIcons>
         </SidebarTopSection>
         <SidebarSearch>
@@ -146,12 +150,16 @@ const ChatPage: React.FC<chatType> = (props) => {
           <ChatAreaSection key={index}>
             <ChatAreaSectionRightchat>
               {msg.username !== username ? (
-                <ChatAreaSectionRightchatChatbubble>
-                  <ChatAreaSectionRightchatTexts>{msg?.text}</ChatAreaSectionRightchatTexts>
+                <ChatAreaSectionRightchatChatbubble isEmoji={isOnlyEmoji(msg.text)}>
+                  <ChatAreaSectionRightchatTexts isEmoji={isOnlyEmoji(msg.text)}>
+                    {msg?.text}
+                  </ChatAreaSectionRightchatTexts>
                 </ChatAreaSectionRightchatChatbubble>
               ) : (
-                <ChatAreaSectionLeftchatChatbubble>
-                  <ChatAreaSectionLeftchatTexts>{msg?.text}</ChatAreaSectionLeftchatTexts>
+                <ChatAreaSectionLeftchatChatbubble isEmoji={isOnlyEmoji(msg.text)}>
+                  <ChatAreaSectionLeftchatTexts isEmoji={isOnlyEmoji(msg.text)}>
+                    {msg?.text}
+                  </ChatAreaSectionLeftchatTexts>
                 </ChatAreaSectionLeftchatChatbubble>
               )}
             </ChatAreaSectionRightchat>
@@ -170,11 +178,11 @@ const ChatPage: React.FC<chatType> = (props) => {
             width={750}
             height={36}
             fontSize={15}
-            value={textInputVal}
-            setValue={setTextInputVal}
+            value={messageValue}
+            setValue={setMessageValue}
             reduxValue={false}
             event={sendMessageAction}
-            startIcon={<Uicons.UilKeyboard color="#999999" size="30" />}
+            startIcon={<Uicons.UilKeyboard color='#999999' size='30' />}
           />
           <ButtonContainer onClick={sendMessageAction}>
             <Uicons.UilMessage size='24' />

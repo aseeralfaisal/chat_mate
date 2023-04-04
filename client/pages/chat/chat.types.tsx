@@ -8,7 +8,7 @@ export type chatType = {
   recieverName: string;
   messages: string[];
   createChatRoom: (value: string) => void;
-  textInputVal: string;
-  setTextInputVal: (value: string) => void;
+  messageValue: string;
+  setMessageValue: (value: string) => void;
   sendMessageAction: () => void;
 };

@@ -203,38 +203,72 @@ const ChatBubbleAnim = keyframes({
 
 export const ChatAreaSectionRightchatChatbubble = styled('div', {
   display: 'flex',
-  padding: 14,
+  padding: 10,
+  height: 'max-content',
+  alignItems: 'center',
   gap: '10px',
   background: colors.gray100,
   borderRadius: '0px 16px 16px 16px',
   maxWidth: '532px',
   alignSelf: 'start',
   animation: `${ChatBubbleAnim} 400ms ease 0s 1 normal forwards`,
+  variants: {
+    isEmoji: {
+      true: {
+        background: 'none',
+      },
+    },
+  },
 });
 
 export const ChatAreaSectionLeftchatChatbubble = styled('div', {
   display: 'flex',
-  padding: 14,
+  padding: 10,
+  height: 'max-content',
+  alignItems: 'center',
   gap: '10px',
   background: colors.purple300,
   borderRadius: '16px 0 16px 16px',
   maxWidth: '532px',
   alignSelf: 'end',
   animation: `${ChatBubbleAnim} 400ms ease 0s 1 normal forwards`,
+  variants: {
+    isEmoji: {
+      true: {
+        background: 'none',
+      },
+    },
+  },
 });
 
 export const ChatAreaSectionRightchatTexts = styled('p', {
   fontWeight: '400',
-  fontSize: 14,
+  fontSize: 16,
   lineHeight: '20px',
   color: colors.light100,
+  variants: {
+    isEmoji: {
+      true: {
+        fontSize: 50,
+        background: 'none',
+      },
+    },
+  },
 });
 
 export const ChatAreaSectionLeftchatTexts = styled('p', {
   fontWeight: '400',
-  fontSize: 14,
+  fontSize: 16,
   lineHeight: '20px',
   color: colors.light100,
+  variants: {
+    isEmoji: {
+      true: {
+        fontSize: 50,
+        background: 'none',
+      },
+    },
+  },
 });
 
 export const MessageBar = styled('div', {

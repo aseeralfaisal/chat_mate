@@ -10,7 +10,7 @@ import ChatPage from './chat.component';
 const ChatContainer: React.FC = () => {
   const dispatch = useAppDispatch();
   const [usersList, setUsersList] = useState([]);
-  const [textInputVal, setTextInputVal] = useState('');
+  const [messageValue, setMessageValue] = useState('');
   const [messages, setMessages] = useState<any>([]);
   const [msgSent, setMsgSent] = useState(false);
   const userName = useAppSelector((state) => state.user.username);
@@ -53,10 +53,10 @@ const ChatContainer: React.FC = () => {
     if (chatRoom === '' || chatRoom === null || chatRoom === undefined) {
       return alert('Chatroom Error');
     }
-    const message = { username: userName, text: textInputVal };
-    if (textInputVal === '') return;
+    const message = { username: userName, text: messageValue };
+    if (messageValue === '') return;
     socket.emit('send-message', message);
-    setTextInputVal('');
+    setMessageValue('');
     setMsgSent(!msgSent);
   };
 
@@ -79,8 +79,8 @@ const ChatContainer: React.FC = () => {
       recieverName={recieverName}
       messages={messages}
       createChatRoom={createChatRoom}
-      textInputVal={textInputVal}
-      setTextInputVal={setTextInputVal}
+      messageValue={messageValue}
+      setMessageValue={setMessageValue}
       sendMessageAction={sendMessageAction}
     />
   );
