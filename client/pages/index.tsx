@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { InputField, MainButton } from '../Components/index';
 import { Action, Description, Form, FormChild, Register, Title } from './index.styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import Router from 'next/router';
 import { useAppSelector } from '../redux/hooks';
 import { setUserName } from '../redux/features/userSlice';
 import { fetchApi } from '../fetch.api';
+import * as Uicons from '@iconscout/react-unicons';
 
 export default function Home() {
   const [registerMode, setRegisterMode] = useState(false);
@@ -45,7 +44,7 @@ export default function Home() {
       <Form>
         <FormChild>
           <div style={{ margin: 60 }}>
-            <FontAwesomeIcon icon={faCommentDots} color='#7c5cfc' fontSize={100} />
+            <Uicons.UilCommentDots size={90} color='#7c5cfc' />
             <Title>ChatMate</Title>
           </div>
           <div>
@@ -57,7 +56,8 @@ export default function Home() {
               setValue={setUserName}
               width={280}
               height={36}
-            />
+              startIcon={<Uicons.UilUser color="#cccccc" size="20" />}
+              />
             <InputField
               type='password'
               placeholder='Password'
@@ -66,6 +66,7 @@ export default function Home() {
               width={280}
               height={36}
               event={registerMode ? registerAction : loginAction}
+              startIcon={<Uicons.UilKeyboard color="#cccccc" size="20" />}
             />
             {registerMode ? (
               <MainButton title='Register' height={36} width={280} action={registerAction} />

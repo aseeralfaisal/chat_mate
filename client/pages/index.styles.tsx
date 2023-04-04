@@ -59,5 +59,10 @@ export const Title = styled('h2', {
         fontSize: 26,
       },
     },
+    soft: {
+      true: {
+        color: colors.purplelight,
+      },
+    },
   },
 });

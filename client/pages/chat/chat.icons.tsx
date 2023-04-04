@@ -78,54 +78,6 @@ export const FaceIcon = () => (
   </svg>
 );
 
-// const chatMessages = [
-//   {
-//     profile: UserIcon,
-//     name: 'Lara Miller',
-//     text: 'Makes to a illustrated on all and Hey, I heard that you wanted. Makes to a illustrated on all',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Cameron Williamson',
-//     text: 'Hey, I heard that you wanted...',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Jenny Wilson',
-//     text: 'For sure! Let’s hangout on Sund...',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Aaron Zimmer',
-//     text: 'No 😅 I just went to bed right...',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Annette Black',
-//     text: 'Ooooh thank you so much! ❤️',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Jane Cooper',
-//     text: 'But I’m not really sure how it is...',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Anna Newman',
-//     text: 'Best day ever 😂😂',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Dianne Russell',
-//     text: 'No problem! See you then.',
-//   },
-//   {
-//     profile: UserIcon,
-//     name: 'Dianne Russell',
-//     text: 'No problem! See you then.',
-//   },
-// ];
-
 export const CloseIcon = () => (
   <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <g clipPath='url(#clip0_29_174)'>

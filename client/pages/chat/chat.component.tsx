@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import type { chatType } from './chat.types';
 import { InputField } from './../../Components/index';
 import * as Icons from './chat.icons';
+import * as Uicons from '@iconscout/react-unicons';
 import {
+  ButtonContainer,
   ChatArea,
   ChatAreaHeader,
   ChatAreaHeaderIcons,
@@ -21,7 +23,6 @@ import {
   MessageBar,
   ProfileContainer,
   ProfileDescription,
-  SendButtonContainer,
   Sidebar,
   SidebarChat,
   SidebarChatContent,
@@ -37,8 +38,6 @@ import {
   StatusDescription,
   StatusTitle,
 } from './chat.styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '../index.styles';
 
 const generatedUserProfile = (
@@ -81,20 +80,18 @@ const ChatPage: React.FC<chatType> = (props) => {
   } = props;
 
   const [searchValue, setSearchValue] = useState('');
-  const [sendButtonColor, setSendButtonColor] = useState('#664ccf');
-
   return (
     <Container>
       <Sidebar>
         <SidebarTopSection>
-          {/* <Icons.UserIcon /> */}
           <SidebarTopSectionIcons>
-            {/* <Icons.AddMessage /> */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <FontAwesomeIcon icon={faCommentDots} color='#7c5cfc' fontSize={32} />
-              <Title size='medium'>ChatMate</Title>
+              <Uicons.UilCommentDots size={40} color='#7c5cfc' />
+              <Title size='medium' soft>
+                ChatMate
+              </Title>
             </div>
-            <Icons.Menu />
+              <Uicons.UilEllipsisV  size={25} color='#cccccc' />
           </SidebarTopSectionIcons>
         </SidebarTopSection>
         <SidebarSearch>
@@ -106,16 +103,12 @@ const ChatPage: React.FC<chatType> = (props) => {
             value={searchValue}
             setValue={setSearchValue}
             fontSize={15}
-            startIcon={
-              <div style={{ color: '#ffffff88', marginTop: 3 }}>
-                <FontAwesomeIcon icon={faSearch} fontSize={20} />
-              </div>
-            }
+            startIcon={<Uicons.UilSearch />}
           />
         </SidebarSearch>
         <SidebarDevider />
         <SidebarTitleContainer>
-          <SidebarTitle>Messages</SidebarTitle>
+          <SidebarTitle>Direct Messages</SidebarTitle>
         </SidebarTitleContainer>
         <SidebarChat>
           {users?.map((user, idx) => {
@@ -124,8 +117,8 @@ const ChatPage: React.FC<chatType> = (props) => {
                 <SidebarChatUser
                   key={idx}
                   onClick={() => createChatRoom(user.username)}
-                  css={{ background: recieverName === user.username ? '#141416' : 'none' }}>
-                  {generatedUserProfile(user.username.slice(0, 1))}
+                  css={{ background: recieverName === user.username ? '#664ccf22' : 'none' }}>
+                  {generatedUserProfile(user.username.slice(0, 1), 40, 40)}
                   <SidebarChatContent>
                     <SidebarChatContentTitle>{user.username}</SidebarChatContentTitle>
                     {/* {messages && (
@@ -165,7 +158,12 @@ const ChatPage: React.FC<chatType> = (props) => {
           </ChatAreaSection>
         ))}
         <MessageBar>
-          <Icons.FaceIcon />
+          <ButtonContainer>
+            <Uicons.UilGrin size='24' />
+          </ButtonContainer>
+          <ButtonContainer>
+            <Uicons.UilMicrophone size='24' />
+          </ButtonContainer>
           <InputField
             type='text'
             placeholder='Type a message'
@@ -176,27 +174,14 @@ const ChatPage: React.FC<chatType> = (props) => {
             setValue={setTextInputVal}
             reduxValue={false}
             event={sendMessageAction}
-            startIcon={
-              <div style={{ color: '#ffffff66', marginTop: 3 }}>
-                <FontAwesomeIcon icon={faCommentDots} fontSize={22} />
-              </div>
-            }
+            startIcon={<Uicons.UilKeyboard color="#999999" size="30" />}
           />
-          <SendButtonContainer
-            css={{ color: sendButtonColor, marginTop: 5 }}
-            onMouseEnter={() => setSendButtonColor('#bbb')}
-            onMouseLeave={() => setSendButtonColor('#664ccf')}
-            onClick={sendMessageAction}>
-            <Icons.SendIcon />
-          </SendButtonContainer>
-          <Icons.MicIcon />
+          <ButtonContainer onClick={sendMessageAction}>
+            <Uicons.UilMessage size='24' />
+          </ButtonContainer>
         </MessageBar>
       </ChatArea>
       <ChatDetails>
-        {/* <ChatAreaHeader>
-          <Icons.CloseIcon />
-          <ChatDetailsHeaderTitle>Contact info</ChatDetailsHeaderTitle>
-        </ChatAreaHeader> */}
         <ProfileContainer>
           {generatedUserProfile(recieverName, 180, 180, 24)}
           <ProfileDescription>
@@ -221,7 +206,6 @@ const ChatPage: React.FC<chatType> = (props) => {
               <Icons.SettingsIcon />
               <Info>Settings</Info>
             </div>
-            <Icons.RightIcon />
           </FunctionSectionButton>
         </FunctionSection>
       </ChatDetails>

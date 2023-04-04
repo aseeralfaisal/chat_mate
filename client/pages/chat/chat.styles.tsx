@@ -35,7 +35,6 @@ export const SidebarTopSectionIcons = styled('div', {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '12px 16px',
   gap: 10,
   width: '100%',
   height: 64,
@@ -93,10 +92,16 @@ export const SidebarChatUser = styled('div', {
   alignItems: 'center',
   padding: '12px 24px',
   gap: 12,
-  width: '100%',
-  height: 72,
+  width: '90%',
+  margin: '3px 8px',
+  borderRadius: 14,
+  height: 66,
   background: colors.dark300,
   cursor: 'context-menu',
+  transition: 'ease-out 0.15s all',
+  '&:hover': {
+    background: colors.purple500,
+  },
 });
 
 export const SidebarChatContent = styled('div', {
@@ -244,7 +249,14 @@ export const MessageBar = styled('div', {
   background: colors.dark100,
   borderTop: `1px solid ${colors.purple400}`,
 });
-export const SendButtonContainer = styled('div');
+export const ButtonContainer = styled('div', {
+  color: colors.light,
+  marginTop: 5,
+  transition: 'ease-out 0.2s all',
+  '&:hover': {
+    color: colors.purplelight,
+  },
+});
 
 const ChatDetailAnim = keyframes({
   '0%': {

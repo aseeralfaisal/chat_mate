@@ -3,11 +3,14 @@ import { createStitches } from '@stitches/react';
 const themes = createStitches({
   theme: {
     colors: {
+      purplelight: '#9e7efe',
       purple: '#7c5cfc',
       purple100: '#664ccf',
       purple200: '#513aad',
       purple300: '#664ccf66',
       purple400: '#664ccf33',
+      purple500: '#664ccf22',
+      purple600: '#664ccf11',
       light: '#cccccc',
       light100: '#ffffff',
       dark: '#292d32',
