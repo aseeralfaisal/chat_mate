@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from './styles/MainButton.styles';
-import { MainButtonProps } from './types/MainButton.types';
+import { Button } from './mainbutton.styles';
+import { MainButtonProps } from './MainButton.types';
 
 const MainButton: React.FC<MainButtonProps> = ({
   title,

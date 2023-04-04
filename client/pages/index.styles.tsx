@@ -1,5 +1,5 @@
 import { styled } from '@stitches/react';
-import themes from './stitches.config';
+import themes from '../styles/stitches.config';
 
 const { colors } = themes.theme;
 

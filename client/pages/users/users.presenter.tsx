@@ -1,9 +1,9 @@
 import React from 'react';
-import InputField from '../../Components/InputField';
+import InputField from '../../Components/InputField/inputfield.component';
 import styles from '../../styles/UserList.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as icons from '@fortawesome/free-solid-svg-icons';
-import MainButton from '../../Components/MainButton';
+import MainButton from '../../Components/MainButton/mainbutton.component';
 import type { usersType } from './users.types';
 
 const Chats = ({ messages, username }: { messages: any[]; username: string }) => (
