@@ -38,7 +38,7 @@ import {
   StatusTitle,
 } from './chat.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '../index.styles';
 
 const generatedUserProfile = (
@@ -92,7 +92,7 @@ const ChatPage: React.FC<chatType> = (props) => {
             {/* <Icons.AddMessage /> */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <FontAwesomeIcon icon={faCommentDots} color='#7c5cfc' fontSize={32} />
-              <Title size='medium'>ChatWave</Title>
+              <Title size='medium'>ChatMate</Title>
             </div>
             <Icons.Menu />
           </SidebarTopSectionIcons>
@@ -106,7 +106,11 @@ const ChatPage: React.FC<chatType> = (props) => {
             value={searchValue}
             setValue={setSearchValue}
             fontSize={15}
-            endIcon={<Icons.SearchIcon />}
+            startIcon={
+              <div style={{ color: '#ffffff88', marginTop: 3 }}>
+                <FontAwesomeIcon icon={faSearch} fontSize={20} />
+              </div>
+            }
           />
         </SidebarSearch>
         <SidebarDevider />
@@ -172,6 +176,11 @@ const ChatPage: React.FC<chatType> = (props) => {
             setValue={setTextInputVal}
             reduxValue={false}
             event={sendMessageAction}
+            startIcon={
+              <div style={{ color: '#ffffff66', marginTop: 3 }}>
+                <FontAwesomeIcon icon={faCommentDots} fontSize={22} />
+              </div>
+            }
           />
           <SendButtonContainer
             css={{ color: sendButtonColor, marginTop: 5 }}

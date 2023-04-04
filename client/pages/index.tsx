@@ -46,7 +46,7 @@ export default function Home() {
         <FormChild>
           <div style={{ margin: 60 }}>
             <FontAwesomeIcon icon={faCommentDots} color='#7c5cfc' fontSize={100} />
-            <Title>ChatWave</Title>
+            <Title>ChatMate</Title>
           </div>
           <div>
             <InputField
@@ -55,22 +55,22 @@ export default function Home() {
               placeholder='Username'
               value={username}
               setValue={setUserName}
-              width={300}
-              height={40}
+              width={280}
+              height={36}
             />
             <InputField
               type='password'
               placeholder='Password'
               value={password}
               setValue={setPassword}
-              width={300}
-              height={40}
+              width={280}
+              height={36}
               event={registerMode ? registerAction : loginAction}
             />
             {registerMode ? (
-              <MainButton title='Register' height={40} action={registerAction} />
+              <MainButton title='Register' height={36} width={280} action={registerAction} />
             ) : (
-              <MainButton title='Log in' height={40} action={loginAction} />
+              <MainButton title='Log in' height={36} width={280} action={loginAction} />
             )}
             {!registerMode ? (
               <DescriptionTitle text='Not Registered?' action='Register' />

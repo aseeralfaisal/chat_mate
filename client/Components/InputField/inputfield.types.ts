@@ -8,5 +8,6 @@ export type InputFieldProps = {
     height?: number | string;
     fontSize?: number;
     endIcon?: JSX.Element;
+    startIcon?: JSX.Element;
     event?: () => void;
   };

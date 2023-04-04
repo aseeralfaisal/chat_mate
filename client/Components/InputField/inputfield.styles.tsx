@@ -14,7 +14,7 @@ export const Input = styled('div', {
   padding: '0 10px',
   display: 'flex',
   alignItems: 'center',
-  borderRadius: 16,
+  borderRadius: 14,
   margin: '14px 0',
   transition: 'ease-in-out 0.3s all',
   '& input': {
@@ -22,9 +22,10 @@ export const Input = styled('div', {
     background: 'none',
     border: 'none',
     outline: 'none',
+    paddingInline: 10
   },
   '&:hover, &:focus': {
-    outline: `${colors.purple100} 1px solid`,
+    border: `${colors.purple100} 1px solid`,
   },
   '&::placeholder': {
     color: colors.light,

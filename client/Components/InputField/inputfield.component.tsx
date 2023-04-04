@@ -15,12 +15,14 @@ const InputField: React.FC<InputFieldProps> = (props) => {
     fontSize,
     endIcon,
     event,
+    startIcon
   } = props;
 
   const dispatch = useAppDispatch();
 
   return (
     <Input css={{ width, height }}>
+      {startIcon && startIcon}
       <input
         style={{ width, height, fontSize }}
         type={type}
@@ -31,8 +33,8 @@ const InputField: React.FC<InputFieldProps> = (props) => {
           const { value } = target;
           reduxValue ? dispatch(setValue(value)) : setValue(value);
         }}
-      />
-      {endIcon && endIcon}
+        />
+        {endIcon && endIcon}
     </Input>
   );
 };
