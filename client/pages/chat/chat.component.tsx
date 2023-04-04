@@ -121,7 +121,7 @@ const ChatPage: React.FC<chatType> = (props) => {
                 <SidebarChatUser
                   key={idx}
                   onClick={() => createChatRoom(user.username)}
-                  css={{ background: recieverName === user.username ? '#664ccf22' : 'none' }}>
+                  isReciever={recieverName === user.username}>
                   {generatedUserProfile(user.username.slice(0, 1), 40, 40)}
                   <SidebarChatContent>
                     <SidebarChatContentTitle>{user.username}</SidebarChatContentTitle>

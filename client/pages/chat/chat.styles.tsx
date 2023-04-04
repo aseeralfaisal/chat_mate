@@ -96,11 +96,18 @@ export const SidebarChatUser = styled('div', {
   margin: '3px 8px',
   borderRadius: 14,
   height: 66,
-  background: colors.dark300,
   cursor: 'context-menu',
   transition: 'ease-out 0.15s all',
   '&:hover': {
     background: colors.purple500,
+  },
+  variants: {
+    isReciever: {
+      true: {
+        border: '#664ccf33 1px solid',
+        background: '#664dde11',
+      },
+    },
   },
 });
 
