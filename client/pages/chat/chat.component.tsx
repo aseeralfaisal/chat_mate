@@ -26,8 +26,9 @@ import {
   Sidebar,
   SidebarChat,
   SidebarChatContent,
+  SidebarChatContentText,
   SidebarChatContentTitle,
-  SidebarChatUser,
+  SidebarChatContainer,
   SidebarDevider,
   SidebarSearch,
   SidebarTitle,
@@ -129,18 +130,16 @@ const ChatPage: React.FC<chatType> = (props) => {
           {users?.map((user, idx) => {
             if (user.username !== username) {
               return (
-                <SidebarChatUser
+                <SidebarChatContainer
                   key={idx}
                   onClick={() => createChatRoom(user.username)}
                   isReciever={recieverName === user.username}>
                   {generatedUserProfile(user.username.slice(0, 1), 40, 40)}
                   <SidebarChatContent>
                     <SidebarChatContentTitle>{user.username}</SidebarChatContentTitle>
-                    {/* {messages && (
-                      <SidebarChatContentText>{messages[messages.length - 1]?.text}</SidebarChatContentText>
-                    )} */}
+                    {/* <SidebarChatContentTitle soft>{messages[messages.length - 1]?.text.slice(0,1)}</SidebarChatContentTitle> */}
                   </SidebarChatContent>
-                </SidebarChatUser>
+                </SidebarChatContainer>
               );
             }
           })}

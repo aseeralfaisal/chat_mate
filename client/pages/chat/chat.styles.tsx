@@ -86,7 +86,7 @@ export const SidebarChat = styled('div', {
   },
 });
 
-export const SidebarChatUser = styled('div', {
+export const SidebarChatContainer = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -116,7 +116,7 @@ export const SidebarChatUser = styled('div', {
 export const SidebarChatContent = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
+  alignItems: 'flex-start',
 });
 
 export const SidebarChatContentTitle = styled('h3', {
@@ -126,17 +126,20 @@ export const SidebarChatContentTitle = styled('h3', {
   lineHeight: '24px',
   textTransform: 'capitalize',
   color: colors.light100,
-});
+  variants: {
+    soft: {
+      true:{
+        fontWeight: 400,
+        fontSize: 14,
+        lineHeight: '20px',
+        color: 'rgba(255, 255, 255, 0.6)',
+        overflowX: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
 
-export const SidebarChatContentText = styled('div', {
-  fontWeight: 400,
-  fontSize: 14,
-  lineHeight: '20px',
-  color: 'rgba(255, 255, 255, 0.6)',
-  width: '216px',
-  overflowX: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
+      }
+    }
+  }
 });
 
 export const ChatArea = styled('div', {
@@ -144,8 +147,8 @@ export const ChatArea = styled('div', {
   flexDirection: 'column',
   alignItems: 'flex-start',
   marginInline: 300,
-  marginTop: '60px',
-  marginBottom: '60px',
+  marginTop: 80,
+  marginBottom: 80,
   width: '100%',
   overflow: 'hidden',
 });
@@ -185,6 +188,7 @@ export const ChatAreaSection = styled('div', {
   flexDirection: 'column',
   alignItems: 'flex-start',
   padding: '12px 16px',
+  gap: '16px',
   background: colors.dark300,
   width: '100%',
 });
