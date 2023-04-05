@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { chatType } from './chat.types';
 import { InputField } from './../../Components/index';
 import * as Icons from './chat.icons';
@@ -84,6 +84,17 @@ const ChatPage: React.FC<chatType> = (props) => {
     const regex = /^[\p{Emoji}\u200D\uFE0F]+$/u;
     return regex.test(character);
   };
+  const emojiRegex = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
+  const fun = (str: string) => {
+    const emojiText = str.split(emojiRegex);
+    emojiText.map((t: string) => {
+      console.log(t.match(emojiRegex));
+    });
+  };
+  const messagesAreaRef = useRef();
+  useEffect(() => {
+    messagesAreaRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
   return (
     <Container>
       <Sidebar>
@@ -147,11 +158,12 @@ const ChatPage: React.FC<chatType> = (props) => {
           </ChatAreaHeaderIcons>
         </ChatAreaHeader>
         {messages?.map((msg: any, index: number) => (
-          <ChatAreaSection key={index}>
+          <ChatAreaSection key={index} ref={messagesAreaRef}>
             <ChatAreaSectionRightchat>
               {msg.username !== username ? (
                 <ChatAreaSectionRightchatChatbubble isEmoji={isOnlyEmoji(msg.text)}>
                   <ChatAreaSectionRightchatTexts isEmoji={isOnlyEmoji(msg.text)}>
+                    {console.log(fun(msg.text))}
                     {msg?.text}
                   </ChatAreaSectionRightchatTexts>
                 </ChatAreaSectionRightchatChatbubble>

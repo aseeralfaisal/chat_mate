@@ -76,7 +76,7 @@ export const SidebarTitle = styled('h5', {
 export const SidebarChat = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   width: '100%',
   height: '620px',
   overflowY: 'scroll',
@@ -98,14 +98,16 @@ export const SidebarChatUser = styled('div', {
   height: 66,
   cursor: 'context-menu',
   transition: 'ease-out 0.15s all',
+  border: `#ffffff00 1px solid`,
   '&:hover': {
     background: colors.purple500,
+    border: `${colors.purple400} 1px solid`,
   },
   variants: {
     isReciever: {
       true: {
-        border: '#664ccf33 1px solid',
-        background: '#664dde11',
+        border: `${colors.purple400} 1px solid`,
+        background: colors.purple600,
       },
     },
   },
@@ -114,7 +116,7 @@ export const SidebarChatUser = styled('div', {
 export const SidebarChatContent = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
+  alignItems: 'center',
 });
 
 export const SidebarChatContentTitle = styled('h3', {
@@ -182,8 +184,7 @@ export const ChatAreaSection = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  padding: '24px',
-  gap: '16px',
+  padding: '12px 16px',
   background: colors.dark300,
   width: '100%',
 });
@@ -223,6 +224,7 @@ export const ChatAreaSectionRightchatChatbubble = styled('div', {
     isEmoji: {
       true: {
         background: 'none',
+        padding: 0
       },
     },
   },
@@ -243,6 +245,7 @@ export const ChatAreaSectionLeftchatChatbubble = styled('div', {
     isEmoji: {
       true: {
         background: 'none',
+        padding: 0
       },
     },
   },
@@ -258,6 +261,7 @@ export const ChatAreaSectionRightchatTexts = styled('p', {
       true: {
         fontSize: 50,
         background: 'none',
+        lineHeight: '70px'
       },
     },
   },
@@ -273,6 +277,7 @@ export const ChatAreaSectionLeftchatTexts = styled('p', {
       true: {
         fontSize: 50,
         background: 'none',
+        lineHeight: '70px'
       },
     },
   },
