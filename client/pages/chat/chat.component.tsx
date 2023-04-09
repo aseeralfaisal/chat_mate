@@ -96,6 +96,31 @@ const ChatPage: React.FC<chatType> = (props) => {
   useEffect(() => {
     messagesAreaRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  const recordAudio = () => {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.start();
+
+      const audioChunks = [];
+      mediaRecorder.addEventListener('dataavailable', (event) => {
+        audioChunks.push(event.data);
+      });
+
+      mediaRecorder.addEventListener('stop', () => {
+        const audioBlob = new Blob(audioChunks);
+        console.log('Audio Blob', audioBlob);
+        const audioUrl = URL.createObjectURL(audioBlob);
+        console.log('Audio Url', audioUrl);
+        const audio = new Audio(audioUrl);
+        audio.play();
+      });
+
+      setTimeout(() => {
+        mediaRecorder.stop();
+      }, 4000);
+    });
+  };
   return (
     <Container>
       <Sidebar>
@@ -180,7 +205,7 @@ const ChatPage: React.FC<chatType> = (props) => {
           <ButtonContainer>
             <Uicons.UilGrin size='24' />
           </ButtonContainer>
-          <ButtonContainer>
+          <ButtonContainer onClick={recordAudio}>
             <Uicons.UilMicrophone size='24' />
           </ButtonContainer>
           <InputField
