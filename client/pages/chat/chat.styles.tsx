@@ -1,7 +1,5 @@
 import { keyframes, styled } from '@stitches/react';
-import themes from '../../styles/stitches.config';
-
-const { colors } = themes.theme;
+import colors from '../../styles/colors';
 
 export const Container = styled('div', {
   display: 'flex',
@@ -16,7 +14,7 @@ export const Sidebar = styled('div', {
   alignItems: 'flex-start',
   width: 300,
   height: '100vh',
-  borderRight: `1px ${colors.gray} solid`,
+  borderRight: `1px ${colors.gray100} solid`,
   background: colors.dark100,
 });
 
@@ -30,7 +28,7 @@ export const SidebarTopSection = styled('div', {
   width: '100%',
   height: 64,
 });
-export const SidebarTopSectionIcons = styled('div', {
+export const SidebarTopIcons = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -50,9 +48,9 @@ export const SidebarSearch = styled('div', {
   height: '76px',
 });
 
-export const SidebarDevider = styled('div', {
+export const SidebarDivider = styled('div', {
   width: '100%',
-  borderBottom: `1px solid ${colors.gray}`,
+  borderBottom: `1px solid ${colors.gray100}`,
 });
 
 export const SidebarTitleContainer = styled('div', {
@@ -73,7 +71,7 @@ export const SidebarTitle = styled('h5', {
   color: colors.light100,
 });
 
-export const SidebarChat = styled('div', {
+export const ChatSidebar = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -86,7 +84,7 @@ export const SidebarChat = styled('div', {
   },
 });
 
-export const SidebarChatContainer = styled('div', {
+export const ChatSidebarContainer = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -113,13 +111,13 @@ export const SidebarChatContainer = styled('div', {
   },
 });
 
-export const SidebarChatContent = styled('div', {
+export const ChatSidebarContent = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
 });
 
-export const SidebarChatContentTitle = styled('h3', {
+export const ChatSidebarTitle = styled('h3', {
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: 14,
@@ -153,7 +151,7 @@ export const ChatArea = styled('div', {
   overflow: 'hidden',
 });
 
-export const ChatAreaHeader = styled('div', {
+export const ChatHeader = styled('div', {
   position: 'fixed',
   top: '0',
   zIndex: '2',
@@ -164,11 +162,11 @@ export const ChatAreaHeader = styled('div', {
   padding: '12px 24px',
   gap: '10px',
   background: colors.dark100,
-  borderBottom: `1px solid ${colors.gray}`,
+  borderBottom: `1px solid ${colors.gray100}`,
   width: '100%',
 });
 
-export const ChatAreaHeaderUser = styled('div', {
+export const ChatHeaderUser = styled('div', {
   fontWeight: '600',
   textTransform: 'capitalize',
   fontSize: 14,
@@ -176,14 +174,14 @@ export const ChatAreaHeaderUser = styled('div', {
   color: colors.light100,
 });
 
-export const ChatAreaHeaderIcons = styled('div', {
+export const ChatHeaderIcons = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-start',
   gap: '16px',
 });
 
-export const ChatAreaSection = styled('div', {
+export const ChatSection = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
@@ -193,7 +191,7 @@ export const ChatAreaSection = styled('div', {
   width: '100%',
 });
 
-export const ChatAreaSectionRightchat = styled('div', {
+export const ChatRight = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -213,13 +211,13 @@ const ChatBubbleAnim = keyframes({
   },
 });
 
-export const ChatAreaSectionRightchatChatbubble = styled('div', {
+export const ChatRightBubble = styled('div', {
   display: 'flex',
   padding: 10,
   height: 'max-content',
   alignItems: 'center',
   gap: '10px',
-  background: colors.gray100,
+  background: colors.gray200,
   borderRadius: '0px 16px 16px 16px',
   maxWidth: '532px',
   alignSelf: 'start',
@@ -234,7 +232,7 @@ export const ChatAreaSectionRightchatChatbubble = styled('div', {
   },
 });
 
-export const ChatAreaSectionLeftchatChatbubble = styled('div', {
+export const ChatLeftBubble = styled('div', {
   display: 'flex',
   padding: 10,
   height: 'max-content',
@@ -255,7 +253,7 @@ export const ChatAreaSectionLeftchatChatbubble = styled('div', {
   },
 });
 
-export const ChatAreaSectionRightchatTexts = styled('p', {
+export const ChatRightTexts = styled('p', {
   fontWeight: '400',
   fontSize: 16,
   lineHeight: '20px',
@@ -271,7 +269,7 @@ export const ChatAreaSectionRightchatTexts = styled('p', {
   },
 });
 
-export const ChatAreaSectionLeftchatTexts = styled('p', {
+export const ChatLeftTexts = styled('p', {
   fontWeight: '400',
   fontSize: 16,
   lineHeight: '20px',
@@ -327,7 +325,7 @@ export const ChatDetails = styled('div', {
   flexDirection: 'column',
   alignItems: 'flex-start',
   width: 300,
-  borderLeft: `1px solid ${colors.gray}`,
+  borderLeft: `1px solid ${colors.gray100}`,
   zIndex: 2,
   height: '100vh',
   background: colors.dark100,
@@ -341,7 +339,7 @@ export const ChatDetailsHeader = styled('div', {
   alignItems: 'flex-start',
   padding: 24,
   gap: 8,
-  borderBottom: `1px solid ${colors.gray}`,
+  borderBottom: `1px solid ${colors.gray100}`,
   width: '100%',
 });
 
@@ -373,8 +371,8 @@ export const Status = styled('div', {
   alignItems: 'flex-start',
   padding: '14px 34px',
   gap: '8px',
-  borderTop: `1px solid ${colors.gray}`,
-  borderBottom: `1px solid ${colors.gray}`,
+  borderTop: `1px solid ${colors.gray100}`,
+  borderBottom: `1px solid ${colors.gray100}`,
   width: '100%',
 });
 
@@ -409,7 +407,7 @@ export const FunctionSectionButton = styled('div', {
   gap: '8px',
   width: '232px',
   height: '36px',
-  background: colors.gray100,
+  background: colors.gray200,
   borderRadius: '4px',
 });
 

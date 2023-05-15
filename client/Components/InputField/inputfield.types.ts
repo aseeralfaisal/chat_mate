@@ -1,7 +1,9 @@
+import React from "react";
+
 export type InputFieldProps = {
     placeholder: string;
     setValue: (value: string) => void;
-    type: string;
+    type: 'text' | 'password' | 'email';
     value: string;
     reduxValue?: boolean;
     width?: number | string;
@@ -9,5 +11,5 @@ export type InputFieldProps = {
     fontSize?: number;
     endIcon?: JSX.Element;
     startIcon?: JSX.Element;
-    event?: () => void;
+    event?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   };

@@ -27,6 +27,7 @@ const ChatContainer: React.FC = () => {
   useEffect(() => {
     (async () => {
       const usersList = await fetchApi('users', 'GET');
+      console.log(usersList?.value);
       setUsersList(usersList?.value);
     })();
   }, []);
@@ -53,7 +54,7 @@ const ChatContainer: React.FC = () => {
     if (chatRoom === '' || chatRoom === null || chatRoom === undefined) {
       return alert('Chatroom Error');
     }
-    const message = { username: userName, text: messageValue };
+    const message = { username: userName, receiver: recieverName, text: messageValue };
     if (messageValue === '') return;
     socket.emit('send-message', message);
     setMessageValue('');

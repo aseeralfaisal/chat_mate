@@ -63,7 +63,9 @@ export class AppService {
     }
   }
   async getUsers() {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      include: { lastMessage: true },
+    });
     const userlist = users.filter((user) => delete user['password']);
     return userlist;
   }

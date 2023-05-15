@@ -31,7 +31,7 @@ export class AppController {
     return this.appService.register(data);
   }
   @Get('/users')
-  getUsers(){
+  getUsers() {
     return this.appService.getUsers();
   }
 }

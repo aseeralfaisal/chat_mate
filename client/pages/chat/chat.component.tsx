@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import type { chatType } from './chat.types';
-import { InputField } from './../../Components/index';
+import type { ChatType } from './chat.types';
+import { Avatar, EmojiPanel, InputField } from './../../Components/index';
 import * as Icons from './chat.icons';
 import * as Uicons from '@iconscout/react-unicons';
 import {
   ButtonContainer,
   ChatArea,
-  ChatAreaHeader,
-  ChatAreaHeaderIcons,
-  ChatAreaHeaderUser,
-  ChatAreaSection,
-  ChatAreaSectionLeftchatChatbubble,
-  ChatAreaSectionLeftchatTexts,
-  ChatAreaSectionRightchat,
-  ChatAreaSectionRightchatChatbubble,
-  ChatAreaSectionRightchatTexts,
+  ChatHeader,
+  ChatHeaderIcons,
+  ChatHeaderUser,
+  ChatSection,
+  ChatLeftBubble,
+  ChatLeftTexts,
+  ChatRight,
+  ChatRightBubble,
+  ChatRightTexts,
   ChatDetails,
   Container,
   FunctionSection,
@@ -24,51 +24,24 @@ import {
   ProfileContainer,
   ProfileDescription,
   Sidebar,
-  SidebarChat,
-  SidebarChatContent,
-  SidebarChatContentText,
-  SidebarChatContentTitle,
-  SidebarChatContainer,
-  SidebarDevider,
+  ChatSidebar,
+  ChatSidebarContent,
+  ChatSidebarTitle,
+  ChatSidebarContainer,
+  SidebarDivider,
   SidebarSearch,
   SidebarTitle,
   SidebarTitleContainer,
   SidebarTopSection,
-  SidebarTopSectionIcons,
+  SidebarTopIcons,
   Status,
   StatusDescription,
   StatusTitle,
 } from './chat.styles';
 import { Title } from '../index.styles';
+import colors from '../../styles/colors';
 
-const generatedUserProfile = (
-  username: string,
-  width: number = 50,
-  height: number = 50,
-  fontSize: number = 14
-) => {
-  const colors = ['#7c5cfc', '#664ccf', '#513aad', '#664ccf66', '#664ccf33'];
-  return (
-    <div
-      style={{
-        width,
-        height,
-        objectFit: 'cover',
-        background: colors[2],
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '100%',
-        textTransform: 'capitalize',
-        color: '#ffffff',
-        fontSize,
-      }}>
-      {username}
-    </div>
-  );
-};
-
-const ChatPage: React.FC<chatType> = (props) => {
+const ChatPage: React.FC<ChatType> = (props) => {
   const {
     users,
     username,
@@ -80,11 +53,14 @@ const ChatPage: React.FC<chatType> = (props) => {
     recieverName,
   } = props;
 
+  const messagesAreaRef: React.RefObject<HTMLDivElement> = useRef(null);
   const [searchValue, setSearchValue] = useState('');
+
   const isOnlyEmoji = (character: string) => {
     const regex = /^[\p{Emoji}\u200D\uFE0F]+$/u;
     return regex.test(character);
   };
+
   const emojiRegex = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
   const fun = (str: string) => {
     const emojiText = str.split(emojiRegex);
@@ -92,7 +68,7 @@ const ChatPage: React.FC<chatType> = (props) => {
       console.log(t.match(emojiRegex));
     });
   };
-  const messagesAreaRef = useRef();
+
   useEffect(() => {
     messagesAreaRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -102,16 +78,16 @@ const ChatPage: React.FC<chatType> = (props) => {
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorder.start();
 
-      const audioChunks = [];
-      mediaRecorder.addEventListener('dataavailable', (event) => {
-        audioChunks.push(event.data);
+      const audioChunks: string[] = [];
+      mediaRecorder.addEventListener('dataavailable', (event: { data: unknown }) => {
+        return audioChunks.push(event.data as string);
       });
 
       mediaRecorder.addEventListener('stop', () => {
         const audioBlob = new Blob(audioChunks);
-        console.log('Audio Blob', audioBlob);
+        // console.log('Audio Blob', audioBlob);
         const audioUrl = URL.createObjectURL(audioBlob);
-        console.log('Audio Url', audioUrl);
+        // console.log('Audio Url', audioUrl);
         const audio = new Audio(audioUrl);
         audio.play();
       });
@@ -121,19 +97,20 @@ const ChatPage: React.FC<chatType> = (props) => {
       }, 4000);
     });
   };
+
   return (
     <Container>
       <Sidebar>
         <SidebarTopSection>
-          <SidebarTopSectionIcons>
+          <SidebarTopIcons>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <Uicons.UilCommentDots size={40} color='#7c5cfc' />
+              <Uicons.UilCommentDots size={40} color={colors.purple} />
               <Title size='medium' soft>
                 ChatMate
               </Title>
             </div>
             <Uicons.UilEllipsisV size={25} color='#cccccc' />
-          </SidebarTopSectionIcons>
+          </SidebarTopIcons>
         </SidebarTopSection>
         <SidebarSearch>
           <InputField
@@ -144,62 +121,59 @@ const ChatPage: React.FC<chatType> = (props) => {
             value={searchValue}
             setValue={setSearchValue}
             fontSize={15}
-            startIcon={<Uicons.UilSearch />}
+            startIcon={<Uicons.UilSearch color={colors.gray} />}
           />
         </SidebarSearch>
-        <SidebarDevider />
+        <SidebarDivider />
         <SidebarTitleContainer>
           <SidebarTitle>Direct Messages</SidebarTitle>
         </SidebarTitleContainer>
-        <SidebarChat>
+        <ChatSidebar>
           {users?.map((user, idx) => {
-            if (user.username !== username) {
-              return (
-                <SidebarChatContainer
-                  key={idx}
-                  onClick={() => createChatRoom(user.username)}
-                  isReciever={recieverName === user.username}>
-                  {generatedUserProfile(user.username.slice(0, 1), 40, 40)}
-                  <SidebarChatContent>
-                    <SidebarChatContentTitle>{user.username}</SidebarChatContentTitle>
-                    {/* <SidebarChatContentTitle soft>{messages[messages.length - 1]?.text.slice(0,1)}</SidebarChatContentTitle> */}
-                  </SidebarChatContent>
-                </SidebarChatContainer>
-              );
-            }
+            if (user.username === username) return null;
+            return (
+              <ChatSidebarContainer
+                key={idx}
+                onClick={() => createChatRoom(user.username)}
+                isReciever={recieverName === user.username}>
+                <Avatar username={user.username} width={40} />
+                <ChatSidebarContent>
+                  <ChatSidebarTitle>{user.username}</ChatSidebarTitle>
+                </ChatSidebarContent>
+              </ChatSidebarContainer>
+            );
           })}
-        </SidebarChat>
+        </ChatSidebar>
       </Sidebar>
       <ChatArea>
-        <ChatAreaHeader>
+        <EmojiPanel />
+        <ChatHeader>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {generatedUserProfile(recieverName.slice(0, 1))}
-            <ChatAreaHeaderUser>{recieverName}</ChatAreaHeaderUser>
+            <Avatar username={recieverName} />
+            <ChatHeaderUser>{recieverName}</ChatHeaderUser>
           </div>
-          <ChatAreaHeaderIcons>
+          <ChatHeaderIcons>
             <Icons.SearchIcon />
             <Icons.Menu />
-          </ChatAreaHeaderIcons>
-        </ChatAreaHeader>
+          </ChatHeaderIcons>
+        </ChatHeader>
         {messages?.map((msg: any, index: number) => (
-          <ChatAreaSection key={index} ref={messagesAreaRef}>
-            <ChatAreaSectionRightchat>
+          <ChatSection key={index} ref={messagesAreaRef}>
+            <ChatRight>
               {msg.username !== username ? (
-                <ChatAreaSectionRightchatChatbubble isEmoji={isOnlyEmoji(msg.text)}>
-                  <ChatAreaSectionRightchatTexts isEmoji={isOnlyEmoji(msg.text)}>
+                <ChatRightBubble isEmoji={isOnlyEmoji(msg.text)}>
+                  <ChatRightTexts isEmoji={isOnlyEmoji(msg.text)}>
                     {console.log(fun(msg.text))}
                     {msg?.text}
-                  </ChatAreaSectionRightchatTexts>
-                </ChatAreaSectionRightchatChatbubble>
+                  </ChatRightTexts>
+                </ChatRightBubble>
               ) : (
-                <ChatAreaSectionLeftchatChatbubble isEmoji={isOnlyEmoji(msg.text)}>
-                  <ChatAreaSectionLeftchatTexts isEmoji={isOnlyEmoji(msg.text)}>
-                    {msg?.text}
-                  </ChatAreaSectionLeftchatTexts>
-                </ChatAreaSectionLeftchatChatbubble>
+                <ChatLeftBubble isEmoji={isOnlyEmoji(msg.text)}>
+                  <ChatLeftTexts isEmoji={isOnlyEmoji(msg.text)}>{msg?.text}</ChatLeftTexts>
+                </ChatLeftBubble>
               )}
-            </ChatAreaSectionRightchat>
-          </ChatAreaSection>
+            </ChatRight>
+          </ChatSection>
         ))}
         <MessageBar>
           <ButtonContainer>
@@ -218,7 +192,7 @@ const ChatPage: React.FC<chatType> = (props) => {
             setValue={setMessageValue}
             reduxValue={false}
             event={sendMessageAction}
-            startIcon={<Uicons.UilKeyboard color='#999999' size='30' />}
+            startIcon={<Uicons.UilKeyboard color={colors.gray} size='30' />}
           />
           <ButtonContainer onClick={sendMessageAction}>
             <Uicons.UilMessage size='24' />
@@ -227,7 +201,7 @@ const ChatPage: React.FC<chatType> = (props) => {
       </ChatArea>
       <ChatDetails>
         <ProfileContainer>
-          {generatedUserProfile(recieverName, 180, 180, 24)}
+          <Avatar username={recieverName} width={120} fontSize={30} />
           <ProfileDescription>
             <StatusTitle>{recieverName}</StatusTitle>
             <StatusTitle>....</StatusTitle>

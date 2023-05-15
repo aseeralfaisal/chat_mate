@@ -10,10 +10,11 @@ const MainButton: React.FC<MainButtonProps> = ({
   margin,
   height,
   fontSize,
+  type = 'button',
 }) => {
   return (
     <div onClick={action}>
-      <Button css={{ marginTop, width, margin, height, fontSize }}>
+      <Button type={type} css={{ marginTop, width, margin, height, fontSize }}>
         {title}
       </Button>
     </div>

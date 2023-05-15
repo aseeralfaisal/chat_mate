@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../store';
 
 interface types {
   username: string;
   recieverName: string;
-  users: any;
+  users: string[];
 }
 
 const initialState: types = {

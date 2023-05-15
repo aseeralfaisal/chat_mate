@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../../redux/hooks';
-import { Input } from './inputfield.styles';
+import { IconContent, Input } from './inputfield.styles';
 import { InputFieldProps } from './inputfield.types';
 
 const InputField: React.FC<InputFieldProps> = (props) => {
@@ -15,15 +15,15 @@ const InputField: React.FC<InputFieldProps> = (props) => {
     fontSize,
     endIcon,
     event,
-    startIcon
+    startIcon,
   } = props;
 
   const dispatch = useAppDispatch();
 
   return (
-    <Input css={{ width, height }}>
-      {startIcon && startIcon}
-      <input
+    <div>
+      <IconContent>{startIcon}</IconContent>
+      <Input
         style={{ width, height, fontSize }}
         type={type}
         value={value}
@@ -33,9 +33,9 @@ const InputField: React.FC<InputFieldProps> = (props) => {
           const { value } = target;
           reduxValue ? dispatch(setValue(value)) : setValue(value);
         }}
-        />
-        {endIcon && endIcon}
-    </Input>
+      />
+      <IconContent>{endIcon}</IconContent>
+    </div>
   );
 };
 

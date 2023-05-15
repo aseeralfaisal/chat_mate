@@ -24,35 +24,59 @@ export class EventsGateway {
     @ConnectedSocket() socket: Socket,
   ) {
     const { chatRoom } = message;
-    console.log(message);
-    const chatRoomVal = chatRoom;
-    socket.join(chatRoomVal);
+    // console.log(message);
+    // socket.join(chatRoom);
     const chats = await prisma.chatroom.findMany({
-      where: { room: chatRoomVal },
+      where: { room: chatRoom },
       include: { messages: true },
     });
     console.log('CHATS', chats);
     socket.on('send-message', async (message) => {
       console.log(message);
       const roomExists = await prisma.chatroom.findUnique({
-        where: {
-          room: chatRoomVal,
-        },
+        where: { room: chatRoom },
       });
-      console.log('ROOM EXISTS', roomExists);
+      // console.log('ROOM EXISTS', roomExists);
       if (roomExists) {
-        const sendMsg = await prisma.message.create({
+        const sendMessage = await prisma.message.create({
           data: {
             text: message.text,
-            messageId: chatRoomVal,
+            messageId: chatRoom,
             username: message.username,
           },
         });
-        socket.to(chatRoomVal).emit('receive-message', sendMsg);
+        const lastMessageExists = await prisma.lastMessage.findFirst({
+          where: {
+            OR: [
+              { username: message.username },
+              { username: message.receiver },
+            ],
+          },
+        });
+        if (lastMessageExists?.username) {
+          const updateLastMessage = async (username: string, text: string) => {
+            console.log(username, text);
+            return await prisma.lastMessage.update({
+              where: { username: username },
+              data: { username: username, text },
+            });
+          };
+          updateLastMessage(message.username, message.text);
+          updateLastMessage(message.receiver, message.text);
+        } else {
+          const createLastMessage = async (username: string, text: string) => {
+            return await prisma.lastMessage.create({
+              data: { username, text },
+            });
+          };
+          createLastMessage(message.username, message.text);
+          createLastMessage(message.receiver, message.text);
+        }
+        socket.to(chatRoom).emit('receive-message', sendMessage);
       } else {
         const createChatroom = await prisma.chatroom.create({
           data: {
-            room: chatRoomVal,
+            room: chatRoom,
             messages: {
               create: {
                 username: message.username,

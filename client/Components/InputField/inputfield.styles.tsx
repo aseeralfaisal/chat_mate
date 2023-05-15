@@ -1,34 +1,28 @@
 import { styled } from '@stitches/react';
-import themes from '../../styles/stitches.config';
+import colors from '../../styles/colors';
 
-const { colors } = themes.theme;
-
-export const Input = styled('div', {
-  backgroundColor: colors.dark,
-  color: colors.light,
+export const Input = styled('input', {
+  background: colors.dark,
   border: `1px solid ${colors.dark}`,
-  fontSize: 18,
-  outline: 'none',
   width: 300,
-  height: 50,
-  padding: '0 10px',
-  display: 'flex',
-  alignItems: 'center',
+  height: 30,
+  color: colors.light100,
+  padding: 10,
+  outline: 'none',
   borderRadius: 14,
-  margin: '14px 0',
   transition: 'ease-in-out 0.3s all',
-  '& input': {
-    color: colors.light100,
-    background: 'none',
-    border: 'none',
-    outline: 'none',
-    paddingInline: 10
-  },
-  '&:hover, &:focus': {
+  paddingLeft: 40,
+  '&:hover, &:focus, &:active': {
     border: `${colors.purple100} 1px solid`,
   },
   '&::placeholder': {
-    color: colors.light,
+    color: colors.gray,
     opacity: 1,
   },
+});
+
+export const IconContent = styled('span', {
+  position: 'absolute',
+  marginBlock: 8,
+  marginInline: 10
 });

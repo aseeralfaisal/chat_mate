@@ -2,7 +2,7 @@ type user = {
   id: number;
   username: string;
 };
-export type chatType = {
+export type ChatType = {
   users: user[];
   username: string;
   recieverName: string;
@@ -12,3 +12,8 @@ export type chatType = {
   setMessageValue: (value: string) => void;
   sendMessageAction: () => void;
 };
+
+export type MessageType = {
+  username: string,
+  text: string
+}
