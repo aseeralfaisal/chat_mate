@@ -21,14 +21,14 @@ const InputField: React.FC<InputFieldProps> = (props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
       <IconContent>{startIcon}</IconContent>
       <Input
         style={{ width, height, fontSize }}
         type={type}
         value={value}
         placeholder={placeholder}
-        onKeyDown={({ key }) => key === 'Enter' && event()}
+        onKeyDown={event}
         onChange={({ target }) => {
           const { value } = target;
           reduxValue ? dispatch(setValue(value)) : setValue(value);

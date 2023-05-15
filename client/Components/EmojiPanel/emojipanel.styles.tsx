@@ -9,7 +9,7 @@ export const EmojiMenu = styled('div', {
   left: 50,
   background: colors.dark100,
   border: `1.5px solid ${colors.gray200}`,
-  borderRadius: 10,
+  borderRadius: 12,
   overflowY: 'scroll',
   overflowX: 'hidden',
   '&::-webkit-scrollbar-button': {
@@ -17,13 +17,13 @@ export const EmojiMenu = styled('div', {
   },
 
   '&::-webkit-scrollbar': {
-    width: 10,
+    width: 8,
     backgroundColor: 'transparent',
   },
 
   '&::-webkit-scrollbar-thumb': {
     backgroundColor: colors.gray100,
-    borderRadius: 10,
+    borderRadius: 8,
   },
 });
 

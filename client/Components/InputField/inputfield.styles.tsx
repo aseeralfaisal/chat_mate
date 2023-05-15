@@ -7,7 +7,7 @@ export const Input = styled('input', {
   width: 300,
   height: 30,
   color: colors.light100,
-  padding: 10,
+  // padding: 10,
   outline: 'none',
   borderRadius: 14,
   transition: 'ease-in-out 0.3s all',
@@ -23,6 +23,6 @@ export const Input = styled('input', {
 
 export const IconContent = styled('span', {
   position: 'absolute',
-  marginBlock: 8,
-  marginInline: 10
+  marginTop: 6,
+  marginInline: 12
 });

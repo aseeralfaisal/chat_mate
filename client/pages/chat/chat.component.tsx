@@ -176,7 +176,7 @@ const ChatPage: React.FC<ChatType> = (props) => {
           </ChatSection>
         ))}
         <MessageBar>
-          <ButtonContainer>
+          <ButtonContainer onClick={(event) => console.log(event.clientX, event.clientY)}>
             <Uicons.UilGrin size='24' />
           </ButtonContainer>
           <ButtonContainer onClick={recordAudio}>
@@ -192,7 +192,7 @@ const ChatPage: React.FC<ChatType> = (props) => {
             setValue={setMessageValue}
             reduxValue={false}
             event={sendMessageAction}
-            startIcon={<Uicons.UilKeyboard color={colors.gray} size='30' />}
+            startIcon={<Uicons.UilKeyboard color={colors.gray} size='20' />}
           />
           <ButtonContainer onClick={sendMessageAction}>
             <Uicons.UilMessage size='24' />

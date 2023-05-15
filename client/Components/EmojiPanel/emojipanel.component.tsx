@@ -9,22 +9,26 @@ const EmojiPanel: React.FC = () => {
   const [SearchValue, setSearchValue] = useState('');
   const emojiData = emojis.map(({ category, emoji }, index) => {
     if (category.startsWith('Smileys & Emotion')) {
-      return <Span key={index}>{emoji}</Span>;
+      return (
+        <Span key={index} onClick={() => console.log(emoji)}>
+          {emoji}
+        </Span>
+      );
     }
   });
 
   return (
-    <div>
-      <EmojiMenu>
+    <EmojiMenu css={{ left: 320 }}>
+      <div style={{ position: 'fixed', width: 330 }}>
         <div
           style={{
-            width: '100%',
-            position: 'relative',
             display: 'flex',
             justifyContent: 'center',
-            padding: 16,
-            zIndex: 2,
-            overflow: 'hidden',
+            width: '100%',
+            height: 50,
+            paddingTop: 10,
+            backgroundColor: colors.dark100,
+            borderRadius: 12,
           }}>
           <InputField
             value={SearchValue}
@@ -35,9 +39,9 @@ const EmojiPanel: React.FC = () => {
             startIcon={<Uicons.UilSearch size={20} color={colors.gray} />}
           />
         </div>
-        <EmojiContainer>{emojiData}</EmojiContainer>
-      </EmojiMenu>
-    </div>
+      </div>
+      <EmojiContainer>{emojiData}</EmojiContainer>
+    </EmojiMenu>
   );
 };
 
