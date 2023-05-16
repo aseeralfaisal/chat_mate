@@ -22,7 +22,7 @@ const EmojiPanel: React.FC = ({ value, setValue }) => {
   });
 
   return (
-    <EmojiMenu css={{ left: 320 }}>
+    <EmojiMenu css={{ left: 320, userSelect: 'none' }}>
       <div style={{ position: 'fixed', width: 330 }}>
         <div
           style={{
