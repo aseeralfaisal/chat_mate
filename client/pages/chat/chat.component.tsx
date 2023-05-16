@@ -146,7 +146,7 @@ const ChatPage: React.FC<ChatType> = (props) => {
         </ChatSidebar>
       </Sidebar>
       <ChatArea>
-        <EmojiPanel />
+        <EmojiPanel value={searchValue} setValue={setMessageValue} />
         <ChatHeader>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <Avatar username={recieverName} />

@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { emojis } from './emojipanel.data.json';
+import emojis from './emojipanel.data.json';
 import InputField from '../InputField/inputfield.component';
 import * as Uicons from '@iconscout/react-unicons';
 import { EmojiContainer, EmojiMenu, Span } from './emojipanel.styles';
 import colors from '../../styles/colors';
 
-const EmojiPanel: React.FC = () => {
+const EmojiPanel: React.FC = ({ value, setValue }) => {
   const [SearchValue, setSearchValue] = useState('');
   const emojiData = emojis.map(({ category, emoji }, index) => {
     if (category.startsWith('Smileys & Emotion')) {
       return (
-        <Span key={index} onClick={() => console.log(emoji)}>
+        <Span
+          key={index}
+          onClick={() => {
+            setValue((prevValue: string) => prevValue + emoji);
+          }}>
           {emoji}
         </Span>
       );
