@@ -40,7 +40,7 @@ export class AppService {
       });
 
       if (!userPresent)
-        throw new HttpException('Wrong password', HttpStatus.UNAUTHORIZED);
+        throw new HttpException("User doesn't exist", HttpStatus.UNAUTHORIZED);
 
       const comparePassword = await bcrypt.compare(
         password,

@@ -28,7 +28,7 @@ const InputField: React.FC<InputFieldProps> = (props) => {
         type={type}
         value={value}
         placeholder={placeholder}
-        onKeyDown={event}
+        // onKeyDown={(e) => e.key === 'enter' && event()}
         onChange={({ target }) => {
           const { value } = target;
           reduxValue ? dispatch(setValue(value)) : setValue(value);

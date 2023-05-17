@@ -34,9 +34,10 @@ export default function Home() {
     try {
       event.preventDefault();
       const loginData = await fetchApi('login', 'POST', { username, password });
-      if (loginData?.code === 201) {
-        Router.push({ pathname: '/chat' });
-      }
+      console.log(loginData);
+      // if (loginData?.code === 201) {
+      //   Router.push({ pathname: '/chat' });
+      // }
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +69,7 @@ export default function Home() {
               setValue={setPassword}
               width={280}
               height={36}
-              event={registerMode ? registerAction : loginAction}
+              // event={registerMode ? registerAction : loginAction}
               startIcon={<Uicons.UilKeyboard color={colors.gray} size='20' />}
             />
             {registerMode ? (

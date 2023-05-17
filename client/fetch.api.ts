@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3001';
 
-export const fetchApi = async (url: string, method: 'GET' | 'POST', data: null | {} = null) => {
+export const fetchApi = async (url: string, method: 'GET' | 'POST', data: null | object = null) => {
   try {
     let response = null;
     if (method === 'POST') {
