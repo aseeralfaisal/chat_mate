@@ -24,12 +24,13 @@ export class EventsGateway {
     @ConnectedSocket() socket: Socket,
   ) {
     const { chatRoom } = message;
+
     await prisma.chatroom.findMany({
       where: { room: chatRoom },
       include: { messages: true },
     });
+
     socket.on('send-message', async (message) => {
-      console.log(message);
       const roomExists = await prisma.chatroom.findUnique({
         where: { room: chatRoom },
       });
@@ -41,6 +42,7 @@ export class EventsGateway {
             username: message.username,
           },
         });
+
         socket.to(chatRoom).emit('receive-message', sendMessage);
       } else {
         await prisma.chatroom.create({

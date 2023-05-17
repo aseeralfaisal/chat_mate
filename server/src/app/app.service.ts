@@ -7,10 +7,6 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   async getChat({ room }: { room: string }): Promise<object> {
     const response = await prisma.chatroom.findMany({
       where: { room },
