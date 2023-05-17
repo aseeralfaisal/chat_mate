@@ -3,19 +3,25 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  private static readonly accessToken = process.env.ACCESS_TOKEN;
-  private static readonly refreshToken = process.env.REFRESH_TOKEN;
-  private static readonly jwtService = new JwtService({
-    privateKey: AuthService.accessToken,
-  });
+  private readonly accessToken: string;
+  private readonly refreshToken: string;
+  private readonly jwtService: JwtService;
 
-  static generateAccessToken(username: string) {
+  constructor() {
+    this.accessToken = process.env.ACCESS_TOKEN;
+    this.refreshToken = process.env.REFRESH_TOKEN;
+    this.jwtService = new JwtService({
+      privateKey: this.accessToken,
+    });
+  }
+
+  generateAccessToken(username: string) {
     return this.jwtService.sign({ username }, { expiresIn: '1d' });
   }
 
-  static generateRefreshToken(username: string) {
+  generateRefreshToken(username: string) {
     const refreshTokenService = new JwtService({
-      privateKey: AuthService.refreshToken,
+      privateKey: this.refreshToken,
     });
     return refreshTokenService.sign({ username }, { expiresIn: '30m' });
   }
