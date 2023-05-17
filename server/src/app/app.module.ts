@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventsGateway } from '../gateway/chat.gateway';
@@ -17,6 +22,10 @@ export class AppModule implements NestModule {
       .apply(cookieParser())
       .forRoutes('*')
       .apply(authMiddleware)
-      .forRoutes('users');
+      .exclude(
+        { path: 'register', method: RequestMethod.POST },
+        { path: 'login', method: RequestMethod.POST },
+      )
+      .forRoutes('*');
   }
 }
