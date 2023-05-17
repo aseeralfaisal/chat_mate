@@ -23,16 +23,8 @@ model chatroom {
   messages message[]
 }
 
-model lastMessage {
-  id       Int    @id @default(autoincrement())
-  username String @unique @db.VarChar(255)
-  text     String @db.VarChar(255)
-  user     user   @relation(fields: [username], references: [username])
-}
-
 model user {
   id          Int           @id @default(autoincrement())
   username    String        @unique @db.VarChar(255)
   password    String        @db.VarChar(255)
-  lastMessage lastMessage[]
 }
