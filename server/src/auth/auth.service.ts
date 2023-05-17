@@ -21,6 +21,10 @@ export class AuthService {
   }
 
   static async verifyToken(token: string) {
-    return await this.jwtService.verify(token);
+    try {
+      return await this.jwtService.verify(token);
+    } catch (error) {
+      throw new HttpException('Expired Token', HttpStatus.UNAUTHORIZED);
+    }
   }
 }

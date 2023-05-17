@@ -17,6 +17,6 @@ export class AppModule implements NestModule {
       .apply(cookieParser())
       .forRoutes('*')
       .apply(authMiddleware)
-      .forRoutes('*');
+      .forRoutes('users');
   }
 }
