@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClient, chatroom, user } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth/auth.service';
 
 const prisma = new PrismaClient();
 
