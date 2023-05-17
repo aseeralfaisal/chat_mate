@@ -1,16 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  private static readonly accessToken: string = process.env.ACCESS_TOKEN || 'default_access_token';
-  private static readonly refreshToken: string = process.env.REFRESH_TOKEN || 'default_refresh_token';
+  private static readonly accessToken: string = process.env.ACCESS_TOKEN;
+  private static readonly refreshToken: string = process.env.REFRESH_TOKEN;
   private static readonly jwtService: JwtService = new JwtService({
-    privateKey: AuthService.accessToken,
+    secret: AuthService.accessToken,
   });
 
   static generateAccessToken(username: string): string {
-    return AuthService.jwtService.sign({ username }, { expiresIn: '1d' });
+    return AuthService.jwtService.sign({ username }, { expiresIn: '15s' });
   }
 
   static generateRefreshToken(username: string): string {
@@ -20,7 +20,7 @@ export class AuthService {
     return refreshTokenService.sign({ username }, { expiresIn: '30m' });
   }
 
-  static verifyToken(token: string): any {
-    return AuthService.jwtService.verify(token);
+  static async verifyToken(token: string) {
+    return await this.jwtService.verify(token);
   }
 }

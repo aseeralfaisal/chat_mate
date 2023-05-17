@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class AppService {
-  async getChat({ room }: { room: string }): Promise<object> {
+  async getChat({ room }: { room: string }): Promise<chatroom[]> {
     const response = await prisma.chatroom.findMany({
       where: { room },
       include: { messages: true },
@@ -29,28 +29,37 @@ export class AppService {
     return createChatRoom;
   }
 
-  async login(data: { username: string; password: string }) {
+  async login(data: { username: string; password: string }): Promise<string> {
     try {
       const { username, password } = data;
+
       const userPresent = await prisma.user.findUnique({
         where: {
           username,
         },
       });
-      if (!userPresent) return 'Wrong password';
+
+      if (!userPresent)
+        throw new HttpException('Wrong password', HttpStatus.UNAUTHORIZED);
+
       const comparePassword = await bcrypt.compare(
         password,
         userPresent.password,
       );
+
       if (!comparePassword)
         throw new HttpException('Wrong password', HttpStatus.NOT_FOUND);
+
       return AuthService.generateAccessToken(username);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async registerUser(data: { username: string; password: string }) {
+  async registerUser(data: {
+    username: string;
+    password: string;
+  }): Promise<user> {
     try {
       const { username, password } = data;
 
@@ -64,7 +73,7 @@ export class AppService {
         throw new HttpException('User already exist', HttpStatus.CONFLICT);
       }
 
-      const salt = await bcrypt.genSalt(10);
+      const salt = await bcrypt.genSalt(+process.env.SALT_ROUND);
       const hashedPass = await bcrypt.hash(password, salt);
 
       const createdUser = await prisma.user.create({

@@ -1,14 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
 
   @Post('/getchat')
   getChat(@Body() data: { room: string }) {
@@ -26,8 +22,13 @@ export class AppController {
   }
 
   @Post('/login')
-  login(@Body() data: { username: string; password: string }) {
-    return this.appService.login(data);
+  async login(
+    @Body() data: { username: string; password: string },
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const accessToken = await this.appService.login(data);
+    res.cookie('access_token', accessToken, { httpOnly: true });
+    return accessToken;
   }
 
   @Post('/register')
