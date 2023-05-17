@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClient, chatroom, user } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
+import { AuthService } from './auth.service';
 
 const prisma = new PrismaClient();
 
@@ -33,15 +34,23 @@ export class AppService {
   }
 
   async login(data: { username: string; password: string }) {
-    const { username, password } = data;
-    const userExists = await prisma.user.findUnique({
-      where: {
-        username,
-      },
-    });
-    if (!userExists) return 'Wrong password';
-    if (userExists.password === password) {
-      return 'Login successful';
+    try {
+      const { username, password } = data;
+      const userPresent = await prisma.user.findUnique({
+        where: {
+          username,
+        },
+      });
+      if (!userPresent) return 'Wrong password';
+      const comparePassword = await bcrypt.compare(
+        password,
+        userPresent.password,
+      );
+      if (!comparePassword)
+        throw new HttpException('Wrong password', HttpStatus.NOT_FOUND);
+      return AuthService.generateAccessToken(username);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -49,27 +58,27 @@ export class AppService {
     try {
       const { username, password } = data;
 
-      const userExists = await prisma.user.findUnique({
+      const userPresent = await prisma.user.findUnique({
         where: {
           username,
         },
       });
 
-      if (userExists) {
+      if (userPresent) {
         throw new HttpException('User already exist', HttpStatus.CONFLICT);
       }
 
       const salt = await bcrypt.genSalt(10);
-      const hashPassword = await bcrypt.hash(password, salt);
+      const hashedPass = await bcrypt.hash(password, salt);
 
-      await prisma.user.create({
+      const createdUser = await prisma.user.create({
         data: {
           username,
-          password: hashPassword,
+          password: hashedPass,
         },
       });
 
-      return 'Registration successful';
+      return createdUser;
     } catch (error) {
       console.log(error);
     }
