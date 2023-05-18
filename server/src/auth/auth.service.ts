@@ -20,11 +20,11 @@ export class AuthService {
   }
 
   generateAccessToken(username: string) {
-    return this.accessTokenService.sign({ username }, { expiresIn: '10s' });
+    return this.accessTokenService.sign({ username }, { expiresIn: '30m' });
   }
 
   generateRefreshToken(username: string) {
-    return this.refreshTokenService.sign({ username }, { expiresIn: '30m' });
+    return this.refreshTokenService.sign({ username }, { expiresIn: '1d' });
   }
 
   async refreshAccessToken(refreshToken: string) {
