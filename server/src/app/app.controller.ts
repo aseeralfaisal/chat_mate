@@ -30,7 +30,7 @@ export class AppController {
     response.cookie('access_token', accessToken, { httpOnly: true });
     response.cookie('refresh_token', refreshToken, { httpOnly: true });
     response.cookie('username', data.username, { httpOnly: true });
-    return { accessToken, refreshToken, user: data.username };
+    return { user: data.username };
   }
 
   @Post('/register')
