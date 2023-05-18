@@ -4,8 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChatRoom } from '../../redux/features/chatRoom';
 import socketIOClient from 'socket.io-client';
 import { setRecieverName } from '../../redux/features/userSlice';
-import { fetchApi } from '../../fetch.api';
 import ChatPage from './chat.component';
+import Api from '../api/api.interceptors';
+
+const baseURL = process?.env?.BASE_URL;
 
 const ChatContainer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,20 +21,19 @@ const ChatContainer: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const messagesData = await fetchApi('getchat', 'POST', { room: chatRoom });
-      setMessages(messagesData?.value[0]?.messages);
+      const messagesData = await Api.post('/getchat', { room: chatRoom });
+      setMessages(messagesData?.data[0]?.messages);
     })();
   }, [chatRoom, msgSent]);
 
   useEffect(() => {
     (async () => {
-      const usersList = await fetchApi('users', 'GET');
-      console.log(usersList?.value);
-      setUsersList(usersList?.value);
+      const usersList = await Api.get('/users');
+      setUsersList(usersList?.data);
     })();
   }, []);
 
-  const socket = socketIOClient('http://localhost:3001');
+  const socket = socketIOClient(baseURL || '');
 
   useEffect(() => {
     socket.emit('chat_room', { userName, chatRoom });

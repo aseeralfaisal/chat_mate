@@ -24,10 +24,10 @@ export class AppController {
   @Post('/login')
   async login(
     @Body() data: { username: string; password: string },
-    @Res({ passthrough: true }) res: Response,
+    @Res({ passthrough: true }) response: Response,
   ) {
     const accessToken = await this.appService.login(data);
-    res.cookie('access_token', accessToken, { httpOnly: true });
+    response.cookie('access_token', accessToken, { httpOnly: true });
     return accessToken;
   }
 
@@ -37,7 +37,11 @@ export class AppController {
   }
 
   @Get('/users')
-  getUsers() {
-    return this.appService.getUsers();
+  getUsers(@Res({ passthrough: true }) response: Response) {
+    try {
+      return this.appService.getUsers();
+    } catch (error) {
+      response.json(error);
+    }
   }
 }

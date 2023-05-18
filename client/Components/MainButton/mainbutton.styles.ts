@@ -3,9 +3,9 @@ import colors from '../../styles/colors';
 
 export const Button = styled('button', {
   backgroundColor: colors.purple400,
+  border: `none`,
   color: colors.light100,
   width: 300,
-  border: 'none',
   height: 50,
   borderRadius: 16,
   fontSize: 16,

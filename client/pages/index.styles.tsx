@@ -14,7 +14,7 @@ export const FormChild = styled('div', {
   borderRadius: '12px',
   alignItems: 'center',
   border: `1px solid ${colors.purple300}`,
-  display: 'flex',
+  display: 'grid',
 });
 
 export const Register = styled('div', {

@@ -205,6 +205,12 @@
   dependencies:
     tslib "^2.4.0"
 
+"@types/@iconscout/react-unicons":
+  version "2.0.2"
+  resolved "https://codeload.github.com/iconscout/react-unicons/tar.gz/bb3cbbc867c738618d7ca4102b2cdbbf30faef8b"
+  dependencies:
+    react ">=15.0.0 <17.0.0"
+
 "@types/hoist-non-react-statics@^3.3.0", "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz"

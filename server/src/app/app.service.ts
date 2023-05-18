@@ -30,30 +30,26 @@ export class AppService {
   }
 
   async login(data: { username: string; password: string }): Promise<string> {
-    try {
-      const { username, password } = data;
+    const { username, password } = data;
 
-      const userPresent = await prisma.user.findUnique({
-        where: {
-          username,
-        },
-      });
+    const userPresent = await prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
 
-      if (!userPresent)
-        throw new HttpException("User doesn't exist", HttpStatus.UNAUTHORIZED);
+    if (!userPresent)
+      throw new HttpException("User doesn't exist", HttpStatus.UNAUTHORIZED);
 
-      const comparePassword = await bcrypt.compare(
-        password,
-        userPresent.password,
-      );
+    const comparePassword = await bcrypt.compare(
+      password,
+      userPresent.password,
+    );
 
-      if (!comparePassword)
-        throw new HttpException('Wrong password', HttpStatus.NOT_FOUND);
+    if (!comparePassword)
+      throw new HttpException('Wrong password', HttpStatus.NOT_FOUND);
 
-      return AuthService.generateAccessToken(username);
-    } catch (error) {
-      console.log(error);
-    }
+    return AuthService.generateAccessToken(username);
   }
 
   async registerUser(data: {
