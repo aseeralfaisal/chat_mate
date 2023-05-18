@@ -23,7 +23,6 @@ export const Alert = styled('div', {
   backgroundColor: colors.red200,
   borderRadius: 10,
   padding: 6,
-  border: `${colors.red100} 1px solid`,
   fontSize: 14,
   color: colors.light100,
   animation: `${SlideBottom} 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both`,

@@ -86,8 +86,11 @@ export class AppService {
   }
 
   async getUsers(): Promise<user[]> {
-    const users = await prisma.user.findMany();
-    const userlist = users.filter((user) => delete user['password']);
-    return userlist;
+    try {
+      const users = await prisma.user.findMany();
+      return users.filter((user) => delete user['password']);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

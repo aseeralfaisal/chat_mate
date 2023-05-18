@@ -3,17 +3,20 @@ import { AlertMessage, InputField, MainButton } from '../Components/index';
 import { Action, Description, Form, FormChild, Register, Title } from './index.styles';
 import Router from 'next/router';
 import { useAppSelector } from '../redux/hooks';
-import { setUserName } from '../redux/features/userSlice';
+import { setUserName } from '../redux/slices/userSlice';
 import * as Uicons from '@iconscout/react-unicons';
 import colors from '../styles/colors';
 import Api from './api/api.interceptors';
+import { useDispatch } from 'react-redux';
 
 export default function Home() {
+  const dispatch = useDispatch();
   const [registerMode, setRegisterMode] = useState(false);
   const changeMode = () => setRegisterMode(!registerMode);
   const [password, setPassword] = useState('');
   const username = useAppSelector((state) => state.user.username);
   const [errorMessage, setErrorMessage] = useState('');
+  const handleSetUserName = (username: string) => dispatch(setUserName(username));
 
   const DescriptionTitle = ({ text, action }: { text: string; action: string }) => (
     <Register>
@@ -31,12 +34,17 @@ export default function Home() {
       console.log(error);
     }
   };
+
   const loginAction = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     try {
       event.preventDefault();
       setErrorMessage('');
       const loginData = await Api.post('/login', { username, password });
       console.log(loginData.data);
+      if (loginData.status === 201) {
+        handleSetUserName(loginData.data.username);
+        Router.push({ pathname: '/chat' });
+      }
     } catch (error) {
       setErrorMessage(error?.response?.data?.message);
     }

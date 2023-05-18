@@ -10,7 +10,7 @@ export class AuthService {
   });
 
   static generateAccessToken(username: string): string {
-    return AuthService.jwtService.sign({ username }, { expiresIn: '15s' });
+    return AuthService.jwtService.sign({ username }, { expiresIn: '1d' });
   }
 
   static generateRefreshToken(username: string): string {

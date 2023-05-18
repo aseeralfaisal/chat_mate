@@ -28,7 +28,7 @@ export class AppController {
   ) {
     const accessToken = await this.appService.login(data);
     response.cookie('access_token', accessToken, { httpOnly: true });
-    return accessToken;
+    return { username: data.username };
   }
 
   @Post('/register')
@@ -37,11 +37,7 @@ export class AppController {
   }
 
   @Get('/users')
-  getUsers(@Res({ passthrough: true }) response: Response) {
-    try {
-      return this.appService.getUsers();
-    } catch (error) {
-      response.json(error);
-    }
+  getUsers() {
+    return this.appService.getUsers();
   }
 }

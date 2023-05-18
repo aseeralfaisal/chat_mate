@@ -6,6 +6,7 @@ const Api = axios.create({ baseURL });
 
 Api.interceptors.request.use(
   function (config) {
+    config.withCredentials = true;
     return config;
   },
   function (error) {

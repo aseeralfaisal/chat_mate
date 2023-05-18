@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setChatRoom } from '../../redux/features/chatRoom';
+import { setChatRoom } from '../../redux/slices/chatRoom';
 import socketIOClient from 'socket.io-client';
-import { setRecieverName } from '../../redux/features/userSlice';
+import { setRecieverName } from '../../redux/slices/userSlice';
 import ChatPage from './chat.component';
 import Api from '../api/api.interceptors';
 
@@ -28,8 +28,12 @@ const ChatContainer: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const usersList = await Api.get('/users');
-      setUsersList(usersList?.data);
+      try {
+        const usersList = await Api.get('/users');
+        setUsersList(usersList?.data);
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, []);
 

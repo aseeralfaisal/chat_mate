@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '../auth/auth.service';
 
@@ -6,10 +6,11 @@ import { AuthService } from '../auth/auth.service';
 export class authMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const cookie = req.cookies?.access_token;
-    if (!cookie) return HttpStatus.FORBIDDEN;
+    console.log('MIDDLEWARE COOKIE', cookie);
+    if (!cookie) res.sendStatus(403);
 
     const verification = await AuthService.verifyToken(cookie);
-    if (!verification) return HttpStatus.UNAUTHORIZED;
+    if (!verification) res.sendStatus(401);
 
     next();
   }

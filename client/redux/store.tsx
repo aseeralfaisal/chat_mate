@@ -1,15 +1,24 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { chatRoomSlice } from './features/chatRoom';
-import { userSlice } from './features/userSlice';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+import { chatRoomSlice } from './slices/chatRoom';
+import { userSlice } from './slices/userSlice';
 
-export const store = configureStore({
-  reducer: {
-    user: userSlice.reducer,
-    chat: chatRoomSlice.reducer,
-  },
+const reducers = combineReducers({
+  user: userSlice.reducer,
+  chat: chatRoomSlice.reducer,
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+});
+
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
