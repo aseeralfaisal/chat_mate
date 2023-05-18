@@ -3,28 +3,49 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  private static readonly accessToken: string = process.env.ACCESS_TOKEN;
-  private static readonly refreshToken: string = process.env.REFRESH_TOKEN;
-  private static readonly jwtService: JwtService = new JwtService({
-    secret: AuthService.accessToken,
-  });
+  private readonly accessTokenSecret: string = process.env.ACCESS_TOKEN;
+  private readonly refreshTokenSecret: string = process.env.REFRESH_TOKEN;
 
-  static generateAccessToken(username: string): string {
-    return AuthService.jwtService.sign({ username }, { expiresIn: '1d' });
-  }
+  private readonly accessTokenService: JwtService;
+  private readonly refreshTokenService: JwtService;
 
-  static generateRefreshToken(username: string): string {
-    const refreshTokenService = new JwtService({
-      privateKey: AuthService.refreshToken,
+  constructor() {
+    this.accessTokenService = new JwtService({
+      secret: this.accessTokenSecret,
     });
-    return refreshTokenService.sign({ username }, { expiresIn: '30m' });
+
+    this.refreshTokenService = new JwtService({
+      secret: this.refreshTokenSecret,
+    });
   }
 
-  static async verifyToken(token: string) {
+  generateAccessToken(username: string) {
+    return this.accessTokenService.sign({ username }, { expiresIn: '10s' });
+  }
+
+  generateRefreshToken(username: string) {
+    return this.refreshTokenService.sign({ username }, { expiresIn: '30m' });
+  }
+
+  async refreshAccessToken(refreshToken: string) {
     try {
-      return await this.jwtService.verify(token);
+      const decodedRefreshToken = await this.refreshTokenService.verify(
+        refreshToken,
+      );
+      const { username } = decodedRefreshToken;
+      const accessToken = this.generateAccessToken(username);
+      const newRefreshToken = this.generateRefreshToken(username);
+      return { accessToken, refreshToken: newRefreshToken };
     } catch (error) {
-      throw new HttpException('Expired Token', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Invalid refresh token', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+  async verifyToken(accessToken: string) {
+    try {
+      return await this.accessTokenService.verify(accessToken);
+    } catch (error) {
+      console.log(error);
     }
   }
 }

@@ -26,9 +26,11 @@ export class AppController {
     @Body() data: { username: string; password: string },
     @Res({ passthrough: true }) response: Response,
   ) {
-    const accessToken = await this.appService.login(data);
+    const { accessToken, refreshToken } = await this.appService.login(data);
     response.cookie('access_token', accessToken, { httpOnly: true });
-    return { username: data.username };
+    response.cookie('refresh_token', refreshToken, { httpOnly: true });
+    response.cookie('username', data.username, { httpOnly: true });
+    return { accessToken, refreshToken, user: data.username };
   }
 
   @Post('/register')

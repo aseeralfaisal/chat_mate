@@ -9,7 +9,7 @@ import { AppService } from './app.service';
 import { EventsGateway } from '../gateway/chat.gateway';
 import { AuthService } from '../auth/auth.service';
 import * as cookieParser from 'cookie-parser';
-import { authMiddleware } from 'src/middleware/auth.middleware';
+import { AuthMiddleware } from '../middleware/auth.middleware';
 
 @Module({
   imports: [],
@@ -21,7 +21,7 @@ export class AppModule implements NestModule {
     consumer
       .apply(cookieParser())
       .forRoutes('*')
-      .apply(authMiddleware)
+      .apply(AuthMiddleware)
       .exclude(
         { path: '/register', method: RequestMethod.POST },
         { path: '/login', method: RequestMethod.POST },

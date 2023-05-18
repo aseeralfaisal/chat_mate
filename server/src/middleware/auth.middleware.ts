@@ -3,14 +3,34 @@ import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable()
-export class authMiddleware implements NestMiddleware {
+export class AuthMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
-    const cookie = req.cookies?.access_token;
-    if (!cookie) res.sendStatus(403);
+    try {
+      const accessToken = req.cookies?.access_token;
+      if (!accessToken) {
+        return res.sendStatus(403);
+      }
 
-    const verification = await AuthService.verifyToken(cookie);
-    if (!verification) res.sendStatus(401);
+      const auth = new AuthService();
+      const verification = await auth.verifyToken(accessToken);
+      if (!verification) {
+        const refreshToken = req.cookies?.refresh_token;
+        if (!refreshToken) {
+          return res.sendStatus(401);
+        }
 
-    next();
+        const refreshedTokens = await auth.refreshAccessToken(refreshToken);
+        if (!refreshedTokens) {
+          return res.sendStatus(401);
+        }
+
+        res.cookie('access_token', refreshedTokens.accessToken);
+        res.cookie('refresh_token', refreshedTokens.refreshToken);
+      }
+
+      next();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

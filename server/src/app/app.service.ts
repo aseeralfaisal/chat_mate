@@ -29,7 +29,7 @@ export class AppService {
     return createChatRoom;
   }
 
-  async login(data: { username: string; password: string }): Promise<string> {
+  async login(data: { username: string; password: string }): Promise<any> {
     const { username, password } = data;
 
     const userPresent = await prisma.user.findUnique({
@@ -39,7 +39,7 @@ export class AppService {
     });
 
     if (!userPresent)
-      throw new HttpException("User doesn't exist", HttpStatus.UNAUTHORIZED);
+      throw new HttpException("USER DOESN'T EXIST", HttpStatus.UNAUTHORIZED);
 
     const comparePassword = await bcrypt.compare(
       password,
@@ -49,7 +49,10 @@ export class AppService {
     if (!comparePassword)
       throw new HttpException('Wrong password', HttpStatus.NOT_FOUND);
 
-    return AuthService.generateAccessToken(username);
+    const auth = new AuthService();
+    const accessToken = auth.generateAccessToken(username);
+    const refreshToken = auth.generateRefreshToken(username);
+    return { accessToken, refreshToken };
   }
 
   async registerUser(data: {
