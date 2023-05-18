@@ -17,7 +17,7 @@ const colors = {
   gray100: '#37393ccc',
   gray200: '#26272d',
   green: '#33691E',
-  red: '#e53935cc',
+  red: '#e53935ee',
   red100: '#e5393533',
   red200: '#e5393511',
 };
