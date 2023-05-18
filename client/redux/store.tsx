@@ -1,24 +1,48 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore, Persistor } from 'redux-persist';
+import { createWrapper } from 'next-redux-wrapper';
+import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
 import { chatRoomSlice } from './slices/chatRoom';
 import { userSlice } from './slices/userSlice';
 
-const reducers = combineReducers({
-  user: userSlice.reducer,
-  chat: chatRoomSlice.reducer,
-});
-
-const persistConfig = {
-  key: 'root',
-  storage,
+type StoreType = {
+  __persistor: Persistor;
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
-
-export const store = configureStore({
-  reducer: persistedReducer,
+const rootReducer = combineReducers({
+  [userSlice.name]: userSlice.reducer,
+  [chatRoomSlice.name]: chatRoomSlice.reducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+const makeStore = () => {
+  const isServer = typeof window === 'undefined';
+  const middleware = [thunk];
+  const devTools = true;
+
+  if (!isServer) {
+    const persistConfig = {
+      key: 'root',
+      storage,
+    };
+
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
+    const store = configureStore({
+      reducer: persistedReducer,
+      devTools,
+    });
+
+    (store as unknown as StoreType).__persistor = persistStore(store);
+    return store;
+  }
+
+  return configureStore({
+    reducer: rootReducer,
+    middleware,
+    devTools,
+  });
+};
+
+const wrapper = createWrapper(makeStore);
+
+export { wrapper };

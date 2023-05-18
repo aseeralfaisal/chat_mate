@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch } from '../../redux/hooks';
+import { useDispatch } from 'react-redux';
 import { IconContent, Input } from './inputfield.styles';
 import { InputFieldProps } from './inputfield.types';
 
@@ -18,7 +18,7 @@ const InputField: React.FC<InputFieldProps> = (props) => {
     startIcon,
   } = props;
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>

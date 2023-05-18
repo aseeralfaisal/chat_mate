@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { AlertMessage, InputField, MainButton } from '../Components/index';
 import { Action, Description, Form, FormChild, Register, Title } from './index.styles';
 import Router from 'next/router';
-import { useAppSelector } from '../redux/hooks';
 import { setUserName } from '../redux/slices/userSlice';
 import * as Uicons from '@iconscout/react-unicons';
 import colors from '../styles/colors';
 import Api from './api/api.interceptors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Home() {
   const dispatch = useDispatch();
   const [registerMode, setRegisterMode] = useState(false);
   const changeMode = () => setRegisterMode(!registerMode);
   const [password, setPassword] = useState('');
-  const username = useAppSelector((state) => state.user.username);
+  const username = useSelector((state) => state.user.username);
   const [errorMessage, setErrorMessage] = useState('');
   const handleSetUserName = (username: string) => dispatch(setUserName(username));
 

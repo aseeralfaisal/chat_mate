@@ -7,6 +7,7 @@ export const EmojiMenu = styled('div', {
   position: 'fixed',
   top: 300,
   left: 50,
+  zIndex: 10,
   background: colors.dark100,
   border: `1.5px solid ${colors.gray200}`,
   borderRadius: 12,

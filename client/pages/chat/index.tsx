@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useDispatch, useSelector } from 'react-redux';
 import { setChatRoom } from '../../redux/slices/chatRoom';
 import socketIOClient from 'socket.io-client';
 import { setRecieverName } from '../../redux/slices/userSlice';
@@ -10,14 +10,14 @@ import Api from '../api/api.interceptors';
 const baseURL = process?.env?.BASE_URL;
 
 const ChatContainer: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [usersList, setUsersList] = useState([]);
   const [messageValue, setMessageValue] = useState('');
   const [messages, setMessages] = useState<any>([]);
   const [msgSent, setMsgSent] = useState(false);
-  const userName = useAppSelector((state) => state.user.username);
-  const chatRoom = useAppSelector((state) => state.chat.chatRoom);
-  const recieverName = useAppSelector((state) => state.user.recieverName);
+  const userName = useSelector((state) => state.user.username);
+  const chatRoom = useSelector((state) => state.chat.chatRoom);
+  const recieverName = useSelector((state) => state.user.recieverName);
 
   useEffect(() => {
     (async () => {
