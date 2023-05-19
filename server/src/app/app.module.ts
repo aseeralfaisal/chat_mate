@@ -10,9 +10,15 @@ import { EventsGateway } from '../gateway/chat.gateway';
 import { AuthService } from '../auth/auth.service';
 import * as cookieParser from 'cookie-parser';
 import { AuthMiddleware } from '../middleware/auth.middleware';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
-  imports: [],
+  imports: [
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService, EventsGateway, AuthService],
 })
