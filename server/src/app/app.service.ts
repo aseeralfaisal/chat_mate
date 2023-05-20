@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClient, chatroom, user } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from '../auth/auth.service';
+import { v4 as uuid } from 'uuid';
 
 const prisma = new PrismaClient();
 
@@ -52,7 +53,8 @@ export class AppService {
     const auth = new AuthService();
     const accessToken = auth.generateAccessToken(username);
     const refreshToken = auth.generateRefreshToken(username);
-    return { accessToken, refreshToken };
+    const csrf = uuid();
+    return { accessToken, refreshToken, csrf };
   }
 
   async registerUser(data: {

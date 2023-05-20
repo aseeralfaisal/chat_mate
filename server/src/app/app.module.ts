@@ -11,6 +11,7 @@ import { AuthService } from '../auth/auth.service';
 import * as cookieParser from 'cookie-parser';
 import { AuthMiddleware } from '../middleware/auth.middleware';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { CsrfMiddleware } from 'src/middleware/csrf.middleware';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ export class AppModule implements NestModule {
     consumer
       .apply(cookieParser())
       .forRoutes('*')
-      .apply(AuthMiddleware)
+      .apply(AuthMiddleware, CsrfMiddleware)
       .exclude(
         { path: '/register', method: RequestMethod.POST },
         { path: '/login', method: RequestMethod.POST },
