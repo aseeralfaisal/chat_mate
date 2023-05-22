@@ -30,6 +30,7 @@ export class AppModule implements NestModule {
       .forRoutes('*')
       .apply(AuthMiddleware, CsrfMiddleware)
       .exclude(
+        { path: '/', method: RequestMethod.GET },
         { path: '/register', method: RequestMethod.POST },
         { path: '/login', method: RequestMethod.POST },
       )
