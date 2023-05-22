@@ -55,6 +55,7 @@ const ChatPage: React.FC<ChatType> = (props) => {
 
   const messagesAreaRef: React.RefObject<HTMLDivElement> = useRef(null);
   const [searchValue, setSearchValue] = useState('');
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
   const isOnlyEmoji = (character: string) => {
     const regex = /^[\p{Emoji}\u200D\uFE0F]+$/u;
@@ -146,7 +147,7 @@ const ChatPage: React.FC<ChatType> = (props) => {
         </ChatSidebar>
       </Sidebar>
       <ChatArea>
-        <EmojiPanel value={searchValue} setValue={setMessageValue} />
+        {isEmojiOpen && <EmojiPanel value={searchValue} setValue={setMessageValue} />}
         <ChatHeader>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <Avatar username={recieverName} />
@@ -162,9 +163,7 @@ const ChatPage: React.FC<ChatType> = (props) => {
             <ChatRight>
               {msg.username !== username ? (
                 <ChatRightBubble isEmoji={isOnlyEmoji(msg.text)}>
-                  <ChatRightTexts isEmoji={isOnlyEmoji(msg.text)}>
-                    {msg?.text}
-                  </ChatRightTexts>
+                  <ChatRightTexts isEmoji={isOnlyEmoji(msg.text)}>{msg?.text}</ChatRightTexts>
                 </ChatRightBubble>
               ) : (
                 <ChatLeftBubble isEmoji={isOnlyEmoji(msg.text)}>
@@ -175,7 +174,7 @@ const ChatPage: React.FC<ChatType> = (props) => {
           </ChatSection>
         ))}
         <MessageBar>
-          <ButtonContainer onClick={(event) => console.log(event.clientX, event.clientY)}>
+          <ButtonContainer onClick={(event) => setIsEmojiOpen(!isEmojiOpen)}>
             <Uicons.UilGrin size='24' />
           </ButtonContainer>
           <ButtonContainer onClick={recordAudio}>
