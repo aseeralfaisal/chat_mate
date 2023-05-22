@@ -7,6 +7,10 @@ import { Session } from 'express-session';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Get('/')
+  getTest() {
+    return this.appService.getTest();
+  }
   @Post('/getchat')
   getChat(@Body() data: { room: string }) {
     return this.appService.getChat(data);
