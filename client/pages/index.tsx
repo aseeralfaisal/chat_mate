@@ -15,6 +15,7 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const username = useAppSelector((state) => state.user.userName);
   const [errorMessage, setErrorMessage] = useState('');
+  const handleSetUserName = (value: string) => dispatch(setUserName(value));
 
   const DescriptionTitle = ({ text, action }: { text: string; action: string }) => (
     <Register>
@@ -23,29 +24,33 @@ export default function Home() {
     </Register>
   );
 
-  const registerAction = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const registerAction = async (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.FormEvent<HTMLFormElement>
+  ) => {
     try {
       event.preventDefault();
-      const registerData = await Api.post('/register', { username: username, password });
+      const registerData = await Api.post('/register', { username, password });
       registerData && alert(registerData.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const loginAction = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const loginAction = async (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.FormEvent<HTMLFormElement>
+  ) => {
     try {
       event.preventDefault();
       setErrorMessage('');
-      const loginData = await Api.post('/login', { username: username, password });
-      // const csrf = loginData.data.csrf;
-      // document.cookie = `csrf=${csrf}; path=/;`;
+      const loginData = await Api.post('/login', { username, password });
       if (loginData.status === 201) {
         dispatch(setUserName(loginData.data.user));
         Router.push({ pathname: '/chat' });
       }
     } catch (error) {
-      setErrorMessage(error?.response?.data?.message);
+      if (error instanceof Error && error.message) {
+        setErrorMessage(error.message);
+      }
     }
   };
 
@@ -65,13 +70,14 @@ export default function Home() {
               <Uicons.UilCommentDots size={90} color='#7c5cfc' />
               <Title>ChatMate</Title>
             </div>
-            <div style={{ display: 'grid', gap: 20 }}>
+            <form
+              style={{ display: 'grid', gap: 20 }}
+              onSubmit={(event) => (registerMode ? registerAction(event) : loginAction(event))}>
               <InputField
                 type='text'
-                reduxValue
                 placeholder='Username'
                 value={username}
-                setValue={setUserName}
+                setValue={handleSetUserName}
                 width={280}
                 height={36}
                 startIcon={<Uicons.UilUser color={colors.gray} size='20' />}
@@ -83,7 +89,6 @@ export default function Home() {
                 setValue={setPassword}
                 width={280}
                 height={36}
-                event={registerMode ? registerAction : loginAction}
                 startIcon={<Uicons.UilKeyboard color={colors.gray} size='20' />}
               />
               {registerMode ? (
@@ -108,7 +113,7 @@ export default function Home() {
               ) : (
                 <DescriptionTitle text='Already have an account?' action='Sign in' />
               )}
-            </div>
+            </form>
           </div>
         </FormChild>
       </Form>

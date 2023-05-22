@@ -1,24 +1,9 @@
 import React from 'react';
-import { useAppDispatch } from '../../redux/hooks';
 import { IconContent, Input } from './inputfield.styles';
 import { InputFieldProps } from './inputfield.types';
 
 const InputField: React.FC<InputFieldProps> = (props) => {
-  const {
-    placeholder,
-    setValue,
-    type,
-    value,
-    reduxValue = false,
-    width,
-    height,
-    fontSize,
-    endIcon,
-    event,
-    startIcon,
-  } = props;
-
-  const dispatch = useAppDispatch();
+  const { placeholder, setValue, type, value, width, height, fontSize, endIcon, startIcon } = props;
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -28,10 +13,7 @@ const InputField: React.FC<InputFieldProps> = (props) => {
         type={type}
         value={value}
         placeholder={placeholder}
-        onKeyDown={(e) => e.key === 'enter' && event()}
-        onChange={(e) => {
-          return reduxValue ? dispatch(setValue(e.target.value)) : setValue(e.target.value);
-        }}
+        onChange={(e) => setValue(e.target.value)}
       />
       <IconContent>{endIcon}</IconContent>
     </div>
