@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  username: '',
+  userName: '',
   recieverName: '',
   users: [],
 };
@@ -14,7 +14,7 @@ export const userSlice = createSlice({
       state.users = action.payload;
     },
     setUserName: (state, action) => {
-      state.username = action.payload;
+      state.userName = action.payload;
     },
     setRecieverName: (state, action) => {
       state.recieverName = action.payload;

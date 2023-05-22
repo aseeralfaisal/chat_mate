@@ -13,7 +13,7 @@ export default function Home() {
   const [registerMode, setRegisterMode] = useState(false);
   const changeMode = () => setRegisterMode(!registerMode);
   const [password, setPassword] = useState('');
-  const username = useAppSelector((state) => state.user.username);
+  const username = useAppSelector((state) => state.user.userName);
   const [errorMessage, setErrorMessage] = useState('');
 
   const DescriptionTitle = ({ text, action }: { text: string; action: string }) => (

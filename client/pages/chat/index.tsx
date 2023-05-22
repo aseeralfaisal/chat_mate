@@ -15,7 +15,7 @@ const ChatContainer: React.FC = () => {
   const [messageValue, setMessageValue] = useState('');
   const [messages, setMessages] = useState<any>([]);
   const [msgSent, setMsgSent] = useState(false);
-  const username = useAppSelector((state) => state.user.username);
+  const username = useAppSelector((state) => state.user.userName);
   const chatRoom = useAppSelector((state) => state.chat.chatRoom);
   const recieverName = useAppSelector((state) => state.user.recieverName);
 
@@ -59,7 +59,7 @@ const ChatContainer: React.FC = () => {
     if (chatRoom === '' || chatRoom === null || chatRoom === undefined) {
       return alert('Chatroom Error');
     }
-    const message = { username: username, receiver: recieverName, text: messageValue };
+    const message = { username, receiver: recieverName, text: messageValue };
     if (messageValue === '') return;
     socket.emit('send-message', message);
     setMessageValue('');
