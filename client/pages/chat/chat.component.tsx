@@ -163,7 +163,6 @@ const ChatPage: React.FC<ChatType> = (props) => {
               {msg.username !== username ? (
                 <ChatRightBubble isEmoji={isOnlyEmoji(msg.text)}>
                   <ChatRightTexts isEmoji={isOnlyEmoji(msg.text)}>
-                    {console.log(fun(msg.text))}
                     {msg?.text}
                   </ChatRightTexts>
                 </ChatRightBubble>

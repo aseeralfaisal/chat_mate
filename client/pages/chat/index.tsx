@@ -16,15 +16,12 @@ const ChatContainer: React.FC = () => {
   const [messages, setMessages] = useState<any>([]);
   const [msgSent, setMsgSent] = useState(false);
   const username = useAppSelector((state) => state.user.username);
-  console.log({ username });
   const chatRoom = useAppSelector((state) => state.chat.chatRoom);
   const recieverName = useAppSelector((state) => state.user.recieverName);
 
   useEffect(() => {
     (async () => {
-      console.log({ chatRoom });
       const messagesData = await Api.post('/getchat', { room: chatRoom });
-      console.log({ messagesData });
       setMessages(messagesData?.data[0]?.messages);
     })();
   }, [chatRoom, msgSent]);

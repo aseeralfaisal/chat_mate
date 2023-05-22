@@ -14,7 +14,6 @@ export default function Home() {
   const changeMode = () => setRegisterMode(!registerMode);
   const [password, setPassword] = useState('');
   const username = useAppSelector((state) => state.user.username);
-  console.log({ username });
   const [errorMessage, setErrorMessage] = useState('');
 
   const DescriptionTitle = ({ text, action }: { text: string; action: string }) => (
@@ -36,13 +35,11 @@ export default function Home() {
 
   const loginAction = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     try {
-      console.log({ username });
       event.preventDefault();
       setErrorMessage('');
       const loginData = await Api.post('/login', { username: username, password });
       // const csrf = loginData.data.csrf;
       // document.cookie = `csrf=${csrf}; path=/;`;
-      console.log(loginData.data);
       if (loginData.status === 201) {
         dispatch(setUserName(loginData.data.user));
         Router.push({ pathname: '/chat' });
