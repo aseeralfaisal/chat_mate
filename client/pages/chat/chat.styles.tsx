@@ -27,6 +27,11 @@ export const SidebarTopSection = styled('div', {
   gap: 10,
   width: '100%',
   height: 64,
+  transition: '0.4s all',
+  filter: 'drop-shadow(0 0 15px blue)',
+  "&:hover": {
+    filter: 'drop-shadow(0 0 10px blue)'
+  }
 });
 export const SidebarTopIcons = styled('div', {
   display: 'flex',

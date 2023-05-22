@@ -23,16 +23,17 @@ import { CsrfMiddleware } from 'src/middleware/csrf.middleware';
   controllers: [AppController],
   providers: [AppService, EventsGateway, AuthService],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(cookieParser())
-      .forRoutes('*')
-      .apply(AuthMiddleware, CsrfMiddleware)
-      .exclude(
-        { path: '/register', method: RequestMethod.POST },
-        { path: '/login', method: RequestMethod.POST },
-      )
-      .forRoutes('*');
-  }
-}
+export class AppModule {}
+// export class AppModule implements NestModule {
+//   configure(consumer: MiddlewareConsumer) {
+//     consumer
+//       .apply(cookieParser())
+//       .forRoutes('*')
+//       .apply(AuthMiddleware, CsrfMiddleware)
+//       .exclude(
+//         { path: '/register', method: RequestMethod.POST },
+//         { path: '/login', method: RequestMethod.POST },
+//       )
+//       .forRoutes('*');
+//   }
+// }

@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface types {
-  chatRoom: string;
-}
-
-const initialState: types = {
+const initialState = {
   chatRoom: '',
 };
 

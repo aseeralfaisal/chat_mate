@@ -4,9 +4,12 @@ const baseURL = process.env.BASE_URL;
 
 const Api = axios.create({ baseURL });
 
+
 Api.interceptors.request.use(
-  function (config) {
-    config.withCredentials = true;
+  function (config: any) {
+    // const csrf = document.cookie.split('=')[1];
+    // config.withCredentials = true;
+    // config.headers['x-csrf-token'] = csrf
     return config;
   },
   function (error) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChatRoom } from '../../redux/slices/chatRoom';
 import socketIOClient from 'socket.io-client';
 import { setRecieverName } from '../../redux/slices/userSlice';
@@ -10,18 +10,21 @@ import Api from '../api/api.interceptors';
 const baseURL = process?.env?.BASE_URL;
 
 const ChatContainer: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [usersList, setUsersList] = useState([]);
   const [messageValue, setMessageValue] = useState('');
   const [messages, setMessages] = useState<any>([]);
   const [msgSent, setMsgSent] = useState(false);
-  const userName = useSelector((state) => state.user.username);
-  const chatRoom = useSelector((state) => state.chat.chatRoom);
-  const recieverName = useSelector((state) => state.user.recieverName);
+  const username = useAppSelector((state) => state.user.username);
+  console.log({ username });
+  const chatRoom = useAppSelector((state) => state.chat.chatRoom);
+  const recieverName = useAppSelector((state) => state.user.recieverName);
 
   useEffect(() => {
     (async () => {
+      console.log({ chatRoom });
       const messagesData = await Api.post('/getchat', { room: chatRoom });
+      console.log({ messagesData });
       setMessages(messagesData?.data[0]?.messages);
     })();
   }, [chatRoom, msgSent]);
@@ -40,11 +43,11 @@ const ChatContainer: React.FC = () => {
   const socket = socketIOClient(baseURL || '');
 
   useEffect(() => {
-    socket.emit('chat_room', { userName, chatRoom });
+    socket.emit('chat_room', { username, chatRoom });
     return () => {
       socket.off('chat_room');
     };
-  }, [chatRoom, socket, userName]);
+  }, [chatRoom, socket, username]);
 
   useEffect(() => {
     socket.on('receive-message', (data) => {
@@ -59,7 +62,7 @@ const ChatContainer: React.FC = () => {
     if (chatRoom === '' || chatRoom === null || chatRoom === undefined) {
       return alert('Chatroom Error');
     }
-    const message = { username: userName, receiver: recieverName, text: messageValue };
+    const message = { username: username, receiver: recieverName, text: messageValue };
     if (messageValue === '') return;
     socket.emit('send-message', message);
     setMessageValue('');
@@ -67,21 +70,21 @@ const ChatContainer: React.FC = () => {
   };
 
   const createChatRoom = (toUser: string) => {
-    const chatRoomLabel = (userName + toUser).split('').sort().join('');
+    const chatRoomLabel = (username + toUser).split('').sort().join('');
     dispatch(setChatRoom(chatRoomLabel));
     dispatch(setRecieverName(toUser));
   };
 
   useEffect(() => {
-    if (userName === '') {
+    if (username === '') {
       Router.push({ pathname: '/' });
     }
-  }, [userName]);
+  }, [username]);
 
   return (
     <ChatPage
       users={usersList}
-      username={userName}
+      username={username}
       recieverName={recieverName}
       messages={messages}
       createChatRoom={createChatRoom}

@@ -1,13 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
 
-interface types {
-  username: string;
-  recieverName: string;
-  users: string[];
-}
-
-const initialState: types = {
+const initialState = {
   username: '',
   recieverName: '',
   users: [],
@@ -26,14 +19,6 @@ export const userSlice = createSlice({
     setRecieverName: (state, action) => {
       state.recieverName = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(HYDRATE, (state, action) => {
-      return {
-        ...state,
-        ...action,
-      };
-    });
   },
 });
 

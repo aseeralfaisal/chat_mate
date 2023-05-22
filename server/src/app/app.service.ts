@@ -9,10 +9,12 @@ const prisma = new PrismaClient();
 @Injectable()
 export class AppService {
   async getChat({ room }: { room: string }): Promise<chatroom[]> {
+    console.log({ room });
     const response = await prisma.chatroom.findMany({
       where: { room },
       include: { messages: true },
     });
+    console.log({ response });
     return response;
   }
 

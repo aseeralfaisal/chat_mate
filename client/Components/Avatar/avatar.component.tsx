@@ -4,7 +4,7 @@ import type { AvatarProps } from './avatar.types';
 import colors from '../../styles/colors';
 
 const Avatar: React.FC<AvatarProps> = ({
-  username,
+  username = 'A',
   width = 50,
   height = width,
   color = colors.purple100,
