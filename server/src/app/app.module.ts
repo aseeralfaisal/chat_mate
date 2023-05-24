@@ -28,7 +28,7 @@ export class AppModule implements NestModule {
     consumer
       .apply(cookieParser())
       .forRoutes('*')
-      .apply(AuthMiddleware, CsrfMiddleware)
+      .apply(AuthMiddleware)
       .exclude(
         { path: '/', method: RequestMethod.GET },
         { path: '/register', method: RequestMethod.POST },
