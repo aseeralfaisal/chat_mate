@@ -5,7 +5,11 @@ import * as Uicons from '@iconscout/react-unicons';
 import { EmojiContainer, EmojiMenu, Span } from './emojipanel.styles';
 import colors from '../../styles/colors';
 
-const EmojiPanel: React.FC = ({ value, setValue }) => {
+interface EmojiPanelProps {
+  setValue: () => void;
+}
+
+const EmojiPanel: React.FC<EmojiPanelProps> = ({ setValue }) => {
   const [SearchValue, setSearchValue] = useState('');
   const emojiData = emojis.map(({ category, emoji }, index) => {
     if (category.startsWith('Smileys & Emotion')) {
