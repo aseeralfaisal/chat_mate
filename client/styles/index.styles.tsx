@@ -1,5 +1,5 @@
 import { styled } from '@stitches/react';
-import colors from '../styles/colors';
+import colors from './colors';
 
 export const Form = styled('div', {
   display: 'flex',

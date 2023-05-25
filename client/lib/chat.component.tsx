@@ -38,7 +38,7 @@ import {
   StatusDescription,
   StatusTitle,
 } from './chat.styles';
-import { Title } from '../pages/index.styles';
+import { Title } from '../styles/index.styles';
 import colors from '../styles/colors';
 
 const ChatPage: React.FC<ChatType> = (props) => {

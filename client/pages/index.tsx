@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AlertMessage, InputField, MainButton } from '../Components/index';
-import { Action, Description, Form, FormChild, Register, Title } from './index.styles';
+import { Action, Description, Form, FormChild, Register, Title } from '../styles/index.styles';
 import Router from 'next/router';
 import { setUserName } from '../redux/slices/userSlice';
 import * as Uicons from '@iconscout/react-unicons';
