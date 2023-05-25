@@ -188,7 +188,6 @@ const ChatPage: React.FC<ChatType> = (props) => {
             fontSize={15}
             value={messageValue}
             setValue={setMessageValue}
-            reduxValue={false}
             event={sendMessageAction}
             startIcon={<Uicons.UilKeyboard color={colors.gray} size='20' />}
           />
