@@ -1,5 +1,5 @@
 import { keyframes, styled } from '@stitches/react';
-import colors from '../../styles/colors';
+import colors from '../styles/colors';
 
 export const Container = styled('div', {
   display: 'flex',
