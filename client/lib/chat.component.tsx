@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { ChatType } from './chat.types';
-import { Avatar, EmojiPanel, InputField } from './../../Components/index';
+import { Avatar, EmojiPanel, InputField } from '../Components/index';
 import * as Icons from './chat.icons';
 import * as Uicons from '@iconscout/react-unicons';
 import {
@@ -38,8 +38,8 @@ import {
   StatusDescription,
   StatusTitle,
 } from './chat.styles';
-import { Title } from '../index.styles';
-import colors from '../../styles/colors';
+import { Title } from '../pages/index.styles';
+import colors from '../styles/colors';
 
 const ChatPage: React.FC<ChatType> = (props) => {
   const {

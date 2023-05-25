@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChatRoom } from '../../redux/slices/chatRoom';
 import socketIOClient from 'socket.io-client';
 import { setRecieverName } from '../../redux/slices/userSlice';
-import ChatPage from './chat.component';
+import ChatPage from '../../lib/chat.component';
 import Api from '../api/api.interceptors';
 
 const baseURL = process?.env?.BASE_URL;
