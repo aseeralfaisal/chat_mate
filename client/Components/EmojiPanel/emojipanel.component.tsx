@@ -6,7 +6,7 @@ import { EmojiContainer, EmojiMenu, Span } from './emojipanel.styles';
 import colors from '../../styles/colors';
 
 interface EmojiPanelProps {
-  setValue: () => void;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const EmojiPanel: React.FC<EmojiPanelProps> = ({ setValue }) => {
