@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { ChatType } from './chat.types';
-import { Avatar, EmojiPanel, InputField } from '../../Components/index';
+import { Avatar, EmojiPanel, InputField } from '../../components/index';
 import * as Icons from './chat.icons';
 import * as Uicons from '@iconscout/react-unicons';
 import {
