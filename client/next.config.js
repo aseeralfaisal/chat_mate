@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    BASE_URL: 'http://localhost:3001'
+    BASE_URL: 'https://chatmate-dw88.onrender.com'
   }
 }
 

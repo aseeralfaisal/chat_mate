@@ -7,7 +7,7 @@ import { setRecieverName } from '../../redux/slices/userSlice';
 import ChatPage from '../../lib/chat.component';
 import Api from '../api/api.interceptors';
 
-const baseURL = process?.env?.BASE_URL;
+const baseURL = process.env.BASE_URL;
 
 const ChatContainer: React.FC = () => {
   const dispatch = useAppDispatch();
