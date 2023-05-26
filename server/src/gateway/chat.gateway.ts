@@ -11,8 +11,7 @@ const prisma = new PrismaClient();
 
 @WebSocketGateway({
   cors: {
-    origin: '*',
-    allowedHeaders: '*',
+    origin: 'http://localhost:3000',
   },
 })
 export class EventsGateway {
