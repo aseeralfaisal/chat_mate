@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChatRoom } from '../../redux/slices/chatRoom';
 import socketIOClient from 'socket.io-client';
 import { setRecieverName } from '../../redux/slices/userSlice';
-import ChatPage from '../../lib/chat.component';
+import ChatComponent from './chat.component';
 import Api from '../api/api.interceptors';
 
 const baseURL = process.env.BASE_URL;
@@ -79,7 +79,7 @@ const ChatContainer: React.FC = () => {
   }, [username]);
 
   return (
-    <ChatPage
+    <ChatComponent
       users={usersList}
       username={username}
       recieverName={recieverName}
