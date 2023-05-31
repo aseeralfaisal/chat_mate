@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
   env: {
-    BASE_URL: 'https://chatmate-dw88.onrender.com'
+    BASE_URL: 'http://localhost:3001'
   }
 }
 

@@ -7,8 +7,6 @@ import { setRecieverName } from '../../redux/slices/userSlice';
 import ChatComponent from './chat.component';
 import Api from '../api/api.interceptors';
 
-const baseURL = process.env.BASE_URL;
-
 const ChatContainer: React.FC = () => {
   const dispatch = useAppDispatch();
   const [usersList, setUsersList] = useState([]);
@@ -37,7 +35,7 @@ const ChatContainer: React.FC = () => {
     })();
   }, []);
 
-  const socket = socketIOClient(baseURL || '');
+  const socket = socketIOClient('http://localhost:3001');
 
   useEffect(() => {
     socket.emit('chat_room', { username, chatRoom });
@@ -56,12 +54,10 @@ const ChatContainer: React.FC = () => {
   }, [messages, socket, msgSent]);
 
   const sendMessageAction = () => {
-    if (chatRoom === '' || chatRoom === null || chatRoom === undefined) {
-      return alert('Chatroom Error');
-    }
-    const message = { username, receiver: recieverName, text: messageValue };
     if (messageValue === '') return;
+    const message = { username, receiver: recieverName, text: messageValue };
     socket.emit('send-message', message);
+
     setMessageValue('');
     setMsgSent(!msgSent);
   };

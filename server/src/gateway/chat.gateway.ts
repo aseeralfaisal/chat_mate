@@ -25,10 +25,10 @@ export class EventsGateway {
   ) {
     const { chatRoom } = message;
 
-    await prisma.chatroom.findMany({
-      where: { room: chatRoom },
-      include: { messages: true },
-    });
+    // await prisma.chatroom.findMany({
+    //   where: { room: chatRoom },
+    //   include: { messages: true },
+    // });
 
     socket.on('send-message', async (message) => {
       const roomExists = await prisma.chatroom.findUnique({

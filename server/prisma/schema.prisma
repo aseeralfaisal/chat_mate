@@ -24,7 +24,7 @@ model chatroom {
 }
 
 model user {
-  id          Int           @id @default(autoincrement())
-  username    String        @unique @db.VarChar(255)
-  password    String        @db.VarChar(255)
+  id       Int    @id @default(autoincrement())
+  username String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
 }

@@ -14,12 +14,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { CsrfMiddleware } from 'src/middleware/csrf.middleware';
 
 @Module({
-  imports: [
-    ThrottlerModule.forRoot({
-      ttl: 60,
-      limit: 10,
-    }),
-  ],
+  imports: [],
   controllers: [AppController],
   providers: [AppService, EventsGateway, AuthService],
 })

@@ -32,14 +32,12 @@ export class AppController {
     @Req() request: Request & { session: Session },
     @Res({ passthrough: true }) response: Response,
   ) {
-    const { accessToken, refreshToken, csrf } = await this.appService.login(
-      data,
-    );
+    const { accessToken, refreshToken } = await this.appService.login(data);
     response.cookie('access_token', accessToken, { httpOnly: true });
     response.cookie('refresh_token', refreshToken, { httpOnly: true });
     response.cookie('username', data.username, { httpOnly: true });
-    request.session['csrfToken'] = csrf;
-    return { user: data.username, csrf };
+    // request.session['csrfToken'] = csrf;
+    return { user: data.username };
   }
 
   @Post('/register')
