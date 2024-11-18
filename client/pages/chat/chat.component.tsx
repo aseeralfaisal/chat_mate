@@ -86,9 +86,7 @@ const ChatComponent: React.FC<ChatType> = (props) => {
 
       mediaRecorder.addEventListener('stop', () => {
         const audioBlob = new Blob(audioChunks);
-        // console.log('Audio Blob', audioBlob);
         const audioUrl = URL.createObjectURL(audioBlob);
-        // console.log('Audio Url', audioUrl);
         const audio = new Audio(audioUrl);
         audio.play();
       });
@@ -195,34 +193,34 @@ const ChatComponent: React.FC<ChatType> = (props) => {
           </ButtonContainer>
         </MessageBar>
       </ChatArea>
-      <ChatDetails>
-        <ProfileContainer>
-          <Avatar username={recieverName} width={120} fontSize={30} />
-          <ProfileDescription>
-            <StatusTitle>{recieverName}</StatusTitle>
-            <StatusTitle>....</StatusTitle>
-          </ProfileDescription>
-        </ProfileContainer>
-        <Status>
-          <StatusTitle>Status</StatusTitle>
-          <StatusDescription>Chilling</StatusDescription>
-        </Status>
-        <FunctionSection>
-          <FunctionSectionButton>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <Icons.StarIcon />
-              <Info>Marked messages</Info>
-            </div>
-            <Icons.RightIcon />
-          </FunctionSectionButton>
-          <FunctionSectionButton>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <Icons.SettingsIcon />
-              <Info>Settings</Info>
-            </div>
-          </FunctionSectionButton>
-        </FunctionSection>
-      </ChatDetails>
+      {/* <ChatDetails> */}
+      {/*   <ProfileContainer> */}
+      {/*     <Avatar username={recieverName} width={120} fontSize={30} /> */}
+      {/*     <ProfileDescription> */}
+      {/*       <StatusTitle>{recieverName}</StatusTitle> */}
+      {/*       <StatusTitle>....</StatusTitle> */}
+      {/*     </ProfileDescription> */}
+      {/*   </ProfileContainer> */}
+      {/*   <Status> */}
+      {/*     <StatusTitle>Status</StatusTitle> */}
+      {/*     <StatusDescription>Chilling</StatusDescription> */}
+      {/*   </Status> */}
+      {/*   <FunctionSection> */}
+      {/*     <FunctionSectionButton> */}
+      {/*       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}> */}
+      {/*         <Icons.StarIcon /> */}
+      {/*         <Info>Marked messages</Info> */}
+      {/*       </div> */}
+      {/*       <Icons.RightIcon /> */}
+      {/*     </FunctionSectionButton> */}
+      {/*     <FunctionSectionButton> */}
+      {/*       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}> */}
+      {/*         <Icons.SettingsIcon /> */}
+      {/*         <Info>Settings</Info> */}
+      {/*       </div> */}
+      {/*     </FunctionSectionButton> */}
+      {/*   </FunctionSection> */}
+      {/* </ChatDetails> */}
     </Container>
   );
 };

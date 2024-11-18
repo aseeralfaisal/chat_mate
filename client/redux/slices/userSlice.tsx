@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const userName = typeof window !== 'undefined' ? localStorage?.getItem('username') : null;
 const initialState = {
-  userName: '',
+  userName: userName ?? '',
   recieverName: '',
   users: [],
 };

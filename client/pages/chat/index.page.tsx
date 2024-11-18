@@ -21,7 +21,6 @@ const ChatContainer: React.FC = () => {
     (async () => {
       const messagesData = await Api.post('/getchat', { room: chatRoom });
       const data = messagesData?.data[0]?.messages;
-      console.log(data);
       setMessages(data);
     })();
   }, [chatRoom]);
