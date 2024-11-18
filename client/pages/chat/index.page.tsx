@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Router from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setChatRoom } from '../../redux/slices/chatRoom';
@@ -12,17 +12,19 @@ const ChatContainer: React.FC = () => {
   const [usersList, setUsersList] = useState([]);
   const [messageValue, setMessageValue] = useState('');
   const [messages, setMessages] = useState<any>([]);
-  const [msgSent, setMsgSent] = useState(false);
   const username = useAppSelector((state) => state.user.userName);
   const chatRoom = useAppSelector((state) => state.chat.chatRoom);
   const recieverName = useAppSelector((state) => state.user.recieverName);
 
+
   useEffect(() => {
     (async () => {
       const messagesData = await Api.post('/getchat', { room: chatRoom });
-      setMessages(messagesData?.data[0]?.messages);
+      const data = messagesData?.data[0]?.messages;
+      console.log(data);
+      setMessages(data);
     })();
-  }, [chatRoom, msgSent]);
+  }, [chatRoom]);
 
   useEffect(() => {
     (async () => {
@@ -35,7 +37,7 @@ const ChatContainer: React.FC = () => {
     })();
   }, []);
 
-  const socket = socketIOClient('http://localhost:3001');
+  const socket = useMemo(() => socketIOClient('http://localhost:3001'), []);
 
   useEffect(() => {
     socket.emit('chat_room', { username, chatRoom });
@@ -44,23 +46,25 @@ const ChatContainer: React.FC = () => {
     };
   }, [chatRoom, socket, username]);
 
+
   useEffect(() => {
     socket.on('receive-message', (data) => {
-      setMessages([...messages, data]);
+      setMessages((prevMessages: any) => [...prevMessages, data]);
     });
     return () => {
       socket.off('receive-message');
     };
-  }, [messages, socket, msgSent]);
+  }, [socket]);
+
 
   const sendMessageAction = () => {
-    if (messageValue === '') return;
+    if (messageValue === "") return;
     const message = { username, receiver: recieverName, text: messageValue };
     socket.emit('send-message', message);
 
     setMessageValue('');
-    setMsgSent(!msgSent);
   };
+
 
   const createChatRoom = (toUser: string) => {
     const chatRoomLabel = (username + toUser).split('').sort().join('');

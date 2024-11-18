@@ -8,6 +8,7 @@ import { Server, Socket } from 'socket.io';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+const roomExistsCache = new Map();
 
 @WebSocketGateway({
   cors: {
@@ -19,44 +20,72 @@ export class EventsGateway {
   server: Server;
 
   @SubscribeMessage('chat_room')
-  async onNewMessage(
+  async onJoinRoom(
     @MessageBody() message: { userName: string; chatRoom: string },
     @ConnectedSocket() socket: Socket,
   ) {
-    const { chatRoom } = message;
+    const { chatRoom, userName } = message;
+    socket.join(chatRoom);
+    socket.data.chatRoom = chatRoom;
 
-    // await prisma.chatroom.findMany({
-    //   where: { room: chatRoom },
-    //   include: { messages: true },
-    // });
-
-    socket.on('send-message', async (message) => {
+    if (!roomExistsCache.has(chatRoom)) {
       const roomExists = await prisma.chatroom.findUnique({
         where: { room: chatRoom },
       });
-      if (roomExists) {
-        const sendMessage = await prisma.message.create({
-          data: {
-            text: message.text,
-            messageId: chatRoom,
-            username: message.username,
-          },
+      if (roomExists) roomExistsCache.set(chatRoom, true);
+    }
+
+    return { status: 'joined', chatRoom, userName };
+  }
+
+  @SubscribeMessage('send-message')
+  async onSendMessage(
+    @MessageBody() message: { text: string; username: string },
+    @ConnectedSocket() socket: Socket,
+  ) {
+    try {
+      const { text, username } = message;
+      const chatRoom = socket.data.chatRoom;
+      this.server.to(chatRoom).emit('receive-message', message);
+
+      let roomExists = roomExistsCache.get(chatRoom);
+
+      if (!roomExists) {
+        const room = await prisma.chatroom.findUnique({
+          where: { room: chatRoom },
         });
 
-        socket.to(chatRoom).emit('receive-message', sendMessage);
+        roomExists = !!room;
+        roomExistsCache.set(chatRoom, roomExists);
+      }
+
+      if (roomExists) {
+        await prisma.message.create({
+          data: {
+            text,
+            messageId: chatRoom,
+            username,
+          },
+        });
       } else {
         await prisma.chatroom.create({
           data: {
             room: chatRoom,
             messages: {
               create: {
-                username: message.username,
-                text: message.text,
+                username,
+                text,
               },
             },
           },
+          include: {
+            messages: true,
+          },
         });
       }
-    });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      socket.emit('error', { message: 'Failed to send message' });
+    }
   }
 }

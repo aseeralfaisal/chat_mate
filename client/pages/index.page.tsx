@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertMessage, InputField, MainButton } from '../components/index';
+import { AlertMessage, InputField, MainButton } from '../Components/index';
 import { Action, Description, Form, FormChild, Register, Title } from '../styles/index.styles';
 import Router from 'next/router';
 import { setUserName } from '../redux/slices/userSlice';
