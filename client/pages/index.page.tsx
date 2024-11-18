@@ -44,6 +44,7 @@ export default function Home() {
       setErrorMessage('');
       const loginData = await Api.post('/login', { username, password });
       if (loginData.status === 201) {
+        localStorage.setItem('username', username);
         dispatch(setUserName(loginData.data.user));
         Router.push({ pathname: '/chat' });
       }
