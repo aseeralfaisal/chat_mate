@@ -7,6 +7,12 @@
   <title>WebRTC</title>
 
   <style type="text/css">
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
     body {
       margin: 0;
       font-size: 20px;
@@ -17,17 +23,19 @@
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
+      background-color: black;
     }
 
     .video-position {
       position: absolute;
-      top: 35%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
 
     #video-chat-container {
-      width: 100%;
+      height: 100vh;
+      width: 100vw;
       background-color: black;
     }
 
@@ -37,24 +45,37 @@
       width: 30%;
       bottom: 0px;
       left: 0px;
+      border: 1px solid darkslategray;
     }
 
     #remote-video {
-      height: 100%;
-      width: 100%;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .btn {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 80px;
+      border: none;
+      color: white;
+      background-color: slateblue;
     }
   </style>
 </head>
 
-<body>
+<body style="background: black;">
   <div id="room-selection-container" class="centered">
-    <h1>WebRTC video conference</h1>
-    <label>Enter the number of the room you want to connect</label>
+    <label style="color: lightgray;">Room Name</label>
     <input id="room-input" type="text" />
-    <button id="connect-button">CONNECT</button>
+    <button style="border: 1px solid lightgray; background: black; color: lightgray;"
+      id="connect-button">CONNECT</button>
   </div>
 
   <div id="video-chat-container" class="video-position" style="display: none">
+    <button class="btn">TURN OFF</button>
     <video id="local-video" autoplay="autoplay" muted="muted"></video>
     <video id="remote-video" autoplay="autoplay"></video>
   </div>

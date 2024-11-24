@@ -15,10 +15,9 @@ const socket = io("http://localhost:4001", {
 });
 const mediaConstraints = {
   audio: true,
-  video: { width: 1280, height: 720 },
+  video: true,
 };
 let localStream;
-let remoteStream;
 let isRoomCreator;
 let rtcPeerConnection;
 let roomId;
@@ -111,6 +110,11 @@ socket.on("ice_candidate", async (event) => {
   }
 });
 
+socket.on("user left", async (roomId) => {
+  console.log("USER HAS LEFT", roomId);
+  remoteVideoComponent.style.display = "none";
+});
+
 function joinRoom(room) {
   if (room === "") {
     alert("Please type a room ID");
@@ -177,11 +181,11 @@ function setRemoteStream(event) {
   console.log("REMOTE STREAM", event.streams[0]);
   if (event.streams && event.streams[0]) {
     remoteVideoComponent.srcObject = event.streams[0];
-    remoteStream = event.stream;
   } else {
     console.log("No remote stream available");
   }
 }
+
 function sendIceCandidate(event) {
   if (event.candidate) {
     console.log("Sending ICE Candidate:", event.candidate);

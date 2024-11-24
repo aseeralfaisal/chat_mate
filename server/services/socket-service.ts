@@ -25,7 +25,12 @@ export class SocketService {
       socket.on('offer', (event) => this.handleOffer(socket, event));
       socket.on('answer', (event) => this.handleAnswer(socket, event));
       socket.on('ice_candidate', (event) => this.handleIceCandidate(socket, event));
+      socket.on('disconnect', () => this.handleDisconnect(socket));
     });
+  }
+
+  private handleDisconnect(socket: Socket) {
+    socket.broadcast.emit("user left", socket.id);
   }
 
   private handleJoin(socket: Socket, roomId: string) {
