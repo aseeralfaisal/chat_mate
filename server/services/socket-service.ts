@@ -20,12 +20,13 @@ export class SocketService {
 
   private connect() {
     this.io.on("connection", (socket: Socket) => {
-      socket.on('join', (roomId) => this.handleJoin(socket, roomId));
-      socket.on('start_call', (roomId) => this.handleStartCall(socket, roomId))
-      socket.on('offer', (event) => this.handleOffer(socket, event));
-      socket.on('answer', (event) => this.handleAnswer(socket, event));
-      socket.on('ice_candidate', (event) => this.handleIceCandidate(socket, event));
-      socket.on('disconnect', () => this.handleDisconnect(socket));
+      socket.emit("new", socket.id);
+      // socket.on('join', (roomId) => this.handleJoin(socket, roomId));
+      // socket.on('start_call', (roomId) => this.handleStartCall(socket, roomId))
+      // socket.on('offer', (event) => this.handleOffer(socket, event));
+      // socket.on('answer', (event) => this.handleAnswer(socket, event));
+      // socket.on('ice_candidate', (event) => this.handleIceCandidate(socket, event));
+      // socket.on('disconnect', () => this.handleDisconnect(socket));
     });
   }
 
